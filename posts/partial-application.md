@@ -9,11 +9,17 @@ categories: [Currying, Partial Application]
 ---
 
 
-In the previous post on currying, we looked at breaking multiple parameter functions into smaller one parameter functions. It is the mathematically correct way of doing it, but that is not the only reason it is done -- it also leads to a very powerful technique called **partial function application**. This is a very widely used style in functional programming, and it is important to understand it.
+> In the previous post on currying, we looked at breaking multiple parameter functions into smaller one parameter functions. It is the mathematically correct way of doing it, but that is not the only reason it is done -- it also leads to a very powerful technique called **partial function application**. This is a very widely used style in functional programming, and it is important to understand it.
 
-The idea of partial application is that if you fix the first N parameters of the function, you get a function of the remaining parameters. From the discussion on currying, you can probably see how this comes about naturally.
+В предыдущем посте о каррировании мы увидели как мультипараметрических функции дробятся на функции по меньше лишь с одним параметром. Это математически корректный путь решения, однако есть и другие причины такого выбора -- это также приводит к очень сильной технике называемой **частичное применение функций**. Это очень широко используемый стиль в функциональном программировании, и очень важно его понять.
 
-Here are some simple examples that demonstrate this:
+> The idea of partial application is that if you fix the first N parameters of the function, you get a function of the remaining parameters. From the discussion on currying, you can probably see how this comes about naturally.
+
+Идея частичного применения заключается в том, что если зафиксировать первые N параметров функции получится новая функция с оставшимися параметрами. Из обсуждения каррирования можно было увидеть как частичное применение происходит естественным образом.
+
+> Here are some simple examples that demonstrate this:
+
+Несколько простых демостраций:
 
 ```fsharp
 // create an "adder" by partial application of add
@@ -40,9 +46,13 @@ let printer = printfn "printing param=%i"
 [1;2;3] |> List.iter printer   
 ```
 
-In each case, we create a partially applied function that we can then reuse in multiple contexts.
+> In each case, we create a partially applied function that we can then reuse in multiple contexts.
 
-The partial application can just as easily involve fixing function parameters, of course. Here are some examples:
+В каждом случае мы создаем частично примененную функцию, которую можно использовать в разных ситауациях.
+
+> The partial application can just as easily involve fixing function parameters, of course. Here are some examples:
+
+И конечно, частичное применение может также легко фиксировать параметры-функции:
 
 ```fsharp
 // an example using List.map
@@ -60,12 +70,19 @@ let filterEvens =
 filterEvens [1;2;3;4]
 ```
 
-The following more complex example shows how the same approach can be used to create "plug in" behavior that is transparent.
+> The following more complex example shows how the same approach can be used to create "plug in" behavior that is transparent.
 
-* We create a function that adds two numbers, but in addition takes a logging function that will log the two numbers and the result. 
-* The logging function has two parameters: (string) "name" and (generic) "value", so it has signature `string->'a->unit`.
-* We then create various implementations of the logging function, such as a console logger or a popup logger.
-* And finally we partially apply the main function to create new functions that have a particular logger baked into them. 
+Следующий более сложный пример показывает как тот же подход может быть использоватн, чтобы прозрачно создать "встраивоемое" поведение.
+
+> * We create a function that adds two numbers, but in addition takes a logging function that will log the two numbers and the result. 
+> * The logging function has two parameters: (string) "name" and (generic) "value", so it has signature `string->'a->unit`.
+> * We then create various implementations of the logging function, such as a console logger or a popup logger.
+> * And finally we partially apply the main function to create new functions that have a particular logger baked into them. 
+
+* Мы создаем функцию, которая складывает два числа, но в дополнения она принимает функцию логирования, которая будет логировать два числа и результат.
+* Функция логирования имеет два параметра: (string) "name" и (generic) "value", поэтому имеет сигнатуру `string->'a->unit`.
+* Затем мы создаем различные реализации логирующей функции, такие как консольный логгер или логгер на основе всплывающего окна.
+* И наконец мы частично применяем основную функцию для создания новой функции, с замкнутым логгером.
 
 ```fsharp
 // create an adder that supports a pluggable logging function
@@ -98,7 +115,9 @@ addWithPopupLogger  1 2
 addWithPopupLogger  42 99
 ```
 
-These functions with the logger baked in can in turn be used like any other function. For example, we can create a partial application to add 42, and then pass that into a list function, just like we did for the simple "`add42`" function.
+> These functions with the logger baked in can in turn be used like any other function. For example, we can create a partial application to add 42, and then pass that into a list function, just like we did for the simple "`add42`" function.
+
+Эти функции с замкнутым логгером могут быть использованы как любые другие функции. Например, мы можем создать частичное применение для прибавления 42, и затем передать его в списочную функцию, как мы делали для простой функции "`add42`".
 
 ```fsharp
 // create a another adder with 42 baked in
@@ -107,15 +126,21 @@ let add42WithConsoleLogger = addWithConsoleLogger 42
 [1;2;3] |> List.map add42               //compare without logger 
 ```
 
-These partially applied functions are a very useful tool. We can create library functions which are flexible (but complicated), yet make it easy to create reusable defaults so that callers don't have to be exposed to the complexity all the time.
+> These partially applied functions are a very useful tool. We can create library functions which are flexible (but complicated), yet make it easy to create reusable defaults so that callers don't have to be exposed to the complexity all the time.
 
-## Designing functions for partial application ##
+Частично примененные функции являются очень полезным инструментом. _Мы можем создать библиотечные функции, которые являются гибкими (хотя и сложными), причем легко сделать их многоразовыми по умолчанию, так что вызывающему не потребуется прибегать к сложной форме при каждом использовании._
 
-You can see that the order of the parameters can make a big difference in the ease of use for partial application. For example, most of the functions in the `List` library such as `List.map` and `List.filter` have a similar form, namely:
+## Designing functions for partial application | Проектирование функций для частичного применения ##
+
+> You can see that the order of the parameters can make a big difference in the ease of use for partial application. For example, most of the functions in the `List` library such as `List.map` and `List.filter` have a similar form, namely:
+
+Видно, что порядок параметров может серьезно влиять на удобство использования частичного применения. Например, большинство функций в `List` таких как `List.map` и `List.filter` имеют схожую форму, а именно:
 
 	List-function [function parameter(s)] [list]
 
-The list is always the last parameter. Here are some examples of the full form:
+> The list is always the last parameter. Here are some examples of the full form:
+
+Список всегда является последним параметром. Несколько примеров в полной форме:
 
 ```fsharp
 List.map    (fun i -> i+1) [0;1;2;3]
@@ -123,7 +148,9 @@ List.filter (fun i -> i>1) [0;1;2;3]
 List.sortBy (fun i -> -i ) [0;1;2;3]
 ```
 
-And the same examples using partial application:
+> And the same examples using partial application:
+
+Те же самые примеры с использованием частичного применения:
 
 ```fsharp
 let eachAdd1 = List.map (fun i -> i+1) 
@@ -136,17 +163,29 @@ let sortDesc = List.sortBy (fun i -> -i)
 sortDesc [0;1;2;3]
 ```
 
-If the library functions were written with the parameters in a different order, it would be much more inconvenient to use them with partial application.
+> If the library functions were written with the parameters in a different order, it would be much more inconvenient to use them with partial application.
 
-As you write your own multi-parameter functions, you might wonder what the best parameter order is. As with all design questions, there is no "right" answer to this question, but here are some commonly accepted guidelines:
+Если бы библиотечные функции были написаны с другим порядком аргументов, частичное применение было бы значительно осложнено.
 
-1.	Put earlier: parameters more likely to be static 
-2.	Put last: the data structure or collection (or most varying argument)
-3.	For well-known operations such as "subtract", put in the expected order 
+> As you write your own multi-parameter functions, you might wonder what the best parameter order is. As with all design questions, there is no "right" answer to this question, but here are some commonly accepted guidelines:
 
-Guideline 1 is straightforward. The parameters that are most likely to be "fixed" with partial application should be first. We saw this with the logger example earlier.
+При написании своей мультипараметрической функции можно задаться вопросом о наилучшем порядке параметров. Как и во всех архитектурных вопросах, здесь нет "правильного" ответа, но есть несколько общепринятых рекомендаций.
 
-Guideline 2 makes it easier to pipe a structure or collection from function to function. We have seen this many times already with list functions.
+> 1.	Put earlier: parameters more likely to be static 
+> 2.	Put last: the data structure or collection (or most varying argument)
+> 3.	For well-known operations such as "subtract", put in the expected order 
+
+1.	Сначала идут параметры, которые скорее всего будут статичными
+2.	Потом структуры данных или коллекции (или другие изменяющиеся параметры)
+3.	Для лучшего вопсриятия операций таких как "subtract", желательно соблюдать ожидаемый порядок
+
+> Guideline 1 is straightforward. The parameters that are most likely to be "fixed" with partial application should be first. We saw this with the logger example earlier.
+
+Первое правило незамысловато. Параметры, котоыре скорее всего будут "зафиксированны" частичным применением должны идти первыми, например как в примерах с логгером ранее.
+
+> Guideline 2 makes it easier to pipe a structure or collection from function to function. We have seen this many times already with list functions.
+
+Второе правило облегчает использование pipe оператора и композиций, как уже было показано во множестве примеров ранее со списками функций.
 
 ```fsharp
 // piping using list functions
@@ -156,7 +195,9 @@ let result =
    |> List.filter (fun i -> i>5)
 ```
 
-Similarly, partially applied list functions are easy to compose, because the list parameter itself can be easily elided:
+> Similarly, partially applied list functions are easy to compose, because the list parameter itself can be easily elided:
+
+Аналогично, частичное примененные функции над списками легко компануется, т.к. `list`-параметр легко игнорируется:
 
 ```fsharp
 let compositeOp = List.map (fun i -> i+1) 
@@ -164,11 +205,15 @@ let compositeOp = List.map (fun i -> i+1)
 let result = compositeOp [1..10]
 ```
 
-### Wrapping BCL functions for partial application ###
+### Wrapping BCL functions for partial application | Оборачивание BCL функций ждя частичного применения ###
 
-The .NET base class library functions are easy to access in F#, but are not really designed for use with a functional language like F#. For example, most functions have the data parameter first, while with F#, as we have seen, the data parameter should normally come last.
+> The .NET base class library functions are easy to access in F#, but are not really designed for use with a functional language like F#. For example, most functions have the data parameter first, while with F#, as we have seen, the data parameter should normally come last.
 
-However, it is easy enough to create wrappers for them that are more idiomatic. For example, in the snippet below, the .NET string functions are rewritten to have the string target be the last parameter rather than the first:
+Функции библиотеки базовых классов (base class library - BCL) .NET легко доступны из F#, но они в действительности не расчитаны на использование из функциональных языков таких как F#. Например, большинство функций требуют параметр данных вначале, в то время как в F# параметр данных в общем случае должен быть последним.
+
+> However, it is easy enough to create wrappers for them that are more idiomatic. For example, in the snippet below, the .NET string functions are rewritten to have the string target be the last parameter rather than the first:
+
+Однако, достаточно легко создать обертки над ними, которые будут более идеоматичны. В примере ниже строковые .NET функции переписаны так, чтобы целевая строка использовалась последней, а не первой:
 
 ```fsharp
 // create wrappers for .NET string functions
@@ -179,7 +224,9 @@ let startsWith lookFor (s:string) =
   s.StartsWith(lookFor)
 ```
 
-Once the string becomes the last parameter, we can then use them with pipes in the expected way:
+> Once the string becomes the last parameter, we can then use them with pipes in the expected way:
+
+После того, как строка стала последним параметром, можно использовать их в pipe-ах ожидаемым образом:
 
 ```fsharp
 let result = 
@@ -193,31 +240,44 @@ let result =
 
 or with function composition:
 
+> или в композиции функций:
+
 ```fsharp
 let compositeOp = replace "h" "j" >> startsWith "j"
 let result = compositeOp "hello"
 ```
 
-### Understanding the "pipe" function ###
+### Understanding the "pipe" function | Понимание "pipe" функции (оператора) ###
 
-Now that you have seen how partial application works, you should be able to understand how the "pipe" function works.
+> Now that you have seen how partial application works, you should be able to understand how the "pipe" function works.
 
-The pipe function is defined as:
+Теперь, после демонстрации работы частичного применения, можно понять как работают "pipe" функции.
+
+> The pipe function is defined as:
+
+Определение pipe:
 
 ```fsharp
 let (|>) x f = f x
 ```
 
-All it does is allow you to put the function argument in front of the function rather than after. That's all. 
+> All it does is allow you to put the function argument in front of the function rather than after. That's all. 
+
+Все это позволяет передать аргумент функции спереди, а не с конца.
 
 ```fsharp
 let doSomething x y z = x+y+z
 doSomething 1 2 3       // all parameters after function
 ```
 
-If the function has multiple parameters, then it appears that the input is the final parameter. Actually what is happening is that the function is partially applied, returning a function that has a single parameter: the input 
+> If the function has multiple parameters, then it appears that the input is the final parameter. Actually what is happening is that the function is partially applied, returning a function that has a single parameter: the input 
 
-Here's the same example rewritten to use partial application
+_TODO: Перевести на русский._
+_Если функция имеет несколько параметров, то оказывается, что ввод - это последний параметр. В действительности частично примененная функция возвращает функцию, которая имеет один параметр - ввод._
+
+> Here's the same example rewritten to use partial application
+
+Тот же пример переписанный с использованием частичного применения
 
 ```fsharp
 let doSomething x y  = 
@@ -229,24 +289,32 @@ doSomethingPartial 3     // only one parameter after function now
 3 |> doSomethingPartial  // same as above - last parameter piped in
 ```
 
-As you have already seen, the pipe operator is extremely common in F#, and used all the time to preserve a natural flow. Here are some more usages that you might see:
+> As you have already seen, the pipe operator is extremely common in F#, and used all the time to preserve a natural flow. Here are some more usages that you might see:
+
+Как было показано, pipe оператор чрезвычайно распространен в F#, и используется всякий раз, когда требуется сохранить естественную запись. Еще несколько примеров, которые можно было видеть ранее:
 
 ```fsharp
 "12" |> int               // parses string "12" to an int
 1 |> (+) 2 |> (*) 3       // chain of arithmetic
 ```
 
-### The reverse pipe function ###
+### The reverse pipe function | Обратный pipe оператор ###
 
-You might occasionally see the reverse pipe function "<|" being used.  
+> You might occasionally see the reverse pipe function "<|" being used.  
+
+Иногда можно увидеть использование обратного pipe оператора "<|".
 
 ```fsharp
 let (<|) f x = f x
 ```
 
-It seems that this function doesn't really do anything different from normal, so why does it exist? 
+> It seems that this function doesn't really do anything different from normal, so why does it exist? 
 
-The reason is that, when used in the infix style as a binary operator, it reduces the need for parentheses and can make the code cleaner.
+Кажется, что эта функция в действительности не делает ничего, что отличало бы ее от обычной записи, так зачем же она существует?
+
+> The reason is that, when used in the infix style as a binary operator, it reduces the need for parentheses and can make the code cleaner.
+
+Причина в том, что при использовании инфиксного стиля как бинарного оператора, исчезает необходимость в скобках, что делает код чище.
 
 ```fsharp
 printf "%i" 1+2          // error
@@ -254,7 +322,9 @@ printf "%i" (1+2)        // using parens
 printf "%i" <| 1+2       // using reverse pipe
 ```
 
-You can also use piping in both directions at once to get a pseudo infix notation.
+> You can also use piping in both directions at once to get a pseudo infix notation.
+
+Можно использовать pipe-ы в обоих направлениях сразу для получения псевдо инфиксной нотации.
 
 ```fsharp
 let add x y = x + y

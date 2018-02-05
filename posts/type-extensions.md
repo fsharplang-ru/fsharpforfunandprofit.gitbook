@@ -7,12 +7,18 @@ seriesId: "Thinking functionally"
 seriesOrder: 11
 ---
 
-Although we have focused on the pure functional style so far, sometimes it is convenient to switch to an object oriented style.
+> Although we have focused on the pure functional style so far, sometimes it is convenient to switch to an object oriented style.
 And one of the key features of the OO style is the ability to attach functions to a class and "dot into" the class to get the desired behavior.
 
-In F#, this is done using a feature called "type extensions".  And any F# type, not just classes, can have functions attached to them.
+Хотя до этого повествование было сосредосточено на чисто функциональном стиле, иногда удобно переключится на объектно ориентированный стиль. И одной из ключевых особенностей ОО стиля является возможность прикреплять функции к классу и обращение к классу через точку для получение желаемого поведения.
 
-Here's an example of attaching a function to a record type.
+> In F#, this is done using a feature called "type extensions".  And any F# type, not just classes, can have functions attached to them.
+
+В F#, это возможно с помощью особенности называемой "расширением типов" ("type extensions"). У любого F# типа, не только класса, могут быть прикрепленные функции.
+
+> Here's an example of attaching a function to a record type.
+
+Пример прикрепления функции к типу записи.
 
 ```fsharp
 module Person = 
@@ -30,14 +36,22 @@ let person = Person.create "John" "Doe"
 let fullname = person.FullName
 ```
 
-The key things to note are:
+> The key things to note are:
 
-* The `with` keyword indicates the start of the list of members
-* The `member` keyword shows that this is a member function (i.e. a method)
-* The word `this` is a placeholder for the object that is being dotted into (called a "self-identifier"). The placeholder prefixes the function name, and then the function body then uses the same placeholder when it needs to refer to the current instance.
+Ключевые слова, на которые следует обратить внимание:
+
+> * The `with` keyword indicates the start of the list of members
+> * The `member` keyword shows that this is a member function (i.e. a method)
+> * The word `this` is a placeholder for the object that is being dotted into (called a "self-identifier"). The placeholder prefixes the function name, and then the function body then uses the same placeholder when it needs to refer to the current instance.
 There is no requirement to use a particular word, just as long as it is consistent. You could use `this` or `self` or `me` or any other word that commonly indicates a self reference.
 
-You don't have to add a member at the same time that you declare the type, you can always add it later in the same module:
+* Ключевое слово `with` обозначает начало списка членов
+* Ключевое слово `member` показывает, что эта функция является членом (т.е. методом)
+* Слово `this` является меткой объекта, на котором вызывается данный метод (называемая также "self-identifier"). Данное слово является префиксом имени функции, и внутри функции можно использовать ее для обращения к текущему экземляру. Не сушествует требований к словам использумым в качестве самоидентификатора, достаточно чтобы они были устойчивы. Можно использовать `this`, `self`, `me` или любое другое слово, которое обычно используется как отсылка на самого себя.
+
+> You don't have to add a member at the same time that you declare the type, you can always add it later in the same module:
+
+Нет нужды добавлять член вместе с декларацией типа, всегда можно добавить его позднее в том же модуле:
 
 ```fsharp
 module Person = 
@@ -61,17 +75,25 @@ let sortableName = person.SortableName
 ```
 
 
-These examples demonstrate what are called "intrinsic extensions". They are compiled into the type itself and are always available whenever the type is used. They also show up when you use reflection.
+> These examples demonstrate what are called "intrinsic extensions". They are compiled into the type itself and are always available whenever the type is used. They also show up when you use reflection.
 
-With intrinsic extensions, it is even possible to have a type definition that divided across several files, as long as all the components use the same namespace and are all compiled into the same assembly.
+Эти примеры демонстрируют вызов "встроенных расширений" ("intrinsic extensions"). Они компилируются в тип и будут доступны везде, где бы тип не использовался. Они также будут показаны при рефлексии.
+
+> With intrinsic extensions, it is even possible to have a type definition that divided across several files, as long as all the components use the same namespace and are all compiled into the same assembly.
 Just as with partial classes in C#, this can be useful to separate generated code from authored code.
 
-## Optional extensions 
+Внутренние расширения позволяют иметь определение типа распределенное по нескольким файлам, пока все компоненты используют одно и то же пространство имен и компилируются в одну сборку. Так же как и с partial классами в C#, это может быть полезным для разделения сгенерированного и написанного в ручную кода.
 
-Another alternative is that you can add an extra member from a completely different module.
-These are called "optional extensions". They are not compiled into the type itself, and require some other module to be in scope for them to work (this behavior is just like C# extension methods).
+## Optional extensions | Опциональные расширения
 
-For example, let's say we have a `Person` type defined:
+> Another alternative is that you can add an extra member from a completely different module.
+> These are called "optional extensions". They are not compiled into the type itself, and require some other module to be in scope for them to work (this behavior is just like C# extension methods).
+
+Другой вариант заключается в том, что можно добавить дополнительный член из совершенно другого модуля. Их называют "опциональными расширениями". Они не компилируются внутрь класса, и требуют другой модуль в области видимости для работы с ними (данное поведение похоже на C# расширения).
+
+> For example, let's say we have a `Person` type defined:
+
+Например, пусть определен тип `Person`:
 
 ```fsharp
 module Person = 
@@ -90,7 +112,9 @@ module Person =
             this.Last + ", " + this.First        
 ```
 
-The example below demonstrates how to add an `UppercaseName` extension to it in a different module:
+> The example below demonstrates how to add an `UppercaseName` extension to it in a different module:
+
+Пример ниже демонстрирует, как можно добавить `UppercaseName` расширение к нему в другом модуле:
             
 ```fsharp
 // in a different module
@@ -101,17 +125,23 @@ module PersonExtensions =
         this.FullName.ToUpper()
 ```
 
-So now let's test this extension:
+> So now let's test this extension:
+
+Теперь можно попробовать данное расширение:
 
 ```fsharp
 let person = Person.create "John" "Doe"
 let uppercaseName = person.UppercaseName 
 ```
 
-Uh-oh, we have an error. What's wrong is that the `PersonExtensions` is not in scope. 
-Just as for C#, any extensions have to be brought into scope in order to be used.
+> Uh-oh, we have an error. What's wrong is that the `PersonExtensions` is not in scope. 
+> Just as for C#, any extensions have to be brought into scope in order to be used.
 
-Once we do that, everything is fine:
+Будет получена ошибка. Она произошла потому что `PersonExtensions` не находится в области видимости. Как и в C#, любые расширения должны быть введены в область видимости для использования.
+
+> Once we do that, everything is fine:
+
+Как только мы сделаем это, все заработает:
 
 ```fsharp
 // bring the extension into scope first!
@@ -122,18 +152,24 @@ let uppercaseName = person.UppercaseName
 ```
 
 
-## Extending system types
+## Extending system types | Расширение системных типов
 
-You can extend types that are in the .NET libraries as well. But be aware that when extending a type, you must use the actual type name, not a type abbreviation. 
+> You can extend types that are in the .NET libraries as well. But be aware that when extending a type, you must use the actual type name, not a type abbreviation. 
 
-For example, if you try to extend `int`, you will fail, because `int` is not the true name of the type:
+Можно также расширять типы из .NET библиотеки. Но следует иметь ввиду, что при расширении типа надо использовать его фактическое имя, а не псевдоним.
+
+> For example, if you try to extend `int`, you will fail, because `int` is not the true name of the type:
+
+Например, если попробовать расширить `int`, будет получена ошибка, т.к. `int` не является правильным именем для типа:
 
 ```fsharp
 type int with
     member this.IsEven = this % 2 = 0
 ```
 
-You must use `System.Int32` instead:
+> You must use `System.Int32` instead:
+
+Необходимо использовать `System.Int32`:
 
 ```fsharp
 type System.Int32 with
@@ -144,12 +180,17 @@ let i = 20
 if i.IsEven then printfn "'%i' is even" i
 ```
 
-## Static members
+## Static members | Статические члены
 
-You can make the member functions static by:
+> You can make the member functions static by:
 
-* adding the keyword `static` 
-* dropping the `this` placeholder
+Можно создавать статические функции с помощью:
+
+> * adding the keyword `static` 
+> * dropping the `this` placeholder
+
+* добавления ключевого слова `static`
+* удаления `this` метки
 
 ```fsharp
 module Person = 
@@ -167,7 +208,9 @@ let person = Person.T.Create "John" "Doe"
 let fullname = person.FullName
 ```
 
-And you can create static members for system types as well:
+> And you can create static members for system types as well:
+
+Можно создавать статические члены для системных типов:
 
 ```fsharp
 type System.Int32 with
@@ -182,14 +225,21 @@ let pi = System.Double.Pi
 ```
 
 <a name="attaching-existing-functions" ></a>
-## Attaching existing functions
+## Attaching existing functions | Прикрепление существующих функций
 
-A very common pattern is to attach pre-existing standalone functions to a type.  This has a couple of benefits:
+> A very common pattern is to attach pre-existing standalone functions to a type.  This has a couple of benefits:
 
-* While developing, you can create standalone functions that refer to other standalone functions. This makes programming easier because type inference works much better with functional-style code than with OO-style ("dotting into") code.
-* But for certain key functions, you can attach them to the type as well. This gives clients the choice of whether to use functional or object-oriented style.
+Очень распространенный паттерн - прикрепление уже существующих самостоятельных функций к типу. Он дает пару преимуществ:
 
-One example of this in the F# libraries is the function that calculates a list's length. It is available as a standalone function in the `List` module, but also as a method on a list instance.
+> * While developing, you can create standalone functions that refer to other standalone functions. This makes programming easier because type inference works much better with functional-style code than with OO-style ("dotting into") code.
+> * But for certain key functions, you can attach them to the type as well. This gives clients the choice of whether to use functional or object-oriented style.
+
+* Во время разработки, можно объявдять самостоятельные функции, которые ссылаются на другие самостоятельные функции. Это упростит разработку, т.к. вывод типов работает гораздо лучше с функциональным стилем нежели с ООП.
+* Но некоторые ключевые функции можно прикрепить к типу. Что позволит пользователям выбрать, какой из стилей использовать, функциональный или объекто-ориентированный.
+
+> One example of this in the F# libraries is the function that calculates a list's length. It is available as a standalone function in the `List` module, but also as a method on a list instance.
+
+Примером подобного решения является функция из F# библиотеки, которая расчитывает длину списка. Можно использовать самостоятельную функцию из модуля `List` или вызывать ее как метод экземпляра.
 
 ```fsharp
 let list = [1..10]
@@ -201,7 +251,9 @@ let len1 = List.length list
 let len2 = list.Length
 ```
 
-In the following example, we start with a type with no members initially, then define some functions, then finally attach the `fullName` function to the type.
+> In the following example, we start with a type with no members initially, then define some functions, then finally attach the `fullName` function to the type.
+
+В следующем примере, тип изначально не имеет каких-либо членов, затем определяются несколько функций, и наконец к типу прикрепляется функция `fullName`.
 
 ```fsharp
 module Person = 
@@ -226,13 +278,19 @@ let fullname = Person.fullName person  // functional style
 let fullname2 = person.FullName        // OO style
 ```
 
-The standalone `fullName` function has one parameter, the person. In the attached member, the parameter comes from the `this` self-reference.
+> The standalone `fullName` function has one parameter, the person. In the attached member, the parameter comes from the `this` self-reference.
 
-### Attaching existing functions with multiple parameters
+Самостоятельная функция `fullName` имеет один параметр, `person`. Добавленный же член, получает параметр из self-ссылки.
 
-One nice thing is that when the previously defined function has multiple parameters, you don't have to respecify them all when doing the attachment, as long as the `this` parameter is first.
+### Attaching existing functions with multiple parameters | Добавление существующих функций со множеством параметров
 
-In the example below, the `hasSameFirstAndLastName` function has three parameters. Yet when we attach it, we only need to specify one! 
+> One nice thing is that when the previously defined function has multiple parameters, you don't have to respecify them all when doing the attachment, as long as the `this` parameter is first.
+
+Еще одной приятной особенностью является то, что можно сначала определить мультипараметрическую функцию, в которой текущий тип передается в качестве первого параметра, после чего при создании прикрепления не потребуется упоминать все множество параметров, ограничевшись `this`.
+
+> In the example below, the `hasSameFirstAndLastName` function has three parameters. Yet when we attach it, we only need to specify one! 
+
+В примере ниже функция `hasSameFirstAndLastName` имеет три параметра. Однако при прикреплении достаточно упоминуть всего лишь один!
 
 ```fsharp
 module Person = 
@@ -258,22 +316,35 @@ let result2 = person.HasSameFirstAndLastName "bob" "smith" // OO style
 ```
 
 
-Why does this work? Hint: think about currying and partial application!
+> Why does this work? Hint: think about currying and partial application!
+
+Почему это работает? Подсказка: подумайте о каррировании и частичном применении!
 
 <a name="tuple-form" ></a>
-## Tuple-form methods
+## Tuple-form methods | Кортежные методы
 
-When we start having methods with more than one parameter, we have to make a decision:
+> When we start having methods with more than one parameter, we have to make a decision:
 
-* we could use the standard (curried) form, where parameters are separated with spaces, and partial application is supported.
-* we could pass in *all* the parameters at once, comma-separated, in a single tuple.
+Когда у нас есть методы с более чем одним параметром, необходимо принять решение:
 
-The "curried" form is more functional, and the "tuple" form is more object-oriented.
+> * we could use the standard (curried) form, where parameters are separated with spaces, and partial application is supported.
+> * we could pass in *all* the parameters at once, comma-separated, in a single tuple.
 
-The tuple form is also how F# interacts with the standard .NET libraries, so let's examine this approach in more detail.
+* мы можем использовать стандартную (каррированную) форму, где параметры разделяются пробелами, и поддерживается частичное применение.
+* или можем передавать *все* параметры за один раз в виде разделенного запятыми кортежа.
 
-As a testbed, here is a Product type with two methods, each implemented using one of the approaches.
+> The "curried" form is more functional, and the "tuple" form is more object-oriented.
+
+Каррированая форма более функциональна, в то время как кортежная форма более объектно-ориентированна.
+
+> The tuple form is also how F# interacts with the standard .NET libraries, so let's examine this approach in more detail.
+
+Кортежная форма также является формой взаимодействия F# со стандартными библиотеками .NET, поэтому стоит рассмотреть данный подход более детально.
+
+> As a testbed, here is a Product type with two methods, each implemented using one of the approaches.
 The `CurriedTotal` and `TupleTotal` methods each do the same thing: work out the total price for a given quantity and discount.
+
+В качестве тестового кода используется тип `Product` с двумя методами, каждый из них реализован одним из вышеописанных подходов. `CurriedTotal` и `TupleTotal` методы делают одно и тоже, вычисляют итоговую цену продукта по количеству и скидке.
 
 ```fsharp
 type Product = {SKU:string; Price: float} with
@@ -287,7 +358,9 @@ type Product = {SKU:string; Price: float} with
         (this.Price * float qty) - discount
 ```
 
-And here's some test code:
+> And here's some test code:
+
+Тестовый код:
 
 ```fsharp
 let product = {SKU="ABC"; Price=2.0}
@@ -295,9 +368,13 @@ let total1 = product.CurriedTotal 10 1.0
 let total2 = product.TupleTotal(10,1.0)
 ```
 
-No difference so far.
+> No difference so far.
 
-We know that curried version can be partially applied:
+Пока нет особой разницы.
+
+> We know that curried version can be partially applied:
+
+Но мы знаем, что каррированная версия может быть частично применена:
 
 ```fsharp
 let totalFor10 = product.CurriedTotal 10
@@ -306,15 +383,23 @@ let totalForDifferentDiscounts
     = discounts |> List.map totalFor10 
 ```
 
-But the tuple approach can do a few things that that the curried one can't, namely:
+> But the tuple approach can do a few things that that the curried one can't, namely:
 
-* Named parameters
-* Optional parameters
-* Overloading
+С другой стороны кортежная версия способна на то, что не может каррированая, а именно:
 
-### Named parameters with tuple-style parameters
+> * Named parameters
+> * Optional parameters
+> * Overloading
 
-The tuple-style approach supports named parameters:
+* Именнованные параметры
+* Необязательные параметры
+* Перегрузки
+
+### Named parameters with tuple-style parameters | Именнованные параметры с параметрами в кортежном стиле
+
+> The tuple-style approach supports named parameters:
+
+Кортежний подход поддерживает именнованные параметры:
 
 ```fsharp
 let product = {SKU="ABC"; Price=2.0}
@@ -322,18 +407,29 @@ let total3 = product.TupleTotal(qty=10,discount=1.0)
 let total4 = product.TupleTotal(discount=1.0, qty=10)
 ```
 
-As you can see, when names are used, the parameter order can be changed.  
+> As you can see, when names are used, the parameter order can be changed.  
 
-Note: if some parameters are named and some are not, the named ones must always be last.
+Как видите, это позволяет менять порядок параметров с помощью явного указания имен.
 
-### Optional parameters with tuple-style parameters
+> Note: if some parameters are named and some are not, the named ones must always be last.
 
-For tuple-style methods, you can specify an optional parameter by prefixing the parameter name with a question mark.
+Внимание: если лишь у некоторой части параметров есть имена, то эти параметры всегда должна находиться в конце.
 
-* If the parameter is set, it comes through as `Some value`
-* If the parameter is not set, it comes through as `None`
+### Optional parameters with tuple-style parameters | Необязательные параметры с параметрами в кортежном стиле
 
-Here's an example:
+> For tuple-style methods, you can specify an optional parameter by prefixing the parameter name with a question mark.
+
+У методов в стиле кортежей, можно помечать параметры как опциональные при помощи префикса в виде знака вопроса перед именем параметра.
+
+> * If the parameter is set, it comes through as `Some value`
+> * If the parameter is not set, it comes through as `None`
+
+* Если параметр задан, то в функцию придет `Some value`
+* Иначе придет `None`
+
+> Here's an example:
+
+Пример:
 
 ```fsharp
 type Product = {SKU:string; Price: float} with
@@ -346,7 +442,9 @@ type Product = {SKU:string; Price: float} with
         | Some discount -> extPrice - discount
 ```
 
-And here's a test:
+> And here's a test:
+
+И тест:
 
 ```fsharp
 let product = {SKU="ABC"; Price=2.0}
@@ -358,12 +456,18 @@ let total1 = product.TupleTotal2(10)
 let total2 = product.TupleTotal2(10,1.0) 
 ```
 
-This explicit matching of the `None` and `Some` can be tedious, and there is a slightly more elegant solution for handling optional parameters.
+> This explicit matching of the `None` and `Some` can be tedious, and there is a slightly more elegant solution for handling optional parameters.
 
-There is a function `defaultArg` which takes the parameter as the first argument and a default for the second argument. If the parameter is set, the value is returned.
-And if not, the default value is returned.
+Явная проверка на `None` и `Some` может быть утомительной, для обработки опциональных параметров существует более элегантное решение.
 
-Let's see the same code rewritten to use `defaultArg` 
+> There is a function `defaultArg` which takes the parameter as the first argument and a default for the second argument. If the parameter is set, the value is returned.
+> And if not, the default value is returned.
+
+Функция `defaultArg` принимает параметр в качестве первого аргумента и значение по умолчанию в качестве второго. Если параметр установлен, будет возвращено установленное значение, иначе значение по умолчанию.
+
+> Let's see the same code rewritten to use `defaultArg` 
+
+Тот же код с применением `defaulArg`
 
 ```fsharp
 type Product = {SKU:string; Price: float} with
@@ -378,16 +482,24 @@ type Product = {SKU:string; Price: float} with
 
 <a id="method-overloading"></a>
 
-### Method overloading
+### Method overloading | Перегрузка методов
 
-In C#, you can have multiple methods with the same name that differ only in their function signature (e.g. different parameter types and/or number of parameters)
+> In C#, you can have multiple methods with the same name that differ only in their function signature (e.g. different parameter types and/or number of parameters)
 
-In the pure functional model, that does not make sense -- a function works with a particular domain type and a particular range type. 
-The same function cannot work with different domains and ranges.  
+В C# можно создать множество методов с одинаковым именем, которые отличаются своей сигнатурой (например, различные типы параметров и/или их число).
 
-However, F# *does* support method overloading, but only for methods (that is functions attached to types) and of these, only those using tuple-style parameter passing.
+> In the pure functional model, that does not make sense -- a function works with a particular domain type and a particular range type. 
+> The same function cannot work with different domains and ranges.  
 
-Here's an example, with yet another variant on the `TupleTotal` method!
+В чисто функциональной модели, это не имеет смысла -- функция работает с определенным типом и определенным типом дупустимых диапазонов допустимых значений. Одна и та же функция не может взаимодействовать с другими domain-ами и range-ами.
+
+> However, F# *does* support method overloading, but only for methods (that is functions attached to types) and of these, only those using tuple-style parameter passing.
+
+Однако, F# поддерживает перегрузку методов, но только для методов (которые прикреплены к типам) и только тех из них, которые написаны в кортежном стиле.
+
+> Here's an example, with yet another variant on the `TupleTotal` method!
+
+Пример, с еще одним вариантом метода `TupleTotal`!
 
 ```fsharp
 type Product = {SKU:string; Price: float} with
@@ -403,11 +515,14 @@ type Product = {SKU:string; Price: float} with
         (this.Price * float qty) - discount
 ```
 
-Normally, the F# compiler would complain that there are two methods with the same name, but in this case, because they are tuple based and because their signatures are different, it is acceptable.
-(To make it obvious which one is being called, I have added a small debugging message.)
+> Normally, the F# compiler would complain that there are two methods with the same name, but in this case, because they are tuple based and because their signatures are different, it is acceptable.
+> (To make it obvious which one is being called, I have added a small debugging message.)
 
-And here's a test:
+Обычно, компилятор F# жалуется, что существует два метода с одинаковым именем, но в данном случае это приемлимо, т.к. они объявлены в кортежной нотации и их сигнатуры различаются. (Чтобы было понятно, какой из методов вызывается, я добавил небольшое сообщения для отладки.)
 
+> And here's a test:
+
+Пример использования:
 
 ```fsharp
 let product = {SKU="ABC"; Price=2.0}
@@ -421,21 +536,32 @@ let total2 = product.TupleTotal3(10,1.0)
 
 <a id="downsides-of-methods"></a>
 
-## Hey! Not so fast... The downsides of using methods
+## Hey! Not so fast... The downsides of using methods | Эй! Не так быстро... Недостатки использования методов
 
-If you are coming from an object-oriented background, you might be tempted to use methods everywhere, because that is what you are familiar with.
-But be aware that there some major downsides to using methods as well:
+> If you are coming from an object-oriented background, you might be tempted to use methods everywhere, because that is what you are familiar with.
+> But be aware that there some major downsides to using methods as well:
 
-* Methods don't play well with type inference
-* Methods don't play well with higher order functions
+Придя из объектно-ориентированного мира, можно решить, использовать методы везде, потому что уже знакомы. Но следует быть осторожным, т.к. у них существуют ряд серьезных недостатков:
 
-In fact, by overusing methods you would be needlessly bypassing the most powerful and useful aspects of programming in F#.
+> * Methods don't play well with type inference
+> * Methods don't play well with higher order functions
 
-Let's see what I mean.
+* Методы плохо работают с выводом типов
+* Методы плохо работают с функциями высшего порядка
 
-### Methods don't play well with type inference
+> In fact, by overusing methods you would be needlessly bypassing the most powerful and useful aspects of programming in F#.
 
-Let's go back to our Person example again, the one that had the same logic implemented both as a standalone function and as a method:
+На самом деле, чрезмерно используя методов можно пропустить самые сильные и полезные стороны программирования на F#.
+
+> Let's see what I mean.
+
+Посмотрим, что я имею ввиду.
+
+### Methods don't play well with type inference | Методы плохо взаимодействую с выводом типа
+
+> Let's go back to our Person example again, the one that had the same logic implemented both as a standalone function and as a method:
+
+Вернемся к примеру `Person`, который имел одну и ту же логику реализованную в виде самостоятельной функции и метода:
 
 ```fsharp
 module Person = 
@@ -455,9 +581,13 @@ module Person =
         member this.FullName = fullName this
 ```
 
-Now let's see how well each one works with type inference.  Say that I want to print the full name of a person, so I will define a function `printFullName` that takes a person as a parameter.
+> Now let's see how well each one works with type inference.  Say that I want to print the full name of a person, so I will define a function `printFullName` that takes a person as a parameter.
 
-Here's the code using the module level standalone function.
+Теперь, посмотрим как хорошо вывод типов работает с каждым из них. Пусть я хочу вывести полное имя человека, тогда я определю функцию `printFullName`, которая берет `person` в качетсве параметра.
+
+> Here's the code using the module level standalone function.
+
+Код использующий самостоятельную функцию из модуля.
 
 ```fsharp
 open Person
@@ -470,9 +600,13 @@ let printFullName person =
 //    val printFullName : Person.T -> unit    
 ```
 
-This compiles without problems, and the type inference has correctly deduced that parameter was a person
+> This compiles without problems, and the type inference has correctly deduced that parameter was a person
 
-Now let's try the "dotted" version:
+Компилируется без пробелм, а вывод типов корректно идентифицирует параметр как `Person`.
+
+> Now let's try the "dotted" version:
+
+Теперь попробуем версию через точку:
 
 ```fsharp
 open Person
@@ -482,15 +616,23 @@ let printFullName2 person =
     printfn "Name is %s" (person.FullName) 
 ```
 
-This does not compile at all, because the type inference does not have enough information to deduce the parameter. *Any* object might implement `.FullName` -- there is just not enough to go on.
+> This does not compile at all, because the type inference does not have enough information to deduce the parameter. *Any* object might implement `.FullName` -- there is just not enough to go on.
 
-Yes, we could annotate the function with the parameter type, but that defeats the whole purpose of type inference.
+Этот код вообще не скомпилируется, т.к. вывод типов не имеет достаточной информации, чтобы вывести тип параметра. *Любой* объект может реализовывать `.FullName` -- этого недостаточно для вывода.
 
-### Methods don't play well with higher order functions
+> Yes, we could annotate the function with the parameter type, but that defeats the whole purpose of type inference.
 
-A similar problem happens with higher order functions. For example, let's say that, given a list of people, we want to get all their full names.
+Да, мы можем аннотировать функцию с параметризованным типом, но из-за этого теряется смысл в выведении типа.
 
-With a standalone function, this is trivial:
+### Methods don't play well with higher order functions | Методы не работают хорошо с функциями высшего порядка
+
+> A similar problem happens with higher order functions. For example, let's say that, given a list of people, we want to get all their full names.
+
+С подобной проблемой можно столкнуться и в функциях высшего порядка. Например, есть список людей, и нам надо получить список их полных имен.
+
+> With a standalone function, this is trivial:
+
+В случае самостоятельной функции решение тривиально:
 
 ```fsharp
 open Person
@@ -504,7 +646,9 @@ let list = [
 list |> List.map fullName
 ```
 
-With object methods, we have to create special lambdas everywhere:
+> With object methods, we have to create special lambdas everywhere:
+
+В случае метода объекта, придется везде создавать специальную лямбду:
 
 ```fsharp
 open Person
@@ -518,7 +662,11 @@ let list = [
 list |> List.map (fun p -> p.FullName)
 ```
 
-And this is just a simple example. Object methods don't compose well, are hard to pipe, and so on.
+> And this is just a simple example. Object methods don't compose well, are hard to pipe, and so on.
 
-So, a plea for those of you new to functionally programming. Don't use methods at all if you can, especially when you are learning.
-They are a crutch that will stop you getting the full benefit from functional programming.
+А ведь это еще достаточно простой пример. Методы объектов довольно плохо компонуются, неудобны в конвейере и т.д.
+
+> So, a plea for those of you new to functionally programming. Don't use methods at all if you can, especially when you are learning.
+> They are a crutch that will stop you getting the full benefit from functional programming.
+
+Поэтому, призываю вас, если вы новичок в функциональном программированию. Если можете, не используйте методы, особенно в процессе обучения. Они будут костылем который не позволит получить от функционального программирования полную выгоду.
