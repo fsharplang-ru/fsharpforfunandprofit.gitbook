@@ -19,7 +19,7 @@ seriesOrder: 2
 
 > What does this really mean?  Well it seems pretty straightforward. It means that there is an operation that starts with a number, and adds one to it. 
 
-Что в действительности означает это выражение? Выглядит довольно просто. Оно означает, что существует такая операция, котороая берет число и прибавляет к нему 1.
+Что в действительности означает это выражение? Выглядит довольно просто. Оно означает, что существует такая операция, которая берет число и прибавляет к нему 1.
 
 > Let's introduce some terminology:
 
@@ -29,7 +29,7 @@ seriesOrder: 2
 > * The set of possible output values from the function is called the *range* (technically, the image on the codomain). In this case, it is also the set of integers.
 > * The function is said to *map* the domain to the range.
 
-* Множество допустимых входных значений функции называются _domain_ (область определения). В данном пример, это могло быть множество действительных чисел, но сделаем жизнь проще и ограничимся здесь только целыми числами.
+* Множество допустимых входных значений функции называются _domain_ (область определения). В данном примере, это могло быть множество действительных чисел, но сделаем жизнь проще и ограничимся здесь только целыми числами.
 * Множество возможных результатов функции (область значения) называется _range_ (технически, изображение **codomain-а**). В данном случае также множество целых.
 * Функцией называют _преобразование_ (в оригинале _map_) из domain-а в range. (Т.е. из области определения в область значений.)
 
@@ -45,7 +45,7 @@ let add1 x = x + 1
 
 > If you type that into the F# interactive window (don't forget the double semicolons) you will see the result (the "signature" of the function): 
 
-Если ввести его в F# Interactive (следует не забыть про двойные точку с запятой), можно увидеть результат ("сигнатуру" функции):
+Если ввести его в F# Interactive (не забудьте про двойные точку с запятой), то можно увидеть результат ("сигнатуру" функции):
 
 ```fsharp
 val add1 : int -> int
@@ -65,7 +65,7 @@ val add1 : int -> int
 
 > Also note that the type was not specified, yet the F# compiler guessed that the function was working with ints. (Can this be tweaked? Yes, as we'll see shortly).
 
-Примечательно, что тип не был указан, но компилятор F# вычислил, что функция работает с int-ами. (Можно ли это изменить? Да, скоро мы увидим).
+Заметьте, что тип не был указан явно, но компилятор F# решил, что функция работает с int-ами. (Можно ли это изменить? Да, и скоро мы это увидим).
 
 ## Key properties of mathematical functions | Ключевые свойства математических функций ## 
 
