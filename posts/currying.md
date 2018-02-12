@@ -10,15 +10,15 @@ categories: [Currying]
 
 > After that little digression on basic types, we can turn back to functions again, and in particular the puzzle we mentioned earlier: if a mathematical function can only have one parameter, then how is it possible that an F# function can have more than one? 
 
-После небольшого экскурса по базовым типам, можно вернуться к функциям снова, и в частности к ранее упомянутой загадке: если математическая функция может иметь лишь один параметр, то как в F# может существовать функция имеющая большее число параметров?
+После небольшого экскурса в базовые типы, мы можем снова вернуться к функциям, в частности, к ранее упомянутой загадке: если математическая функция может принимать только один параметр, то как в F# может существовать функция принимающая большее число параметров?
 
 > The answer is quite simple: a function with multiple parameters is rewritten as a series of new functions, each with only one parameter. And this is done automatically by the compiler for you. It is called "**currying**", after Haskell Curry, a mathematician who was an important influence on the development of functional programming.
 
-Ответ довольно прост: функция с множестов параметров переписывается как серия новых функций, каждая имеющая только один параметр. Данная операция произвоидтся компилятором автоматически. Это называется "**каррированием**" (_currying_), в честь Haskell Curry, математика, который оказал очень существенное влияние на разработку функционального программирования.
+Ответ довольно прост: функция с несколькими параметрами переписывается как серия новых функций, каждая из которых принимает только один параметр. Эта операция производится компилятором автоматически. Это называется "**каррированием**" (_currying_), в честь Хаскела Карри, математика, который существенно повлиял на разработку функционального программирования.
 
 > To see how this works in practice, let's use a very basic example that prints two numbers: 
 
-Чтобы увидеть как это работает на практике, воспользуемся очень базовым примером который выводит два числа:
+Чтобы увидеть, как это работает на практике, воспользуемся простейшим примером кода, печатающим два числа:
 
 ```fsharp
 //normal version
@@ -28,7 +28,7 @@ let printTwoParameters x y =
 
 > Internally, the compiler rewrites it as something more like:
 
-Внутри компилятор переписывает его приблизительно в такой форме:
+На самом деле компилятор переписывает его приблизительно в такой форме:
 
 ```fsharp
 //explicitly curried version
@@ -40,21 +40,21 @@ let printTwoParameters x  =    // only one parameter!
 
 > Let's examine this in more detail:
 
-Рассмотрм процесс более детально:
+Рассмотрм этот процесс подробнее:
 
 > 1.	Construct the function called "`printTwoParameters`" but with only *one* parameter: "x"
 > 2.	Inside that, construct a subfunction that has only *one* parameter: "y". Note that this inner function uses the "x" parameter but x is not passed to it explicitly as a parameter. The "x" parameter is in scope, so the inner function can see it and use it without needing it to be passed in. 
 > 3.	Finally, return the newly created subfunction.
 > 4.	This returned function is then later used against "y".  The "x" parameter is baked into it, so the returned function only needs the y param to finish off the function logic.
 
-1. Объявить функцию с названием "`printTwoParameters`", но имеющую лишь _один_ параметр: "x".
-2. Внутри создать подфункцию, которая также имеет лишь _один_ параметр: "y". Заметим, что внутренняя функция использует параметр "x", но x не передается внутрь нее как параметр. "x" находится в такой области видимости, что вложенная функция может видеть его и использовать без необходимости в его передаче.
-3. Наконец вернуть новую созданную подфункцию.
-4. Возвращенная функция затем применяется в отношении "y". "x" замыкается в ней, так что возвращаемая функция нуждается в параметре y чтобы закончить свою логику.
+1. Объявляем функцию с названием "`printTwoParameters`", но принимаюшую только _один_ параметр: "x".
+2. Внутри неё создаём локальную функцию, которая также принимает только _один_ параметр: "y". Заметим, что локальная функция использует параметр "x", но x не передается в нее как аргумент. "x" находится в такой области видимости, что вложенная функция может видеть его и использовать без необходимости в его передаче.
+3. Наконец, возвращаем только что созданную локальную функцию.
+4. Возвращенная функция затем применяется к аргументу "y". Параметр "x" замыкается в ней, так что возвращаемая функция нуждается только в параметре y чтобы завершить свою логику.
 
 > By rewriting it this way, the compiler has ensured that every function has only one parameter, as required. So when you use "`printTwoParameters`", you might think that you are using a two parameter function, but it is actually only a one parameter function!  You can see for yourself by passing only one argument instead of two:
 
-Переписав ее таким образом, комплиятор гарантирует, что каждая функция имеет только один параметр, как требуется. _При использовании "`printTwoParameters`", можно подумать, что используется функция с двумя параметрами, но на самом деле используется только функции с одним параметром._ В этом можно убедиться, передав ей лишь один аргумент вместо двух:
+Переписывая функции таким образом, комплиятор гарантирует, что каждая функция принимает только один параметр, как и требовалось. _Таким образом, используя "`printTwoParameters`", можно подумать, что это функция с двумя параметрами, но на самом деле используется только функции с одним параметром._ В этом можно убедиться, передав ей лишь один аргумент вместо двух:
 
 ```fsharp
 // eval with one argument
@@ -66,23 +66,23 @@ val it : (int -> unit) = <fun:printTwoParameters@286-3>
 
 > If you evaluate it with one argument, you don't get an error, you get back a function. 
 
-Если вычислить ее с одним аргументом, мы не получим ошибку, вернется функция.
+Если вычислить ее с одним аргументом, мы не получим ошибку, а будет возвращена  функция.
 
 > So what you are really doing when you call `printTwoParameters` with two arguments is:
 
-Что на самом деле происходит, когда вызывается `printTwoParameters` с двумя аргументами:
+Итак, вот что на самом деле происходит, когда `printTwoParameters` вызывается с двумя аргументами:
 
 > * You call `printTwoParameters` with the first argument (x)
 > * `printTwoParameters` returns a new function that has "x" baked into it.
 > * You then call the new function with the second argument (y)
 
 * Вызывается `printTwoParameters` с первым аргуметом (x)
-* `printTwoParameters` возвращает новую функцию, в которой запечатан "x".
+* `printTwoParameters` возвращает новую функцию, в которой замкнут "x".
 * Затем вызывается новая функция со вторым аргуметом (y)
 
 > Here is an example of the step by step version, and then the normal version again.
 
-Вот пример пошаговой и нормальной (снова) версий.
+Вот пример пошаговой и обыкновенной версий:
 
 ```fsharp
 // step by step version
@@ -127,11 +127,11 @@ let result  = addTwoParameters x y
 
 > Again, the "two parameter function" is actually a one parameter function that returns an intermediate function.
 
-Опять же, "функция с двумя параметрами" на самом деле это функция с одним параметром, которая возвращает промежуточную функцию.
+Опять же, "функция с двумя параметрами" на самом деле является функцией с одним параметром, которая возвращает промежуточную функцию.
 
 > But wait a minute -- what about the "`+`" operation itself? It's a binary operation that must take two parameters, surely? No, it is curried like every other function. There is a function called "`+`" that takes one parameter and returns a new intermediate function, exactly like `addTwoParameters` above. 
 
-Но подождите, а что с "`+`"? Это ведь бинарная операция, которая должна принимать два параметра? Нет, она тоже каррируется как и другие функции. Функция заваемая "`+`" берет один параметр и возвращает новую промежуточную функцию, в точности как `addTwoParameters` выше.
+Но подождите, а что с операторором "`+`"? Это ведь бинарная операция, которая должна принимать два параметра? Нет, она тоже каррируется, как и другие функции. Это функция с именем "`+`", которая принимает один параметр и возвращает новую промежуточную функцию, в точности как `addTwoParameters` выше.
 
 > When we write the statement `x+y`, the compiler reorders the code to remove the infix and turns it into `(+) x y`, which is the function named `+` called with two parameters.  Note that the function named "+" needs to have parentheses around it to indicate that it is being used as a normal function name rather than as an infix operator.
 
