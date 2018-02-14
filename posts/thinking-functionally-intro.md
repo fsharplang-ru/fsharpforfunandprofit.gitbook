@@ -20,12 +20,12 @@ seriesOrder: 1
 > F# does allow non-functional styles, and it is tempting to retain the habits you already are familiar with. You could just use F# in a non-functional way without really changing your mindset, and not realize what you are missing. To get the most out of F#, and to be fluent and comfortable with functional programming in general, it is critical that you think functionally, not imperatively.
 > And that is the goal of this series: to help you understand functional programming in a deep way, and help to change the way you think.
 
-F# позволяет использовать нефункциональные стили, что искушает сохранить существующие привычки. Можно просто использовать F# в нефункциональном стиле без реального изменения мировозрения и даже не представлять потерянные возможности. Однако, чтобы получить максимальную отдачу от F#, а также тепло и лампово программировать в функциональном стиле вообще, очень важно думать функционально, а не императивно.
+F# позволяет использовать нефункциональные стили, что искушает сохранить существующие привычки. Вы можете просто использовать F# привычным образом без реального изменения мировоззрения и даже не представлять, что вы теряете. Однако, чтобы получить максимальную отдачу от F#, а также тепло и лампово программировать в функциональном стиле вообще, очень важно думать функционально, а не императивно.
 Цель данной серии - помочь понять функциональное программирование _в глубокую сторону_ и изменить способ мышления читателя.
 
 > This will be a quite abstract series, although I will use lots of short code examples to demonstrate the points. We will cover the following points:
 
-Это будет довольно абстрактная серия, хотя я буду использовать множество коротких примеров кода для демонстрации некоторых моментов. Будут освещены следующие темы:
+Это будет довольно абстрактная серия, хотя я буду использовать множество коротких примеров кода для демонстрации некоторых моментов. Мы рассмотрим следующие темы:
 
 > * **Mathematical functions**. The first post introduces the mathematical ideas behind functional languages, and the benefits that come from this approach.
 > * **Functions and values**. The next post introduces functions and values, showing how "values" are different from variables, and why there are similarities between function and simple values. 
