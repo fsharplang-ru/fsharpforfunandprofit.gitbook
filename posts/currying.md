@@ -47,14 +47,14 @@ let printTwoParameters x  =    // only one parameter!
 > 3. Finally, return the newly created subfunction.
 > 4. This returned function is then later used against "y".  The "x" parameter is baked into it, so the returned function only needs the y param to finish off the function logic.
 
-1. Объявляем функцию с названием "`printTwoParameters`", но принимаюшую только _один_ параметр: "x".
-2. Внутри неё создаём локальную функцию, которая также принимает только _один_ параметр: "y". Заметим, что локальная функция использует параметр "x", но x не передается в нее как аргумент. "x" находится в такой области видимости, что вложенная функция может видеть его и использовать без необходимости в его передаче.
-3. Наконец, возвращаем только что созданную локальную функцию.
+1. Объявляется функция с названием "`printTwoParameters`", но принимающая только _один_ параметр: "x".
+2. Внутри неё создаётся локальная функция, которая также принимает только _один_ параметр: "y". Заметим, что локальная функция использует параметр "x", но x не передается в нее как аргумент. "x" находится в такой области видимости, что вложенная функция может видеть его и использовать без необходимости в его передаче.
+3. Наконец, возвращается только что созданная локальная функция.
 4. Возвращенная функция затем применяется к аргументу "y". Параметр "x" замыкается в ней, так что возвращаемая функция нуждается только в параметре y чтобы завершить свою логику.
 
 > By rewriting it this way, the compiler has ensured that every function has only one parameter, as required. So when you use "`printTwoParameters`", you might think that you are using a two parameter function, but it is actually only a one parameter function!  You can see for yourself by passing only one argument instead of two:
 
-Переписывая функции таким образом, комплиятор гарантирует, что каждая функция принимает только один параметр, как и требовалось. _Таким образом, используя "`printTwoParameters`", можно подумать, что это функция с двумя параметрами, но на самом деле используется только функции с одним параметром._ В этом можно убедиться, передав ей лишь один аргумент вместо двух:
+Переписывая функции таким образом, комплиятор гарантирует, что каждая функция принимает только один параметр, как и требовалось. Таким образом, используя "`printTwoParameters`", можно подумать, что это функция с двумя параметрами, но на самом деле используется функция с только одним параметром. В этом можно убедиться, передав ей лишь один аргумент вместо двух:
 
 ```fsharp
 // eval with one argument
@@ -294,7 +294,7 @@ int->string->bool->unit // three params (int,string,bool)
 ```
 
 
-## Issues with multiple parameters | _Трудности_ с множественными параметрами ##
+## Issues with multiple parameters | Трудности с множественными параметрами ##
 
 > The logic behind currying can produce some unexpected results until you understand it. Remember that you will not get an error if you evaluate a function with fewer arguments than it is expecting. Instead you will get back a partially applied function. If you then go on to use this partially applied function in a context where you expect a value, you will get obscure error messages from the compiler.
 
@@ -390,7 +390,6 @@ printfn "hello %i %i" 42 43 44
 
 > For example, in the last case, the compiler is saying that it expects the format argument to have three parameters (the signature `'a -> 'b -> 'c -> 'd`  has three parameters) but it is given only two (the signature `'a -> 'b -> unit`  has two parameters).
 
-__TODO: Не могу собрать нормальную фразу.__
 Например, в последнем случае компилятор сообщает, что ожидается форматирующая строка с тремя параметрами (сигнатура `'a -> 'b -> 'c -> 'd` имеет три параметра), но вместо этого получена строка с двумя (у сигнатуры `'a -> 'b -> unit` два параметра)_.
 
 > In cases not using `printf`, passing too many parameters will often mean that you end up with a simple value that you then try to pass a parameter to. The compiler will complain that the simple value is not a function.
