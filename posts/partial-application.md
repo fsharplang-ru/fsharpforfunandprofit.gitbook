@@ -128,7 +128,7 @@ let add42WithConsoleLogger = addWithConsoleLogger 42
 
 > These partially applied functions are a very useful tool. We can create library functions which are flexible (but complicated), yet make it easy to create reusable defaults so that callers don't have to be exposed to the complexity all the time.
 
-Частично примененные функции - это очень полезный инструмент. _Мы можем создать гибкие (хоть и сложные) библиотечные функции, причем легко сделать их по умолчанию пригодными для повторного использования, так что сложность будет сокрыта от клиентского кода._
+Частично примененные функции - это очень полезный инструмент. Мы можем создать гибкие (хоть и сложные) библиотечные функции, причем легко сделать их по умолчанию пригодными для повторного использования, так что сложность будет сокрыта от клиентского кода.
 
 ## Designing functions for partial application | Проектирование функций для частичного применения ##
 
@@ -209,7 +209,7 @@ let result = compositeOp [1..10]
 
 > The .NET base class library functions are easy to access in F#, but are not really designed for use with a functional language like F#. For example, most functions have the data parameter first, while with F#, as we have seen, the data parameter should normally come last.
 
-Функции библиотеки базовых классов (base class library - BCL) .NET легко доступны из F#, но они не особенно расчитаны на использование в функциональных языках, таких как F#. Например, большинство функций требует параметр данных вначале, в то время как в F# параметр данных в общем случае должен быть последним.
+Функции библиотеки базовых классов (base class library - BCL) .NET легко доступны из F#, но они не совсем расчитаны на использование в функциональных языках, таких как F#. Например, большинство функций требует параметр данных вначале, в то время как в F# параметр данных в общем случае должен быть последним.
 
 > However, it is easy enough to create wrappers for them that are more idiomatic. For example, in the snippet below, the .NET string functions are rewritten to have the string target be the last parameter rather than the first:
 
@@ -310,7 +310,7 @@ let (<|) f x = f x
 
 > It seems that this function doesn't really do anything different from normal, so why does it exist?
 
-Кажется, что эта функция в действительности не делает ничего особенного, так зачем же она нужна?
+Кажется, что эта функция ничего особенного не делает, так зачем же она нужна?
 
 > The reason is that, when used in the infix style as a binary operator, it reduces the need for parentheses and can make the code cleaner.
 
