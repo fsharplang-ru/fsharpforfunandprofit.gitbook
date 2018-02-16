@@ -10,11 +10,11 @@ categories: [Currying]
 
 > After that little digression on basic types, we can turn back to functions again, and in particular the puzzle we mentioned earlier: if a mathematical function can only have one parameter, then how is it possible that an F# function can have more than one?
 
-После небольшого экскурса в базовые типы, мы можем снова вернуться к функциям, в частности, к ранее упомянутой загадке: если математическая функция может принимать только один параметр, то как в F# может существовать функция принимающая большее число параметров?
+После небольшого экскурса в базовые типы мы можем снова вернуться к функциям, в частности, к ранее упомянутой загадке: если математическая функция может принимать только один параметр, то как в F# может существовать функция, принимающая большее число параметров?
 
 > The answer is quite simple: a function with multiple parameters is rewritten as a series of new functions, each with only one parameter. And this is done automatically by the compiler for you. It is called "**currying**", after Haskell Curry, a mathematician who was an important influence on the development of functional programming.
 
-Ответ довольно прост: функция с несколькими параметрами переписывается как серия новых функций, каждая из которых принимает только один параметр. Эта операция производится компилятором автоматически. Это называется "**каррированием**" (_currying_), в честь Хаскела Карри, математика, который существенно повлиял на разработку функционального программирования.
+Ответ довольно прост: функция с несколькими параметрами переписывается как серия новых функций, каждая из которых принимает только один параметр. Эту операцию компилятор выполняет автоматически, и называется она "**каррирование**" (_currying_), в честь Хаскела Карри, математика, который существенно повлиял на разработку функционального программирования.
 
 > To see how this works in practice, let's use a very basic example that prints two numbers: 
 
@@ -40,7 +40,7 @@ let printTwoParameters x  =    // only one parameter!
 
 > Let's examine this in more detail:
 
-Рассмотрм этот процесс подробнее:
+Рассмотрим этот процесс подробнее:
 
 > 1. Construct the function called "`printTwoParameters`" but with only *one* parameter: "x"
 > 2. Inside that, construct a subfunction that has only *one* parameter: "y". Note that this inner function uses the "x" parameter but x is not passed to it explicitly as a parameter. The "x" parameter is in scope, so the inner function can see it and use it without needing it to be passed in. 

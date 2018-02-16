@@ -209,7 +209,7 @@ let result = compositeOp [1..10]
 
 > The .NET base class library functions are easy to access in F#, but are not really designed for use with a functional language like F#. For example, most functions have the data parameter first, while with F#, as we have seen, the data parameter should normally come last.
 
-Функции библиотеки базовых классов (base class library - BCL) .NET легко доступны из F#, но они не совсем расчитаны на использование в функциональных языках, таких как F#. Например, большинство функций требует параметр данных вначале, в то время как в F# параметр данных в общем случае должен быть последним.
+Функции библиотеки базовых классов (base class library - BCL) .NET легко доступны из F#, но они спроектированы без расчёта на использование в функциональных языках, таких как F#. Например, большинство функций требует параметр данных вначале, в то время как в F# параметр данных в общем случае должен быть последним.
 
 > However, it is easy enough to create wrappers for them that are more idiomatic. For example, in the snippet below, the .NET string functions are rewritten to have the string target be the last parameter rather than the first:
 
@@ -273,7 +273,9 @@ doSomething 1 2 3       // all parameters after function
 > If the function has multiple parameters, then it appears that the input is the final parameter. Actually what is happening is that the function is partially applied, returning a function that has a single parameter: the input
 
 _TODO: Перевести на русский._
-???? Если функция принимает несколько параметров, то она выглядит так, будто входной параметр - последний. На самом деле функция применяется частично и возвращает функцию, которая принимает единственный параметр - input. ???
+_Если функция имеет несколько параметров, то оказывается, что ввод - это последний параметр. В действительности частично примененная функция возвращает функцию, которая имеет один параметр - ввод._
+
+???? _Если функция принимает несколько параметров, то она выглядит так, будто входной параметр - последний. На самом деле функция применяется частично и возвращает функцию, которая принимает единственный параметр - input._ ???
 
 > Here's the same example rewritten to use partial application
 
@@ -310,7 +312,7 @@ let (<|) f x = f x
 
 > It seems that this function doesn't really do anything different from normal, so why does it exist?
 
-Кажется, что эта функция ничего особенного не делает, так зачем же она нужна?
+Кажется, что эта функция ничего не делает, так зачем же она нужна?
 
 > The reason is that, when used in the infix style as a binary operator, it reduces the need for parentheses and can make the code cleaner.
 
