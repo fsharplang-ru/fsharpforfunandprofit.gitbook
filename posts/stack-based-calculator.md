@@ -10,11 +10,11 @@ categories: [Combinators, Functions, Worked Examples]
 
 > In this post, we'll implement a simple stack based calculator (also known as "reverse Polish" style). The implementation is almost entirely done with functions, with only one special type and no pattern matching at all, so it is a great testing ground for the concepts introduced in this series.
 
-В данной статье мы реализуем простой основанный на стеке калькулятор (также известный как "обратный польский" стиль). Реализация почти полностью построена на функциях, лишь с одним специальным типом и без сопоставления шаблонов вообще, это превосходный полигон для концпеций затронутых в данной серии.
+В данной статье мы реализуем простой основанный на стеке калькулятор (также известный как "обратный польский" стиль). Реализация почти полностью построена на функциях, лишь с одним специальным типом и без сопоставления шаблонов вообще, это превосходный полигон для концепций затронутых в данной серии.
 
 > If you are not familiar with a stack based calculator, it works as follows: numbers are pushed on a stack, and operations such as addition and multiplication pop numbers off the stack and push the result back on.
 
-Если вы незнакомы с подобным калькулятором, то он работает следующим образом: числа помещаются в стек, а операции, такие как сложение и произведение числа забирают числа с вершины стека, после чего помещают обратно полученнный результат операции.
+Если вы незнакомы с подобным калькулятором, то он работает следующим образом: числа помещаются в стек, а операции, такие как сложение и произведение числа забирают числа с вершины стека, после чего помещают обратно полученный результат операции.
 
 > Here is a diagram showing a simple calculation using a stack:
 
@@ -24,7 +24,7 @@ categories: [Combinators, Functions, Worked Examples]
 
 > The first steps to designing a system like this is to think about how it would be used. Following a Forth like syntax, we will give each action a label, so that the example above might want to be written something like:
 
-Прежде чем проектировать подобную систему, следует порассуждать над тем, как она будет использоваться. Следуя подобному Forth синтаксису, дадим каждому действию соответсвующую метку, чтобы в приведенном выше примере можно было написать нечто вроде:
+Прежде чем проектировать подобную систему, следует порассуждать над тем, как она будет использоваться. Следуя подобному Forth синтаксису, дадим каждому действию соответствующую метку, чтобы в приведенном выше примере можно было написать нечто вроде:
 
     EMPTY ONE THREE ADD TWO MUL SHOW
 
@@ -36,7 +36,7 @@ categories: [Combinators, Functions, Worked Examples]
 
 > First we need to define the data structure for a stack. To keep things simple, we'll just use a list of floats.
 
-Во первых надо определить структуру данных для стека. Это просто, для этих целей можно использовать список float-ов.
+Во первых надо определить структуру данных для стека. Это просто, для этих целей можно использовать список чисел с плавающей точкой.
 
 ```fsharp
 type Stack = float list
@@ -97,7 +97,7 @@ let push x aStack =
 
 > First, note that the list structure is immutable, so the function must accept an existing stack and return a new stack.  It cannot just alter the existing stack. In fact, all of the functions in this example will have a similar format like this:
 
-Во первых, следует обратить внимание, что структура `list` неизменяема, значит функция должна принимать существующий стек и возвращать новый. Это не просто изменение существующего стека. По факту, все функции в данном примере будут иметь подобный формат:
+Во первых, следует обратить внимание, что структура `list` неизменяемая, значит функция должна принимать существующий стек и возвращать новый. Это не просто изменение существующего стека. По факту, все функции в данном примере будут иметь подобный формат:
 
 >     Input: a Stack plus other parameters
 >     Output: a new Stack
@@ -107,7 +107,7 @@ let push x aStack =
 
 > Next, what should the order of the parameters be? Should the stack parameter come first or last? If you remember the discussion of [designing functions for partial application](../posts/partial-application), you will remember that the most changeable thing should come last. You'll see shortly that this guideline will be born out.
 
-Во вторых, почему параметры идут именно в таком порядке? Почему стек должен идти первым или последним? В обсуждении [проектирование функций с частичным применением](../posts/partial-application) говорилось, что ниболее часто меняющийся параметр должен идти последним. Вскоре можно будет убедиться, что данне рекомендации соблюдаются.
+Во вторых, почему параметры идут именно в таком порядке? Почему стек должен идти первым или последним? В обсуждении [проектирование функций с частичным применением](../posts/partial-application) говорилось, что наиболее часто меняющийся параметр должен идти последним. Вскоре можно будет убедиться, что данные рекомендации соблюдаются.
 
 > Finally, the function can be made more concise by using pattern matching in the function parameter itself, rather than using a `let` in the body of the function.
 
@@ -128,7 +128,7 @@ let push x (StackContents contents) =
 
 > And by the way, look at the nice signature it has:
 
-Между прочим, посмотретите на ее изящную сигнатуру:
+Между прочим, посмотрите на ее изящную сигнатуру:
 
 ```fsharp
 val push : float -> Stack -> Stack
@@ -140,7 +140,7 @@ val push : float -> Stack -> Stack
 
 Как говорилось [ранее](../posts/function-signatures), сигнатура говорит нам, очень много о функции.
 В данном случае, я мог бы догадаться, что делает данная функция лишь по ее сигнатуре, не зная, что она называется "push".
-Это еще одна причина по которой было хорошей идеей иметь явные имена типа. Если бы стек был лишь списком float-ов, функция не была бы столь самодокументированна.
+Это еще одна причина по которой было хорошей идеей иметь явные имена типа. Если бы стек был лишь списком чисел с плавающей точкой, то функция не была бы столь само-документированной.
 
 > Anyway, now let's test it:
 
@@ -193,7 +193,7 @@ let EMPTY = StackContents []
 
 > Let's test all of these now:
 
-Проверим получнные функции:
+Проверим полученные функции:
 
 ```fsharp
 let stackWith1 = ONE EMPTY 
@@ -211,7 +211,7 @@ Stack -> Stack
 
 > This means that they can be chained together nicely! The output of one can be fed into the input of the next, as shown below:
 
-А значит, они прекрасно соеденяются вместе! Вывод одной функции может быть подан на вход следующей:
+А значит, они прекрасно соединяются вместе! Вывод одной функции может быть подан на вход следующей:
 
 ```fsharp
 let result123 = EMPTY |> ONE |> TWO |> THREE 
@@ -236,7 +236,7 @@ let result312 = EMPTY |> THREE |> ONE |> TWO
 > But in a functional style, the stack is immutable.  The only way to remove the top element is to create a *new stack* with the element removed.
 > In order for the caller to have access to this new diminished stack, it needs to be returned along with the top element itself.
 
-Однако в функциональном стиле стек неизменям. Есть только один способ удалить верхний элемент - создать _новый стек_ без удаленного элемента. Для того, чтобы вызывающий объект имел доступ к новому уменьшенному стеку, его необходимо вернуть вместе с верхним элементом.
+Однако в функциональном стиле стек неизменяем. Есть только один способ удалить верхний элемент - создать _новый стек_ без удаленного элемента. Для того, чтобы вызывающий объект имел доступ к новому уменьшенному стеку, его необходимо вернуть вместе с верхним элементом.
 
 > In other words, the `pop` function will have to return *two* values, the top plus the new stack.  The easiest way to do this in F# is just to use a tuple.
 
@@ -446,7 +446,7 @@ let unary f stack =
     
 > And then define some unary functions:
 
-И определить несколько унарных функци:
+И определить несколько унарных функций:
 
 ```fsharp
 let NEG = unary (fun x -> -x)
@@ -466,7 +466,7 @@ let square2 = EMPTY  |> TWO |> SQUARE
 
 > In the original requirements, we mentioned that we wanted to be able to show the results, so let's define a SHOW function.
 
-В изначальных требования упоминалось, что мы хотели показать результаты, поэтому стоит опредлеить функцию SHOW.
+В изначальных требования упоминалось, что мы хотели показать результаты, поэтому стоит определить функцию SHOW.
 
 ```fsharp
 let SHOW stack = 
@@ -552,7 +552,7 @@ Stack -> Stack
 
 > So, because the input and output types are the same, these functions can be composed using the composition operator `>>`, not just chained together with pipes. 
 
-Т.к. ввод и вывод имеют одинаковые типы, эти функции могут быть скомпанованы еще и при помощи оператора `>>`, не только посредством pipe-ов.
+Т.к. ввод и вывод имеют одинаковые типы, эти функции могут быть скомпонованы еще и при помощи `>>`, а не только посредством конвейерных операторов.
 
 > Here are some examples:
 
@@ -603,7 +603,7 @@ START |> THREE |> SQUARE |> SUM_NUMBERS_UPTO |> SHOW
 
 > The difference is that piping is, in a sense, a "realtime transformation" operation. When you use piping you are actually doing the operations right now, passing a particular stack around.
 
-Разница в том, что pipe-ы в некотором смысле являются операцией "в реальном времени". В момент использования конвеера операции выполняются прямо сейчас, через передачу определнного стека.
+Разница в том, что pipe-ы в некотором смысле являются операцией "в реальном времени". В момент использования конвейера операции выполняются прямо сейчас, через передачу определенного стека.
 
 > On the other hand, composition is a kind of "plan" for what you want to do, building an overall function from a set of parts, but *not* actually running it yet.
 
@@ -619,7 +619,7 @@ let COMPOSED_SQUARE = DUP >> MUL
 
 > I cannot do the equivalent with the piping approach.
 
-Я не могу привести эквивалент на основе конвееров.
+Я не могу привести эквивалент на основе конвейеров.
 
 ```fsharp
 let PIPED_SQUARE = DUP |> MUL 
@@ -784,7 +784,7 @@ let SUM_NUMBERS_UPTO =
 
 > As you might guess, this example is based heavily on the Forth language. I highly recommend the free book ["Thinking Forth"](http://thinking-forth.sourceforge.net/), which is not just about the Forth language, but about (*non* object-oriented!) problem decomposition techniques which are equally applicable to functional programming.
 
-Как можно догадаться, данный пример был в изрядной степени основан на языке Forth. Я очень рекомендую бесплатную книгу ["Thinking Forth"](http://thinking-forth.sourceforge.net/), которая повествует не только об языке Forth, но и об других (_не_ объектно ориентированных!) методах декомпозиции задач, которые одинакого применимы к функциональному программированию в целом.
+Как можно догадаться, данный пример был в изрядной степени основан на языке Forth. Я очень рекомендую бесплатную книгу ["Thinking Forth"](http://thinking-forth.sourceforge.net/), которая повествует не только об языке Forth, но и об других (_не_ объектно ориентированных!) методах декомпозиции задач, которые одинаково применимы к функциональному программированию в целом.
 
 > I got the idea for this post from a great blog by [Ashley Feniello](http://blogs.msdn.com/b/ashleyf/archive/2011/04/21/programming-is-pointless.aspx). If you want to go deeper into emulating a stack based language in F#, start there. Have fun! 
 
