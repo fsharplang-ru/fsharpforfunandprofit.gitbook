@@ -54,7 +54,7 @@ let printTwoParameters x  =    // only one parameter!
 
 > By rewriting it this way, the compiler has ensured that every function has only one parameter, as required. So when you use "`printTwoParameters`", you might think that you are using a two parameter function, but it is actually only a one parameter function!  You can see for yourself by passing only one argument instead of two:
 
-Переписывая функции таким образом, комплиятор гарантирует, что каждая функция принимает только один параметр, как и требовалось. Таким образом, используя "`printTwoParameters`", можно подумать, что это функция с двумя параметрами, но на самом деле используется функция с только одним параметром. В этом можно убедиться, передав ей лишь один аргумент вместо двух:
+Переписывая функции таким образом, компилятор гарантирует, что каждая функция принимает только один параметр, как и требовалось. Таким образом, используя "`printTwoParameters`", можно подумать, что это функция с двумя параметрами, но на самом деле используется функция с только одним параметром. В этом можно убедиться, передав ей лишь один аргумент вместо двух:
 
 ```fsharp
 // eval with one argument
@@ -76,9 +76,9 @@ val it : (int -> unit) = <fun:printTwoParameters@286-3>
 > * `printTwoParameters` returns a new function that has "x" baked into it.
 > * You then call the new function with the second argument (y)
 
-* Вызывается `printTwoParameters` с первым аргуметом (x)
+* Вызывается `printTwoParameters` с первым аргументом (x)
 * `printTwoParameters` возвращает новую функцию, в которой замкнут "x".
-* Затем вызывается новая функция со вторым аргуметом (y)
+* Затем вызывается новая функция со вторым аргументом (y)
 
 > Here is an example of the step by step version, and then the normal version again.
 
@@ -131,7 +131,7 @@ let result  = addTwoParameters x y
 
 > But wait a minute -- what about the "`+`" operation itself? It's a binary operation that must take two parameters, surely? No, it is curried like every other function. There is a function called "`+`" that takes one parameter and returns a new intermediate function, exactly like `addTwoParameters` above.
 
-Но подождите, а что с операторором "`+`"? Это ведь бинарная операция, которая должна принимать два параметра? Нет, она тоже каррируется, как и другие функции. Это функция с именем "`+`", которая принимает один параметр и возвращает новую промежуточную функцию, в точности как `addTwoParameters` выше.
+Но подождите, а что с оператором "`+`"? Это ведь бинарная операция, которая должна принимать два параметра? Нет, она тоже каррируется, как и другие функции. Это функция с именем "`+`", которая принимает один параметр и возвращает новую промежуточную функцию, в точности как `addTwoParameters` выше.
 
 > When we write the statement `x+y`, the compiler reorders the code to remove the infix and turns it into `(+) x y`, which is the function named `+` called with two parameters.  Note that the function named "+" needs to have parentheses around it to indicate that it is being used as a normal function name rather than as an infix operator.
 
@@ -183,7 +183,7 @@ let result  = intermediateFn 5
 
 > Going back to the first example, "`printTwoParameters`", we saw that it took one argument and returned an intermediate function. The intermediate function also took one argument and returned nothing (that is, unit). So the intermediate function has type `int->unit`. In other words, the domain of `printTwoParameters` is `int` and the range is `int->unit`. Putting this together we see that the final signature is:
 
-Возращаясь к первому примеру, "`printTwoParameter`", мы видели, что функция принимала один рагумент и возвращала промежуточную функцию. Промежуточная функция также принимала один аргумент и ничего не возврашала (т.е. `unit`). Поэтому промежуточная функция имела тип `int->unit`. Другими словами, domain `printTwoParameters` - это `int`, а range - `int->unit`. Собрав все это воедино мы увидим конечную сигнатуру:
+Возвращаясь к первому примеру, "`printTwoParameter`", мы видели, что функция принимала один аргумент и возвращала промежуточную функцию. Промежуточная функция также принимала один аргумент и ничего не возвращала (т.е. `unit`). Поэтому промежуточная функция имела тип `int->unit`. Другими словами, domain `printTwoParameters` - это `int`, а range - `int->unit`. Собрав все это воедино мы увидим конечную сигнатуру:
 
 ```fsharp
 val printTwoParameters : int -> (int -> unit)
@@ -311,7 +311,7 @@ let printHello() = printfn "hello"
 
 > What would you expect to happen when we call it as shown below? Will it print "hello" to the console?  Try to guess before evaluating it, and here's a hint: be sure to take a look at the function signature.
 
-Как думаете, что произойдет, если вызвать ее, как показано ниже? Выведится ли "hello" на консоль? Попробуйте догадаться до выполнения. Подсказка: посмотрите на сигнатуру функции.
+Как думаете, что произойдет, если вызвать ее, как показано ниже? Выведется ли "hello" на консоль? Попробуйте догадаться до выполнения. Подсказка: посмотрите на сигнатуру функции.
 
 ```fsharp
 // call it
@@ -345,11 +345,11 @@ printfn "x=%i y=%i" x
 
 > If you didn't understand currying, this message would be very cryptic! All expressions that are evaluated standalone like this (i.e. not used as a return value or bound to something with "let") *must* evaluate to the unit value. And in this case, it is does *not* evaluate to the unit value, but instead evaluates to a function. This is a long winded way of saying that `printfn` is missing an argument.
 
-Если нет понимания каррирования, данное сообщение может быть очень загадочным. Дело в том, что все выражения, которые вычисляются отдельно, как это (т.е. не используются как возвращаемое значение или привязка к чему-либо посредством "let") _должны_ вычисляться в `unit` значение. В данном случае, оно _не_ вычисляется в `unit` значение, но вместо этого возвращает функцию. Это длинный извилистный способ сказать, что `printfn` не хватает аргумента.
+Если нет понимания каррирования, данное сообщение может быть очень загадочным. Дело в том, что все выражения, которые вычисляются отдельно, как это (т.е. не используются как возвращаемое значение или привязка к чему-либо посредством "let") _должны_ вычисляться в `unit` значение. В данном случае, оно _не_ вычисляется в `unit` значение, но вместо этого возвращает функцию. Это длинный извилистый способ сказать, что `printfn` не хватает аргумента.
 
 > A common case of errors like this is when interfacing with the .NET library. For example, the `ReadLine` method of a `TextReader` must take a unit parameter. It is often easy to forget this and leave off the parens, in which case you do not get a compiler error immediately, but only when you try to treat the result as a string.
 
-В большинстве случаев ошибки, подобные этой, случаются при взаимодейтвии с библиотекой из мира .NET. Например, метод `Readline` класса `TextReader` должент принимать `unit` параметр. Об этом часто можно забыть, и не поставить скобки, в этом случае нельзя получить ошибку компилятора в момент "вызова", но она появится при попытке интерпретировать результат как строку.
+В большинстве случаев ошибки, подобные этой, случаются при взаимодействии с библиотекой из мира .NET. Например, метод `Readline` класса `TextReader` должен принимать `unit` параметр. Об этом часто можно забыть, и не поставить скобки, в этом случае нельзя получить ошибку компилятора в момент "вызова", но она появится при попытке интерпретировать результат как строку.
 
 ```fsharp
 let reader = new System.IO.StringReader("hello");
