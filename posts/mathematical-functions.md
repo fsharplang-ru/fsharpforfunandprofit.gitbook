@@ -9,7 +9,7 @@ seriesOrder: 2
 
 > The impetus behind functional programming comes from mathematics. Mathematical functions have a number of very nice features that functional languages try to emulate in the real world. 
 
-Функциональное программирование вдохновлено математикой. Математический функции имеют ряд очень приятных особенностей, которые функциональные языки пытются претворить в жизнь.
+Функциональное программирование вдохновлено математикой. Математический функции имеют ряд очень приятных особенностей, которые функциональные языки пытаются претворить в жизнь.
 
 > So first, let's start with a mathematical function that adds 1 to a number.
 
@@ -71,7 +71,7 @@ val add1 : int -> int
 
 > Mathematical functions have some properties that are very different from the kinds of functions you are used to in procedural programming.
 
-Математические функции имееют ряд свойств, которые очень сильно отличают их от других типов функций, которые используются в процедурном программировании.
+Математические функции имеют ряд свойств, которые очень сильно отличают их от других типов функций, которые используются в процедурном программировании.
 
 > * A function always gives the same output value for a given input value
 > * A function has no side effects. 
@@ -107,7 +107,7 @@ int add1(int input)
 
 Очевидно, что невозможно иметь по case-у на каждое возможное число, но принцип тот же. При такой постановке никаких вычислений не производится, осуществляется лишь поиск.
 
-### Mathematical functions are free from side effects | Математические функции свободны от побочных эфектов ###
+### Mathematical functions are free from side effects | Математические функции свободны от побочных эффектов ###
 
 > In a mathematical function, the input and the output are logically two different things, both of which are predefined. The function does not change the input or the output -- it just maps a pre-existing input value from the domain to a pre-existing output value in the range. 
 
@@ -126,7 +126,7 @@ int add1(int input)
 
 > I would not expect x to be changed by the adding of one to it. I would expect to get back a different number (y) and x would be left untouched. In the world of mathematics, the integers already exist as an unchangeable set, and the "add1" function simply defines a relationship between them.
 
-Я не ожидаю, что `x` изменится при добавлении к нему 1. Я ожидаю, что получу другое число (`y`), и `x` должен остаться нетронутым. В мире математики целые числа уже сушествуют в неизменяемом множестве, и функция "add1" просто определяет отношения между ними.
+Я не ожидаю, что `x` изменится при добавлении к нему 1. Я ожидаю, что получу другое число (`y`), и `x` должен остаться нетронутым. В мире математики целые числа уже существуют в неизменяемом множестве, и функция "add1" просто определяет отношения между ними.
 
 ### The power of pure functions | Сила чистых функций ###
 
@@ -139,8 +139,8 @@ int add1(int input)
 > * I only ever need to evaluate a function once for a certain input, and I can then cache the result, because I know that the same input always gives the same output.
 > * If I have a number of pure functions, I can evaluate them in any order I like. Again, it can't make any difference to the final result.
 
-* Из легко распараллелить. Скажем, можно бы взять целые числа в диапозоне от 1 до 1000 и раздать их 1000 различных процессоров, после чего поручить каждому CPU выполнить "'add1'" над соответствующим числом, одновременно будучи увереным, что нет необходомости в каком-либо взаимодействии между ними. Не потребуется ни блокировок, ни мьютексов, ни семафоров, ни т.п.
-* Можно использовать функции лениво, вычисляя их тогда, когда это необходимо для вывода. Можно быть увереным, что ответ будет точно таким же, независимо от того, провожу вычисления сейчас или позже.
+* Из легко распараллелить. Скажем, можно бы взять целые числа в диапазоне от 1 до 1000 и раздать их 1000 различных процессоров, после чего поручить каждому CPU выполнить "'add1'" над соответствующим числом, одновременно будучи уверенным, что нет необходимости в каком-либо взаимодействии между ними. Не потребуется ни блокировок, ни мьютексов, ни семафоров, ни т.п.
+* Можно использовать функции лениво, вычисляя их тогда, когда это необходимо для вывода. Можно быть уверенным, что ответ будет точно таким же, независимо от того, провожу вычисления сейчас или позже.
 * Можно лишь один раз провести вычисления функции для конкретного ввода, после чего закешировать результат, потому-что известно, что данный ввод будет давать такой же вывод.
 * Если есть множество чистых функций, их можно вычислять в любом порядке. Опять же, это не может повлиять на финальный результат.
 
@@ -156,7 +156,7 @@ int add1(int input)
 * Пример параллельных вычислений был в серии ["why use F#?"](../series/why-use-fsharp.md). 
 * Ленивое вычисление функций будет обсуждено в серии ["optimization"](../series/optimization.md).
 * Кэширование результатов функций называется мемоизацией и также будет обсуждено в серии ["optimization"](../series/optimization.md).
-* Отсутствие необходимости в отслеживании порядка выполнения делает параллельное программирование гораздо проще и позволяет не сталкиваться с багами вызванными сменой порядка фукций или рефакторинга.
+* Отсутствие необходимости в отслеживании порядка выполнения делает параллельное программирование гораздо проще и позволяет не сталкиваться с багами вызванными сменой порядка функций или рефакторинга.
 
 ## "Unhelpful" properties of mathematical functions | "Бесполезные" свойства математических функций ##
 
@@ -172,7 +172,7 @@ int add1(int input)
 
 > These properties are mirrored in the design of functional programming languages too. Let's look at each of these in turn.
 
-Данные свойства отражаются в дизайне функциональных языков программирования. Стоит рассмотреть их поотдельности.
+Данные свойства отражаются в дизайне функциональных языков программирования. Стоит рассмотреть их по отдельности.
 
 > **The input and output values are immutable**
 
@@ -192,7 +192,7 @@ int add1(int input)
 
 > As you can see from the diagrams, there is always exactly one input and one output for a mathematical function. This is true for functional programming languages as well, although it may not be obvious when you first use them. 
 
-Как видно из диаграм, для математической функции всегда существует только один ввод и только один вывод. Это также верно для функциональных языков программирования, хотя может быть неочевидным при первом использовании.
+Как видно из диаграмм, для математической функции всегда существует только один ввод и только один вывод. Это также верно для функциональных языков программирования, хотя может быть неочевидным при первом использовании.
 
 > That seems like a big annoyance. How can you do useful things without having functions with two (or more) parameters?
 
