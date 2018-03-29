@@ -160,7 +160,7 @@ let stackWith2 = push 2.0 stackWith1
 
 > With this simple function in place, we can easily define an operation that pushes a particular number onto the stack. 
 
-С помощью это простой функции, можно легко определить операцию помещающую определенное число в стек.
+С помощью этой простой функции, можно легко определить операцию помещающую определенное число в стек.
 
 ```fsharp
 let ONE stack = push 1.0 stack
@@ -185,7 +185,7 @@ let FIVE = push 5.0
 
 > While we're at it, let's define a function that creates an empty stack as well:
 
-Стоит так же определить функцию создающую пустой стек: 
+Стоит также определить функцию создающую пустой стек: 
 
 ```fsharp
 let EMPTY = StackContents []
@@ -223,7 +223,7 @@ let result312 = EMPTY |> THREE |> ONE |> TWO
 
 > That takes care of pushing onto the stack ? what about a `pop` function next?
 
-С помещением в стек разобрались, но что на счет функции `pop`?
+С помещением в стек разобрались, но что насчет функции `pop`?
 
 > When we pop the stack, we will return the top of the stack, obviously, but is that all?  
 
@@ -380,7 +380,7 @@ let binary mathFn stack =
 
 > *Note that in this implementation, I've switched to using ticks to represent changed states of the "same" object, rather than numeric suffixes. Numeric suffixes can easily get quite confusing.*
 
-_В данной реализации разные версии "одного" объекта помечены различным количеством одинарных ковычек. Это сделано потому, что числовые суффиксы как правило могут легко запутать._
+_В данной реализации разные версии "одного" объекта помечены различным количеством одинарных кавычек. Это сделано потому, что числовые суффиксы как правило могут легко запутать._
 
 > Question: why are the parameters in the order they are, instead of `mathFn` being after `stack`?
 
@@ -595,11 +595,11 @@ START |> THREE |> SQUARE |> SUM_NUMBERS_UPTO |> SHOW
 
 В каждом из этих примеров определяется новая функция составленная из других функций. Это хороший пример "комбинаторного" подхода к построению функциональности.
 
-## Pipes vs composition | Конвееры против композиции
+## Pipes vs composition | Конвейеры против композиции
 
 > We have now seen two different ways that this stack based model can be used; by piping or by composition. So what is the difference? And why would we prefer one way over another?
 
-Были показаны два различных способа использования данной основанной на стеке модели; при помощи конвееров и композиций. Но в чем разница? И почему надо предпочесть один из способов другому?
+Были показаны два различных способа использования данной основанной на стеке модели; при помощи конвейеров и композиций. Но в чем разница? И почему надо предпочесть один из способов другому?
 
 > The difference is that piping is, in a sense, a "realtime transformation" operation. When you use piping you are actually doing the operations right now, passing a particular stack around.
 

@@ -103,7 +103,7 @@ let stringLengthAsInt (x:string) :int = x.Length
 
 > We're indicating that the x param is a string and the return value is an int. 
 
-Мы указываем, что параметр `x` является строкой, а возврашаемое значение является int.
+Мы указываем, что параметр `x` является строкой, а возвращаемым значением является целое число.
 
 ## Function types as parameters | Типы функций как параметры ##
 
@@ -190,7 +190,7 @@ evalWith5ThenAdd2 times3float
 
 > Evaluating this will give an error:
 
-Попытка скопилировать вернет ошибку:
+Попытка скомпилировать вернет ошибку:
 
 ```fsharp
 error FS0001: Type mismatch. Expecting a int -> int but 
@@ -221,7 +221,7 @@ val adderGenerator : int -> (int -> int)
 
 > which means that the generator takes an `int`, and creates a function (the "adder") that maps `ints` to `ints`. Let's see how it works:
 
-говорящая, что генератор принимает `int` и создает функцию ("adder"), которая сопоставляет `ints` в `ints`. Псмотрим как это работает:
+говорящая, что генератор принимает `int` и создает функцию ("adder"), которая сопоставляет `ints` в `ints`. Посмотрим как это работает:
 
 ```fsharp
 let add1 = adderGenerator 1
@@ -263,7 +263,7 @@ let evalWith5ThenAdd2 fn = fn 5 +2
 
 > But what is the signature of "fn" in this following case?
 
-Но какова сигнатура "fn" в следующием случае?
+Но какова сигнатура "fn" в следующем случае?
 
 ```fsharp
 let evalWith5 fn = fn 5
@@ -271,7 +271,7 @@ let evalWith5 fn = fn 5
 
 > Obviously, "`fn`" is some kind of function that takes an int, but what does it return? The compiler can't tell. If you do want to specify the type of the function, you can add a type annotation for function parameters in the same way as for a primitive type.
 
-Понятно, что "`fn`" - разновидность функции, которая принимает `int`, но что она возврашает? Компилятор не может ответить на этот вопрос. В таких случаях, если возникает необходимость указать тип функции, можно добавить тип аннотации для параметров функций также как и для примитивных типов.
+Понятно, что "`fn`" - разновидность функции, которая принимает `int`, но что она возвращает? Компилятор не может ответить на этот вопрос. В таких случаях, если возникает необходимость указать тип функции, можно добавить тип аннотации для параметров функций также как и для примитивных типов.
 
 ```fsharp
 let evalWith5AsInt (fn:int->int) = fn 5
@@ -288,14 +288,14 @@ let evalWith5AsString fn :string = fn 5
 
 > Because the main function returns a string, the "`fn`" function is also constrained to return a string, so no explicit typing is required for "fn". 
 
-Т.к. основная функция возврашает `string`, функция "`fn`" также вынуждена возвращать `string`, таким образом не требуется явно типизировать "`fn`".
+Т.к. основная функция возвращает `string`, функция "`fn`" также вынуждена возвращать `string`, таким образом не требуется явно типизировать "`fn`".
 
 <a name="unit-type"></a>
 ## The "unit" type | Тип "unit" ##
 
 > When programming, we sometimes want a function to do something without returning a value. Consider the function "`printInt`", defined below. The function doesn't actually return anything. It just prints a string to the console as a side effect.
 
-В процессе программирования мы иногда хотим, чтобы функция делала что-то не возвраoая ничего. Рассмотрим функцию "`printInt`". Функция действительно ничего не возвращает. Она просто выводит строку на консоль как побочный эффект.
+В процессе программирования мы иногда хотим, чтобы функция делала что-то не возвращая ничего. Рассмотрим функцию "`printInt`". Функция действительно ничего не возвращает. Она просто выводит строку на консоль как побочный эффект.
 
 ```fsharp
 let printInt x = printf "x is %i" x        // print to console
@@ -315,7 +315,7 @@ val printInt : int -> unit
 
 > Well, even if a function returns no output, it still needs a range. There are no "void" functions in mathematics-land. Every function must have some output, because a function is a mapping, and a mapping has to have something to map to!
 
-Даже если функция не возврашает значений, она все еще нуждается в range. В мире математики не существует "void" функций. Каждая функция должна что-то возвращать, потому-что функция - это отображение, а отображение должно что-то отображать!
+Даже если функция не возвращает значений, она все еще нуждается в range. В мире математики не существует "void" функций. Каждая функция должна что-то возвращать, потому-что функция - это отображение, а отображение должно что-то отображать!
  
 ![](../assets/img/Functions_Unit.png)
  
@@ -406,13 +406,13 @@ val printHelloFn : unit -> unit
 
 > and to call it, we have to pass the `()` value as a parameter, like so:
 
-и чтобы вызвать ее, мы должны передать `()` в качестве парамерта:
+и чтобы вызвать ее, мы должны передать `()` в качестве параметра:
 
 ```fsharp
 printHelloFn ()
 ```
 
-### Forcing unit types with the ignore function | _Усиление unit типов с помошью ignore function_###
+### Forcing unit types with the ignore function | _Усиление unit типов с помощью функции ignore _###
 
 > In some cases the compiler requires a unit type and will complain. For example, both of the following will be compiler errors:
 
@@ -446,7 +446,7 @@ let something =
 
 > For example, the following function converts the parameter to a string and appends some text:
 
-Например, следующая функция ковертирует параметр в строку добавляя немного текста:
+Например, следующая функция конвертирует параметр в строку добавляя немного текста:
 
 ```fsharp
 let onAStick x = x.ToString() + " on a stick"
@@ -482,7 +482,7 @@ string OnAStick<TObject>();   // F#'s use of 'a is like
 
 > Here's the same function being used with an int, a float and a string
 
-Одна и таже функция используется для `int`, `float` и `string`.
+Одна и та же функция используется для `int`, `float` и `string`.
 
 ```fsharp
 onAStick 22
@@ -530,7 +530,7 @@ val isEqual : 'a -> 'a -> bool
 
 > The types discussed so far are just the basic types. These types can be combined in various ways to make much more complex types. A full discussion of these types will have to wait for [another series](../series/understanding-fsharp-types.md), but meanwhile, here is a brief introduction to them so that you can recognize them in function signatures.
 
-До сих пор обсуждались только базовые типы. Данные типы могут быть скомбинированны различными способами в более сложные типы. Полный их разбор будет позднее в [другой серии](../series/understanding-fsharp-types.md), но между тем, здесь кратко их разберем, так что бы можно было распознать их в сигнатуре функции.
+До сих пор обсуждались только базовые типы. Данные типы могут быть скомбинированы различными способами в более сложные типы. Полный их разбор будет позднее в [другой серии](../series/understanding-fsharp-types.md), но между тем, здесь кратко их разберем, так что бы можно было распознать их в сигнатуре функции.
 
 > * **The "tuple" types**. These are pairs, triples, etc., of other types. For example `("hello", 1)` is a tuple made from a string and an int. The comma is the distinguishing characteristic of a tuple -- if you see a comma in F#, it is almost certainly part of a tuple!
 
@@ -557,7 +557,7 @@ int []            // Array type e.g. [|1;2;3|]
 
 > * **The option type**. This is a simple wrapper for objects that might be missing. There are two cases: `Some` and `None`. In function signatures, they have their own "`option`" keyword:
 
-* **Option (опциональный тип)**. Это простая обертка над объектами, которые могут отстутвовать. Сушествует два варианта: `Some` и `None`. В сигнатурах функции они имеют свое свобственное ключевое слово "`option`":
+* **Option (опциональный тип)**. Это простая обертка над объектами, которые могут отсутствовать. Существует два варианта: `Some` и `None`. В сигнатурах функций они имеют свое собственное ключевое слово "`option`":
 
 ```fsharp
 int option        // Some(1)
@@ -567,7 +567,7 @@ int option        // Some(1)
 > * **The record type**. These are like structures or database rows, a list of named slots. We saw some examples of this in the ["why use F#?"](../series/why-use-fsharp.md) series as well. In function signatures, they are referred to by the name of the type, so again there is no special keyword.
 
 * **Размеченное объединение (discriminated union)**. Они построены из множества вариантов других типов. Мы видели некоторые примеры в ["why use F#?"](../series/why-use-fsharp.md). В сигнатурах функций на них ссылаются по имени типа, они не имеют специального ключевого слова.
-* **Record тип (записи)**. Подобные структурам или строкам баз данных, списки именнованных слотов. Мы также видели несколько примеров в ["why use F#?"](../series/why-use-fsharp.md). В сигнатурах функций они называются по имени типа, они также не имеют своего ключевого слова.
+* **Record тип (записи)**. Подобные структурам или строкам баз данных, списки именованных слотов. Мы также видели несколько примеров в ["why use F#?"](../series/why-use-fsharp.md). В сигнатурах функций они называются по имени типа, они также не имеют своего ключевого слова.
 
 ## Test your understanding of types | Проверьте свое понимание типов ##
 
