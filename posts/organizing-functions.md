@@ -20,7 +20,7 @@ categories: [Functions, Modules]
 > * at an application level, the top level functions are grouped into "modules".
 > * alternatively, you can also use the object-oriented approach and attach functions to types as methods.
 
-* функции могут быть вложенны в другие функции.
+* функции могут быть вложены в другие функции.
 * на уровне приложения, функции верхнего уровня группируются по "модулям".
 * в качестве альтернативы, можно придерживаться ООП и прикреплять функции к типам в качестве методов.
 
@@ -100,7 +100,7 @@ sumNumbersUpTo 10
 > A badly nested function will be just as confusing as the worst kind of deeply nested imperative branching.
 
 Старайтесь избегать глубокой вложенности, особенно в случаях прямого доступа (не в виле параметров) к родительским переменным.
-Плохо вложенные функции будут столь же сложны для понимания, как худшие виды глубоких вложенных императивных ветлений.
+Плохо вложенные функции будут столь же сложны для понимания, как худшие виды глубоких вложенных императивных ветвлений.
 
 > Here's how *not* to do it:
 
@@ -172,7 +172,7 @@ static class MathStuff
 > If you realize that modules are just static classes, and that functions are static methods, then you will already have a head-start on understanding how modules work in F#,
 > as most of the rules that apply to static classes also apply to modules.
 
-Осознание того, что модули являются всего-лишь статическими классами, а функции являются статическими методами, даст хорошее понимание того, как модули работают в F#, большинтсво правил применимых к статическим классам также применими и к модулям.
+Осознание того, что модули являются всего-лишь статическими классами, а функции являются статическими методами, даст хорошее понимание того, как модули работают в F#, большинство правил применимых к статическим классам также применимо и к модулям.
 
 > And, just as in C# every standalone function must be part of a class, in F# every standalone function *must* be part of a module.
 
@@ -254,7 +254,7 @@ module OtherStuff =
 > So if there can be nested child modules, that implies that, going back up the chain, there must always be some *top-level* parent module.  This is indeed true.
 
 // TODO: Разобраться с термином.
-Таким образом, могут сущестовать дочерние модули, это означает, что идя назад по цепочке можно дойти до некоего родительского модуля высшего порядка. Это действительно так.
+Таким образом, могут существовать дочерние модули, это означает, что идя назад по цепочке можно дойти до некоего родительского модуля высшего порядка. Это действительно так.
 
 > Top level modules are defined slightly differently than the modules we have seen so far. 
 
@@ -271,7 +271,7 @@ module OtherStuff =
 > In general, there must be a top level module declaration present in every `.FS` source file. There some exceptions, but it is good practice anyway.
 The module name does not have to be the same as the name of the file, but two files cannot share the same module name.
 
-В обшем случае, должна существовать декларация верхнего уровня в каждом исходном `.FS` файле. Есть исключения, но это хорошая практика в любом случае. Имя модуля не обязанно совпадать с именем файла, но два файла не могут содержать модули с одинаковыми именнами.
+В общем случае, должна существовать декларация верхнего уровня в каждом исходном `.FS` файле. Есть исключения, но это хорошая практика в любом случае. Имя модуля не обязано совпадать с именем файла, но два файла не могут содержать модули с одинаковыми именами.
 
 > For `.FSX` script files, the module declaration is not needed, in which case the module name is automatically set to the filename of the script.
 
@@ -377,7 +377,7 @@ let result = add 1 2  // Compiler error: This expression was expected to
 
 > If you don't want this to happen, there is a way to stop it by using the `RequireQualifiedAccess` attribute. Here's the same example where both modules are decorated with it.
 
-Если требуется избежать данного поведения, существует способ пресечь его при помощи атрибута `RequireQualifiedAccess`. Тот же пример у когорого оба модуля декорированны данными атрибутом:
+Если требуется избежать данного поведения, существует способ пресечь его при помощи атрибута `RequireQualifiedAccess`. Тот же пример у которого оба модуля декорированы данными атрибутом:
 
 ```fsharp
 [<RequireQualifiedAccess>]
@@ -423,7 +423,7 @@ F# поддерживает использование стандартных .N
 > * These access specifiers can be put on the top-level ("let bound") functions, values, types and other declarations in a module. They can also be specified for the modules themselves (you might want a private nested module, for example).
 > * Everything is public by default (with a few exceptions) so you will need to use `private` or `internal` if you want to protect them.
 
-* Эти спецификаторы доступа могут быть применены к ("let bound") функциям верхнего уровня, значениям, типам и другим декларациям в модуле. Они таже могут быть указаны для самих модулей (например может понадобиться приватный вложенный модуль).
+* Эти спецификаторы доступа могут быть применены к ("let bound") функциям верхнего уровня, значениям, типам и другим декларациям в модуле. Они также могут быть указаны для самих модулей (например может понадобиться приватный вложенный модуль).
 * По умолчанию все имеет публичный доступ (за исключением нескольких случаев), поэтому для их защиты потребуется использовать `private` или `internal`.
 
 > These access specifiers are just one way of doing access control in F#. Another completely different way is to use module "signature" files, which are a bit like C header files. They describe the content of the module in an abstract way. Signatures are very useful for doing serious encapsulation, but that discussion will have to wait for the planned series on encapsulation and capability based security.
@@ -461,7 +461,7 @@ module MathStuff =
 
 > You can also declare a namespace implicitly by adding dots to the module name. That is, the code above could also be written as:
 
-Также можно объявлять пространтсво имен явно при помощи добавления точки в имени модуля. Т.е. код выше можно переписать так:
+Также можно объявлять пространство имен явно при помощи добавления точки в имени модуля. Т.е. код выше можно переписать так:
 
 ```fsharp
 module Utilities.MathStuff  
@@ -505,7 +505,7 @@ module MathStuff =
 
 > And if you want to put *two* namespaces in the same file, you can. Note that all namespaces *must* be fully qualified -- there is no nesting.
 
-Можно объявить *два* пространтсва имен в одном файле, если есть такое желание. Следует обратить внимание, что все пространства имен *должны* быть объявлены полным именем -- они не поддержимают вложенность.
+Можно объявить *два* пространства имен в одном файле, если есть такое желание. Следует обратить внимание, что все пространства имен *должны* быть объявлены полным именем -- они не поддерживают вложенность.
 
 ```fsharp
 namespace Core.Utilities
@@ -521,7 +521,7 @@ module MoreMathStuff =
 
 > One thing you can't do is have a naming collision between a namespace and a module.
 
-Конфликт имен можду пространством имен и модулем невозможнен.
+Конфликт имен между пространством имен и модулем невозможен.
 
 ```fsharp
 namespace Core.Utilities
@@ -539,11 +539,11 @@ module Utilities =
 ```
 
 
-## Mixing types and functions in modules | Смешивание типов и функий в модулях ##
+## Mixing types and functions in modules | Смешивание типов и функций в модулях ##
 
 > We've seen that a module typically consists of a set of related functions that act on a data type.  
 
-Как мы видели ранее, модули обычно состоят из множестов взаимозависимых функций, которые взаимодействуют с определенным типом данных.
+Как мы видели ранее, модули обычно состоят из множества взаимозависимых функций, которые взаимодействуют с определенным типом данных.
 
 > In an object oriented program, the data structure and the functions that act on it would be combined in a class.
 > However in functional-style F#, a data structure and the functions that act on it are combined in a module instead.
@@ -625,7 +625,7 @@ Customer.isValid customer |> printfn "Is valid?=%b"
 > * The former approach is more .NET like, and much better if you want to share your libraries with other non-F# code, as the exported class names are what you would expect.
 > * The latter approach is more common for those used to other functional languages. The type inside a module compiles into nested classes, which is not so nice for interop.  
 
-* Первый подход польше похож на классический .NET, и его следует предпочесть, если планируется использовать данную библиотеку для кода за пределами F#, где ожидают отдельно существующий класс.
+* Первый подход больше похож на классический .NET, и его следует предпочесть, если планируется использовать данную библиотеку для кода за пределами F#, где ожидают отдельно существующий класс.
 * Второй подход является более распространенным в других функциональных языках. Тип внутри модуля компилируется как вложенный класс, что как правило не очень удобно для ООП языков.
 
 > For yourself, you might want to experiment with both. And in a team programming situation, you should choose one style and be consistent. 

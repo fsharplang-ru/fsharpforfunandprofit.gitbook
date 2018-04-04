@@ -10,7 +10,7 @@ seriesOrder: 11
 > Although we have focused on the pure functional style so far, sometimes it is convenient to switch to an object oriented style.
 And one of the key features of the OO style is the ability to attach functions to a class and "dot into" the class to get the desired behavior.
 
-Хотя до этого повествование было сосредосточено на чисто функциональном стиле, иногда удобно переключится на объектно ориентированный стиль. И одной из ключевых особенностей ОО стиля является возможность прикреплять функции к классу и обращение к классу через точку для получение желаемого поведения.
+Хотя до этого повествование было сосредоточено на чисто функциональном стиле, иногда удобно переключится на объектно ориентированный стиль. И одной из ключевых особенностей ОО стиля является возможность прикреплять функции к классу и обращение к классу через точку для получение желаемого поведения.
 
 > In F#, this is done using a feature called "type extensions".  And any F# type, not just classes, can have functions attached to them.
 
@@ -47,9 +47,8 @@ There is no requirement to use a particular word, just as long as it is consiste
 
 * Ключевое слово `with` обозначает начало списка членов
 * Ключевое слово `member` показывает, что эта функция является членом (т.е. методом)
-* Слово `this` является меткой объекта, на котором вызывается данный метод (называемая также "self-identifier"). Данное слово является префиксом имени функции, и внутри функции можно использовать ее для обращения к текущему экземляру. Не сушествует требований к словам использумым в качестве самоидентификатора, достаточно чтобы они были устойчивы. Можно использовать `this`, `self`, `me` или любое другое слово, которое обычно используется как отсылка на самого себя.
+* Слово `this` является меткой объекта, на котором вызывается данный метод (называемая также "self-identifier"). Данное слово является префиксом имени функции, и внутри функции можно использовать ее для обращения к текущему экземпляру. Не существует требований к словам используемым в качестве самоидентификатора, достаточно чтобы они были устойчивы. Можно использовать `this`, `self`, `me` или любое другое слово, которое обычно используется как отсылка на самого себя.
 
-> You don't have to add a member at the same time that you declare the type, you can always add it later in the same module:
 
 Нет нужды добавлять член вместе с декларацией типа, всегда можно добавить его позднее в том же модуле:
 
@@ -82,7 +81,7 @@ let sortableName = person.SortableName
 > With intrinsic extensions, it is even possible to have a type definition that divided across several files, as long as all the components use the same namespace and are all compiled into the same assembly.
 Just as with partial classes in C#, this can be useful to separate generated code from authored code.
 
-Внутренние расширения позволяют иметь определение типа распределенное по нескольким файлам, пока все компоненты используют одно и то же пространство имен и компилируются в одну сборку. Так же как и с partial классами в C#, это может быть полезным для разделения сгенерированного и написанного в ручную кода.
+Внутренние расширения позволяют иметь определение типа распределенное по нескольким файлам, пока все компоненты используют одно и то же пространство имен и компилируются в одну сборку. Так же как и с partial классами в C#, это может быть полезным для разделения сгенерированного и написанного вручную кода.
 
 ## Optional extensions | Опциональные расширения
 
@@ -234,12 +233,12 @@ let pi = System.Double.Pi
 > * While developing, you can create standalone functions that refer to other standalone functions. This makes programming easier because type inference works much better with functional-style code than with OO-style ("dotting into") code.
 > * But for certain key functions, you can attach them to the type as well. This gives clients the choice of whether to use functional or object-oriented style.
 
-* Во время разработки, можно объявдять самостоятельные функции, которые ссылаются на другие самостоятельные функции. Это упростит разработку, т.к. вывод типов работает гораздо лучше с функциональным стилем нежели с ООП.
-* Но некоторые ключевые функции можно прикрепить к типу. Что позволит пользователям выбрать, какой из стилей использовать, функциональный или объекто-ориентированный.
+* Во время разработки, можно объявлять самостоятельные функции, которые ссылаются на другие самостоятельные функции. Это упростит разработку, т.к. вывод типов работает гораздо лучше с функциональным стилем нежели с ООП.
+* Но некоторые ключевые функции можно прикрепить к типу. Что позволит пользователям выбрать, какой из стилей использовать, функциональный или объектно-ориентированный.
 
 > One example of this in the F# libraries is the function that calculates a list's length. It is available as a standalone function in the `List` module, but also as a method on a list instance.
 
-Примером подобного решения является функция из F# библиотеки, которая расчитывает длину списка. Можно использовать самостоятельную функцию из модуля `List` или вызывать ее как метод экземпляра.
+Примером подобного решения является функция из F# библиотеки, которая рассчитывает длину списка. Можно использовать самостоятельную функцию из модуля `List` или вызывать ее как метод экземпляра.
 
 ```fsharp
 let list = [1..10]
@@ -286,11 +285,11 @@ let fullname2 = person.FullName        // OO style
 
 > One nice thing is that when the previously defined function has multiple parameters, you don't have to respecify them all when doing the attachment, as long as the `this` parameter is first.
 
-Еще одной приятной особенностью является то, что можно сначала определить мультипараметрическую функцию, в которой текущий тип передается в качестве первого параметра, после чего при создании прикрепления не потребуется упоминать все множество параметров, ограничевшись `this`.
+Еще одной приятной особенностью является то, что можно сначала определить мультипараметрическую функцию, в которой текущий тип передается в качестве первого параметра, после чего при создании прикрепления не потребуется упоминать все множество параметров, ограничившись `this`.
 
 > In the example below, the `hasSameFirstAndLastName` function has three parameters. Yet when we attach it, we only need to specify one! 
 
-В примере ниже функция `hasSameFirstAndLastName` имеет три параметра. Однако при прикреплении достаточно упоминуть всего лишь один!
+В примере ниже функция `hasSameFirstAndLastName` имеет три параметра. Однако при прикреплении достаточно упомянуть всего лишь один!
 
 ```fsharp
 module Person = 
@@ -335,7 +334,7 @@ let result2 = person.HasSameFirstAndLastName "bob" "smith" // OO style
 
 > The "curried" form is more functional, and the "tuple" form is more object-oriented.
 
-Каррированая форма более функциональна, в то время как кортежная форма более объектно-ориентированна.
+Каррированая форма более функциональная, в то время как кортежная форма более объектно-ориентированная.
 
 > The tuple form is also how F# interacts with the standard .NET libraries, so let's examine this approach in more detail.
 
@@ -391,15 +390,15 @@ let totalForDifferentDiscounts
 > * Optional parameters
 > * Overloading
 
-* Именнованные параметры
+* Именованные параметры
 * Необязательные параметры
 * Перегрузки
 
-### Named parameters with tuple-style parameters | Именнованные параметры с параметрами в кортежном стиле
+### Named parameters with tuple-style parameters | Именованные параметры с параметрами в кортежном стиле
 
 > The tuple-style approach supports named parameters:
 
-Кортежний подход поддерживает именнованные параметры:
+Кортежний подход поддерживает именованные параметры:
 
 ```fsharp
 let product = {SKU="ABC"; Price=2.0}
@@ -518,7 +517,7 @@ type Product = {SKU:string; Price: float} with
 > Normally, the F# compiler would complain that there are two methods with the same name, but in this case, because they are tuple based and because their signatures are different, it is acceptable.
 > (To make it obvious which one is being called, I have added a small debugging message.)
 
-Обычно, компилятор F# жалуется, что существует два метода с одинаковым именем, но в данном случае это приемлимо, т.к. они объявлены в кортежной нотации и их сигнатуры различаются. (Чтобы было понятно, какой из методов вызывается, я добавил небольшое сообщения для отладки.)
+Обычно, компилятор F# жалуется, что существует два метода с одинаковым именем, но в данном случае это приемлемо, т.к. они объявлены в кортежной нотации и их сигнатуры различаются. (Чтобы было понятно, какой из методов вызывается, я добавил небольшое сообщения для отладки.)
 
 > And here's a test:
 
@@ -583,7 +582,7 @@ module Person =
 
 > Now let's see how well each one works with type inference.  Say that I want to print the full name of a person, so I will define a function `printFullName` that takes a person as a parameter.
 
-Теперь, посмотрим как хорошо вывод типов работает с каждым из них. Пусть я хочу вывести полное имя человека, тогда я определю функцию `printFullName`, которая берет `person` в качетсве параметра.
+Теперь, посмотрим как хорошо вывод типов работает с каждым из них. Пусть я хочу вывести полное имя человека, тогда я определю функцию `printFullName`, которая берет `person` в качестве параметра.
 
 > Here's the code using the module level standalone function.
 
@@ -602,7 +601,7 @@ let printFullName person =
 
 > This compiles without problems, and the type inference has correctly deduced that parameter was a person
 
-Компилируется без пробелм, а вывод типов корректно идентифицирует параметр как `Person`.
+Компилируется без проблем, а вывод типов корректно идентифицирует параметр как `Person`.
 
 > Now let's try the "dotted" version:
 
@@ -669,4 +668,4 @@ list |> List.map (fun p -> p.FullName)
 > So, a plea for those of you new to functionally programming. Don't use methods at all if you can, especially when you are learning.
 > They are a crutch that will stop you getting the full benefit from functional programming.
 
-Поэтому, призываю вас, если вы новичок в функциональном программированию. Если можете, не используйте методы, особенно в процессе обучения. Они будут костылем который не позволит получить от функционального программирования полную выгоду.
+Поэтому, призываю вас, если вы новичок в функциональном программировании. Если можете, не используйте методы, особенно в процессе обучения. Они будут костылем который не позволит получить от функционального программирования полную выгоду.

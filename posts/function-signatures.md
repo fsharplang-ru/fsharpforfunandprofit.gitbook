@@ -25,7 +25,7 @@ int * string // a type expression
 
 > Type expressions have a special syntax that is *different* from the syntax used in normal expressions. You have already seen many examples of this when you use the interactive session, because the type of each expression has been printed along with its evaluation. 
 
-Выражения типов имеют специальный синтаксис, который *отличается* от синтаксиса используемого в обычных выражениях. Вы уже видели множество примеров, где использовалася интерактивная сессия, потому что тип каждого выражения выводился вместе с результатом выполнения.
+Выражения типов имеют специальный синтаксис, который *отличается* от синтаксиса используемого в обычных выражениях. Вы уже видели множество примеров, где использовалась интерактивная сессия, потому что тип каждого выражения выводился вместе с результатом выполнения.
 
 > As you know, F# uses type inference to deduce types, so you don't often need to explicitly specify types in your code, especially for functions. But in order to work effectively in F#, you *do* need to understand the type syntax, so that you can build your own types, debug type errors, and understand function signatures. In this post, we'll focus on its use in function signatures.
 
@@ -104,7 +104,7 @@ int -> (unit -> string)
 
 > This function takes two parameters: the first is a function that maps something to a bool (a predicate), and the second is a list. The return value is a list of the same type. Predicates are used to determine whether a value meets some sort of criteria, so it looks like the function is choosing elements from the list based on whether the predicate is true or not and then returning a subset of the original list. A typical function with this signature is `List.filter`.
 
-Эта функция принимает два параметра: первый - функция которая преобразует что-либо в `bool` (предикат), а второй - список. Возвращаемое значения является списком того же типа. Предикаты используют, чтобы определить, соответствует ли определенный объект какому-либо критерию, похоже, что данная функция выбирает элементы из списка на основе того, принимает ли предикат значение истинны или нет, после чего возвращает подмножество исходного списка. Типичной функцией с подобной сигнатурой является `List.filter`.
+Эта функция принимает два параметра: первый - функция которая преобразует что-либо в `bool` (предикат), а второй - список. Возвращаемое значение является списком того же типа. Предикаты используют, чтобы определить, соответствует ли определенный объект какому-либо критерию, похоже, что данная функция выбирает элементы из списка на основе того, принимает ли предикат значение истинны или нет, после чего возвращает подмножество исходного списка. Типичной функцией с подобной сигнатурой является `List.filter`.
 
 ```fsharp
 // function signature 7
@@ -113,13 +113,13 @@ int -> (unit -> string)
 
 > This function takes two parameters: the first maps type `'a` to type `'b`, and the second is a list of `'a`. The return value is a list of a different type `'b`. A reasonable guess is that the function takes each of the `'a`s in the list, maps them to a `'b` using the function passed in as the first parameter, and returns the new list of `'b`s. And indeed, the prototypical function with this signature is `List.map`.
 
-Функция принимает два парамерта: первый - преобразует тип `'a` в тип `'b`, а второй - список типа `'a`. Возвращаемое значение является списком другого типа `'b`. Разумно будет предположить, что функция берет каждый элемент из списка `'a`, и преобразует их в `'b` используя функцию переданную в качестве первого параметра, после чего возвращает список `'b`. И действительно, `List.map` является прообразом функции с такой сигнатурой.
+Функция принимает два параметра: первый - преобразует тип `'a` в тип `'b`, а второй - список типа `'a`. Возвращаемое значение является списком другого типа `'b`. Разумно будет предположить, что функция берет каждый элемент из списка `'a`, и преобразует их в `'b` используя функцию переданную в качестве первого параметра, после чего возвращает список `'b`. И действительно, `List.map` является прообразом функции с такой сигнатурой.
 
 ### Using function signatures to find a library method | Поиск библиотечных методов при помощи сигнатуры функции ###
 
 > Function signatures are an important part of searching for library functions. The F# libraries have hundreds of functions in them and they can initially be overwhelming.  Unlike an object oriented language, you cannot simply "dot into" an object to find all the appropriate methods. However, if you know the signature of the function you are looking for, you can often narrow down the list of candidates quickly.
 
-Сигнатуры функций важная часть поиска библиотечных функций. Библиотеки F# содержат сотни функций, что вначале может быть ошеломляющим. В отличии от объектно ориентированных языков, вы не можете просто "войти в объект" через точку, чтобы найти все связанные методы. Однако, если вы знаете сигнатуру функции, которую желаете найти, вы зачастую можете быстро сузить список кандидатов.
+Сигнатуры функций важная часть поиска библиотечных функций. Библиотеки F# содержат сотни функций, что вначале может быть ошеломляющим. В отличие от объектно ориентированных языков, вы не можете просто "войти в объект" через точку, чтобы найти все связанные методы. Однако, если вы знаете сигнатуру функции, которую желаете найти, вы зачастую можете быстро сузить список кандидатов.
 
 > For example, let's say you have two lists and you are looking for a function to combine them into one. What would the signature be for this function? It would take two list parameters and return a third, all of the same type, giving the signature:
 

@@ -21,11 +21,11 @@ let add x y = x + y
 
 В этой статье мы рассмотрим некоторые другие способы создания функций, а также советы по их определению.
 
-## Anonymous functions (a.k.a. lambdas) | Анонимные функцие (лямбды) ##
+## Anonymous functions (a.k.a. lambdas) | Анонимные функции (лямбды) ##
 
 > If you are familiar with lambdas in other languages, this will not be new to you. An anonymous function (or "lambda expression") is defined using the form:
 
-Если вы знакомы с лямбдами в других языках, эта темя не станет новой. Анонимные функции (или "лямбда выражения") опредеяются посредство следующей формы:
+Если вы знакомы с лямбдами в других языках, эта тема не станет новой. Анонимные функции (или "лямбда выражения") определяются посредством следующей формы:
 
 ```fsharp
 fun parameter1 parameter2 etc -> expression
@@ -38,7 +38,7 @@ fun parameter1 parameter2 etc -> expression
 > * the lambda must have the special keyword `fun`, which is not needed in the C# version
 > * the arrow symbol is a single arrow `->` rather than the double arrow (`=>`) in C#.
 
-* лямбды должны иметь специальное ключенове слово `fun`, которое отстутствует в C#
+* лямбды должны иметь специальное ключевое слово `fun`, которое отсутствует в C#
 * используется одинарная стрелка `->`, вместо двойной `=>` из C#.
 
 > Here is a lambda that defines addition:
@@ -51,7 +51,7 @@ let add = fun x y -> x + y
 
 > This is exactly the same as a more conventional function definition:
 
-Таже функция в традиционной форме:
+Та же функция в традиционной форме:
 
 ```fsharp
 let add x y = x + y
@@ -88,7 +88,7 @@ let adderGenerator x = fun y -> x + y
 
 > The lambda version is slightly longer, but makes it clear that an intermediate function is being returned.
 
-Лямбда версия немного длиньше, но позволяет сразу понять, что будет возвращена промежуточная функция.
+Лямбда версия немного длиннее, но позволяет сразу понять, что будет возвращена промежуточная функция.
 
 > You can nest lambdas as well. Here is yet another definition of `adderGenerator`, this time using lambdas only. 
 
@@ -142,7 +142,7 @@ f2 bob
 
 > This kind of matching can only occur when the matching is always possible. For example, you cannot match on union types or lists this way, because some cases might not be matched.
 
-Данный вид сопоставления может присходить только тогда, когда соответсвие всегда разрешимо. Например, нельзя подобным способом матчить типы объединения и списки, потому-что некоторые случаи не могут быть сопоставлены.
+Данный вид сопоставления может происходить только тогда, когда соответствие всегда разрешимо. Например, нельзя подобным способом матчить типы объединения и списки, потому-что некоторые случаи не могут быть сопоставлены.
 
 ```fsharp
 let f3 (x::xs) =            // use pattern matching on a list
@@ -159,7 +159,7 @@ let f3 (x::xs) =            // use pattern matching on a list
 
 > If you come from a C-like language, a tuple used as a single function parameter can look awfully like multiple parameters. They are not the same thing at all!   As I noted earlier, if you see a comma, it is probably part of a tuple. Parameters are separated by spaces.
 
-Если вы пришли из C-подобного языка, кортежи использованные в качестве однопараметрической функции может выглядеть так же ужасно как и мултипараметрическая функция. Но это не одно и то же! Как я отметил ранее, если вы видете запятую, скорее всего это кортеж. Параметры же разделяются посредством запятой.
+Если вы пришли из C-подобного языка, кортежи использованные в качестве однопараметрической функции может выглядеть так же ужасно как и мультипараметрическая функция. Но это не одно и то же! Как я отметил ранее, если вы видите запятую, скорее всего это кортеж. Параметры же разделяются посредством запятой.
 
 > Here is an example of the confusion:
 
@@ -253,7 +253,7 @@ addConfusingTuple 1 2    // error trying to pass two args
 
 > The discussion of the issues with tuples above shows that there's another way to define functions with more than one parameter: rather than passing them in separately, all the parameters can be combined into a single composite data structure. In the example below, the function takes a single parameter, which is a tuple containing three items. 
 
-Обсуждение кортежей выше показывает, что существует другой способ опредления функций со множеством параметров: вместо передачи их по отдельности, все параметры могут быть собраны в виде одной структуры. В примере ниже, функция принимает один параметр, который является кортежем из трех элментов.
+Обсуждение кортежей выше показывает, что существует другой способ определения функций со множеством параметров: вместо передачи их по отдельности, все параметры могут быть собраны в виде одной структуры. В примере ниже, функция принимает один параметр, который является кортежем из трех элементов.
 
 ```fsharp
 let f (x,y,z) = x + y * z
@@ -265,7 +265,7 @@ f (1,2,3)
 
 > Note that the function signature is different from a true three parameter function. There is only one arrow, so only one parameter, and the stars indicate that this is a tuple of `(int*int*int)`. 
 
-Следует обратить внимание, что сигнатура отличается от сигнутуры функции с тремя параметрами. Здесь только одна стрелка, один параметр и звездочки указывающие на кортеж `(int*int*int)`.
+Следует обратить внимание, что сигнатура отличается от сигнатуры функции с тремя параметрами. Здесь только одна стрелка, один параметр и звездочки указывающие на кортеж `(int*int*int)`.
 
 > When would we want to use tuple parameters instead of individual ones?  
 
@@ -275,7 +275,7 @@ f (1,2,3)
 > * Tuples are occasionally used to bundle data together in a single structure that should be kept together. For example, the `TryParse` functions in .NET library return the result and a Boolean as a tuple.  But if you have a lot of data that is kept together as a bundle, then you will probably want to define a record or class type to store it.
 
 * Когда кортежи значимы сами по себе. Например, если производятся операции над трехмерными координатами, тройные кортежи могут быть более удобными чем три отдельных измерения.
-* Кортежи иногда используются, чтобы объеденить данные в единую структуру, которая должна сохраняться вместе. Например, `TryParse` методы из .NET библиотеки возвращают результат и булевую переменную в виде кортежа. Но если имеется достаточно большой объем данных передаваемых в связке, скорее всего он будет опредлен в виде записи или класса.
+* Кортежи иногда используются, чтобы объединить данные в единую структуру, которая должна сохраняться вместе. Например, `TryParse` методы из .NET библиотеки возвращают результат и булевую переменную в виде кортежа. Но если имеется достаточно большой объем данных передаваемых в связке, скорее всего он будет определен в виде записи или класса.
 
 ### A special case: tuples and .NET library functions | Особые случай: кортежи и функции .NET библиотеки ###
 
@@ -297,11 +297,11 @@ System.String.Compare "a" "b"
 
 > The reason is that .NET library functions are not curried and cannot be partially applied. *All* the parameters must *always* be passed in, and using a tuple-like approach is the obvious way to do this.
 
-Причина этого кроется в том, что функции классического .NET не каррируемы и не могут быть частично применены. _Все_ парамерты _всегда_ должны быть передаваться сразу, и использование кортеже-подобной передачи самый очевидный способ сделать это.
+Причина этого кроется в том, что функции классического .NET не каррируемы и не могут быть частично применены. _Все_ параметры _всегда_ должны быть передаваться сразу, и использование кортеже-подобной передачи самый очевидный способ сделать это.
 
 > But do note that although these calls look like tuples, they are actually a special case. Real tuples cannot be used, so the following code is invalid:
 
-Однако следует заметить, что данные вызовы лишь выглядят как передачи кортежей, на самом деле это особы случай. В действительности кортежи не могут быть использованы, и следующий код невалиден:
+Однако следует заметить, что данные вызовы лишь выглядят как передачи кортежей, на самом деле это особый случай. В действительности кортежи не могут быть использованы, и следующий код невалиден:
 
 ```fsharp
 let tuple = ("a","b")
@@ -378,7 +378,7 @@ let setCustomerName myCredentials aName = //good
 
 > Finally, do be sure to order the parameters appropriately to assist with partial application (see the guidelines in the earlier [post](../posts/partial-application.md)). For example, in the last function above, why did I put the `myCredentials` parameter ahead of the `aName` parameter?
 
-Нанонец, убедитесь, что порядок параметров поможет в частичном применении (смотрите руководство [здесь](../posts/partial-application.md)). Например, в почему я поместил `myCredentials` перед `aName` в последней функции?
+Наконец, убедитесь, что порядок параметров поможет в частичном применении (смотрите руководство [здесь](../posts/partial-application.md)). Например, в почему я поместил `myCredentials` перед `aName` в последней функции?
 
 ## Parameter-less functions | Функции без параметров ##
 
@@ -455,7 +455,7 @@ let result = (.*%) 2 3
 
 > If the function has exactly two parameters, you can use it as an infix operator without parentheses.
 
-Если фунция используется с двумя параметрами, можно использовать инфиксную операторную запись без скобок.
+Если функция используется с двумя параметрами, можно использовать инфиксную операторную запись без скобок.
 
 ```fsharp
 let result = 2 .*% 3
@@ -474,7 +474,7 @@ let result = %% "hello"
 
 > In F# it is quite common to create your own operators, and many libraries will export operators with names such as `>=>` and `<*>`.
 
-В F# определние операторов достаточно частая операция, и многие библиотеки будут экспортировать операторы с именами типа `>=>`и `<*>`.
+В F# определение операторов достаточно частая операция, и многие библиотеки будут экспортировать операторы с именами типа `>=>`и `<*>`.
 
 ## Point-free style | Point-free стиль ##
 
@@ -507,7 +507,7 @@ let sum = List.reduce (+)                            // point free
 
 > Point-free helps to clarify the underlying algorithm and reveal commonalities between code -- the "`reduce`" function used above is a good example of this -- it will be discussed in a planned series on list processing.
 
-Безточечный стиль позволяет сосредоточиться на базовом алгоритме и выявить общие черты в коде. "`reduce`" функция использованная выше является хорошим примером. Эта тема будет обсуждаться в запланированной серии по обработке списков.
+Бесточечный стиль позволяет сосредоточиться на базовом алгоритме и выявить общие черты в коде. "`reduce`" функция использованная выше является хорошим примером. Эта тема будет обсуждаться в запланированной серии по обработке списков.
 
 > On the other hand, too much point-free style can make for confusing code. Explicit parameters can act as a form of documentation, and their names (such as "list") make it clear what the function is acting on. 
 
@@ -550,7 +550,7 @@ let (<<) g f x = g (f x)       // reverse composition
 
 > To read more about combinators and combinatory logic, I recommend the book "To Mock a Mockingbird" by Raymond Smullyan.  In it, he describes many other combinators and whimsically gives them names of birds.  Here are some examples of some standard combinators and their bird names:
 
-Чтобы узнать больше о комбинаторах и комбинаторной логики, я рекомендую книгу "To Mock a Mockingbird" Raymond-а Smullyan-а. В ней он объясняет другие комбинаторы и причудливо дает им названия птиц. Вот несколько примеров стандартных комбинаторов и их птичъих имен:
+Чтобы узнать больше о комбинаторах и комбинаторной логики, я рекомендую книгу "To Mock a Mockingbird" Raymond-а Smullyan-а. В ней он объясняет другие комбинаторы и причудливо дает им названия птиц. Вот несколько примеров стандартных комбинаторов и их птичьих имен:
 
 ```fsharp
 let I x = x                // identity function, or the Idiot bird
@@ -573,13 +573,13 @@ let rec Y f x = f (Y f) x  // Y-combinator, or Sage bird
 
 > Indeed, there is a well-known theorem that states that any computable function whatsoever can be built from just two basic combinators, the Kestrel and the Starling. 
 
-На самом деле, существует широко известная теорема, что любая вычислимая функция может быть построена при помощи лишь двух бызовых комбинаторов, Kestrel-а и Starling-а.
+На самом деле, существует широко известная теорема, что любая вычислимая функция может быть построена при помощи лишь двух базовых комбинаторов, Kestrel-а и Starling-а.
 
 ### Combinator libraries | Библиотеки комбинаторов ###
 
 > A combinator library is a code library that exports a set of combinator functions that are designed to work together. The user of the library can then easily combine simple functions together to make bigger and more complex functions, like building with Lego.  
 
-Библиотеки кобинаторов - это библиотеки которые экспортируют множество комбинаторных функций, которые раработаны с учетом их совместного использования. Пользователь подобной библиотеки может легко комбинировать функции вместе, чтобы получить еще большие и сложные функции, как кубики лего.
+Библиотеки комбинаторов - это библиотеки которые экспортируют множество комбинаторных функций, которые разработаны с учетом их совместного использования. Пользователь подобной библиотеки может легко комбинировать функции вместе, чтобы получить еще большие и сложные функции, как кубики легко.
 
 > A well designed combinator library allows you to focus on the high level operations, and push the low level "noise" to the background. We've already seen some examples of this power in the examples in ["why use F#"](../series/why-use-fsharp.md) series, and the `List` module is full of them -- the "`fold`" and "`map`" functions are also combinators, if you think about it.
 
@@ -587,7 +587,7 @@ let rec Y f x = f (Y f) x  // Y-combinator, or Sage bird
 
 > Another advantage of combinators is that they are the safest type of function. As they have no dependency on the outside world they cannot change if the global environment changes.  A function that reads a global value or uses a library function can break or alter between calls if the context is different. This can never happen with combinators. 
 
-Другое преимущество комбинаторов - они являются самым безопасныи типом функций. Т.к. они не имеют зависимостей от внешнего мира, они не могут изменяться, при изменении глобальной среды. Функция которая читает глобальное значение или использует библиотченые функции, может сломаться или измениться между вызовами если контекст изменится. Этого никогда не произойдет с комбинаторами.
+Другое преимущество комбинаторов - они являются самым безопасным типом функций. Т.к. они не имеют зависимостей от внешнего мира, они не могут изменяться, при изменении глобальной среды. Функция которая читает глобальное значение или использует библиотечные функции, может сломаться или измениться между вызовами если контекст изменится. Этого никогда не произойдет с комбинаторами.
 
 > In F#, combinator libraries are available for parsing (the FParsec library), HTML construction, testing frameworks, and more.  We'll discuss and use combinators further in later series.
 
@@ -597,7 +597,7 @@ let rec Y f x = f (Y f) x  // Y-combinator, or Sage bird
 
 > Often, a function will need to refer to itself in its body.  The classic example is the Fibonacci function:
 
-Часто функции необходимо ссылаться на саму себя из ее тела. Классический пример - функция Фибоначи.
+Часто функции необходимо ссылаться на саму себя из ее тела. Классический пример - функция Фибоначчи.
 
 ```fsharp
 let fib i = 

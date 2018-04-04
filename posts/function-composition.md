@@ -51,7 +51,7 @@ let F x y z = (x y) z
 1. Применение функций имеет _левую ассоциативность_.
 1. `x y z` значит тоже самое что и `(x y) z`.
 1. А `w x y z` равно `((w x) y) z`.
-1. Это не должно выглядить удивительным.
+1. Это не должно выглядеть удивительным.
 1. Мы уже видели как работает частичное применение.
 1. Если рассуждать о `x` как о функции с двумя параметрами, то `(x y) z` - это результат частичного применения первого параметра, за которым следует передача аргумента `z` к промежуточной функции.
 
@@ -122,7 +122,7 @@ let compose f g x = g ( f(x) )
 
 > If you evaluate this, you will see that the compiler has correctly deduced that if "`f`" is a function from generic type `'a` to generic type `'b`, then "`g`" is constrained to have generic type `'b` as an input. And the overall signature is:
 
-После выполнения можно увидеть, что компилятор правильно решил, что "`f`" - это функция с обощенного типа `'a` к обобщенному типу `'b`, а "`g`" ограниченна вводом типа `'b`:
+После выполнения можно увидеть, что компилятор правильно решил, что "`f`" - это функция с обобщенного типа `'a` к обобщенному типу `'b`, а "`g`" ограничена вводом типа `'b`:
 
 ```fsharp
 val compose : ('a -> 'b) -> ('b -> 'c) -> 'a -> 'c
@@ -276,15 +276,15 @@ myList |> List.isEmpty |> not    // straight pipeline
 myList |> (not << List.isEmpty)  // using reverse composition 
 ```
 
-## Composition vs. pipeline | Композиция vs. конвеер ##
+## Composition vs. pipeline | Композиция vs. конвейер ##
 
 > At this point, you might be wondering what the difference is between the composition operator and the pipeline operator, as they can seem quite similar. 
 
-Вы можете быть сбиты с толку небольшой разницей между композицией и конвеером, т.к. они могут выглядеть очень похожими.
+Вы можете быть сбиты с толку небольшой разницей между композицией и конвейером, т.к. они могут выглядеть очень похожими.
 
 > First let's look again at the definition of the pipeline operator:
 
-Во первых, посмотрите на определение конвеера:
+Во первых, посмотрите на определение конвейера:
 
 ```fsharp
 let (|>) x f = f x
@@ -330,7 +330,7 @@ let add1Times2 = add 1 >> times 2
 
 > Trying to use a pipe instead doesn't work. In the following example, "`add 1`" is a (partial) function of type `int->int`, and cannot be used as the second parameter of "`times 2`". 
 
-Попытки использовать конвейера вместо композиции обернутся ошибкой компиляции. В следующем примере "`add 1`" - это (частичная) функция `int->int`, которая не может быть использвоана в качестве второго параметра для "`times 2`".
+Попытки использовать конвейер вместо композиции обернутся ошибкой компиляции. В следующем примере "`add 1`" - это (частичная) функция `int->int`, которая не может быть использована в качестве второго параметра для "`times 2`".
 
 ```fsharp
 let add1Times2 = add 1 |> times 2   // not allowed

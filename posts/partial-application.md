@@ -48,7 +48,7 @@ let printer = printfn "printing param=%i"
 
 > In each case, we create a partially applied function that we can then reuse in multiple contexts.
 
-В каждом случае мы создаем частично примененную функцию, которую можно повторно использовать в разных ситауациях.
+В каждом случае мы создаем частично примененную функцию, которую можно повторно использовать в разных ситуациях.
 
 > The partial application can just as easily involve fixing function parameters, of course. Here are some examples:
 
@@ -181,7 +181,7 @@ sortDesc [0;1;2;3]
 
 > Guideline 1 is straightforward. The parameters that are most likely to be "fixed" with partial application should be first. We saw this with the logger example earlier.
 
-Первый совет прост. Параметры, которые скорее всего будут "зафиксированны" частичным применением должны идти первыми, как в примерах с логгером выше.
+Первый совет прост. Параметры, которые скорее всего будут "зафиксированы" частичным применением должны идти первыми, как в примерах с логгером выше.
 
 > Guideline 2 makes it easier to pipe a structure or collection from function to function. We have seen this many times already with list functions.
 
@@ -213,7 +213,7 @@ let result = compositeOp [1..10]
 
 > However, it is easy enough to create wrappers for them that are more idiomatic. For example, in the snippet below, the .NET string functions are rewritten to have the string target be the last parameter rather than the first:
 
-Однако, достаточно легко можно написить обертки, чтобы сделать эти функции более идеоматичными. В примере ниже строковые .NET функции переписаны так, чтобы целевая строка использовалась последней, а не первой:
+Однако, достаточно легко можно написать обертки, чтобы сделать эти функции более идиоматичными. В примере ниже строковые .NET функции переписаны так, чтобы целевая строка использовалась последней, а не первой:
 
 ```fsharp
 // create wrappers for .NET string functions
