@@ -115,7 +115,7 @@ int add1(int input)
 
 > In other words, evaluating the function *cannot possibly have any effect on the input, or anything else for that matter*. Remember, evaluating the function is not actually calculating or manipulating anything; it is just a glorified lookup.
 
-Другими словами, вычисление функции _не может иметь каких либо эффектов на входные данные или еще что-нибудь в подобном роде_". Следует запомнить, что вычисление функции в действительности не считает и не манипулирует чем-либо, это просто "прославленный" поиск.
+Другими словами, вычисление функции _не может иметь каких либо эффектов на входные данные или еще что-нибудь в подобном роде_. Следует запомнить, что вычисление функции в действительности не считает и не манипулирует чем-либо, это просто "прославленный" поиск.
 
 > This "immutability" of the values is subtle but very important. If I am doing mathematics, I do not expect the numbers to change underneath me when I add them!  For example, if I have:
 
