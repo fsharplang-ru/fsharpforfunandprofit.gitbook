@@ -119,14 +119,14 @@ int add1(int input)
 
 > This "immutability" of the values is subtle but very important. If I am doing mathematics, I do not expect the numbers to change underneath me when I add them!  For example, if I have:
 
-Эта "иммутабельность" значений очень тонка, но в тоже время очень важная вещь. Когда я занимаюсь математикой, я не жду, что числа будут изменяться в процессе их сложения. Например, если у меня:
+Эта "иммутабельность" значений очень тонка, но в тоже время очень важная вещь. Когда я занимаюсь математикой, я не жду, что числа будут изменяться в процессе их сложения. Например, если у меня дано:
 
 	x = 5
 	y = x+1
 
 > I would not expect x to be changed by the adding of one to it. I would expect to get back a different number (y) and x would be left untouched. In the world of mathematics, the integers already exist as an unchangeable set, and the "add1" function simply defines a relationship between them.
 
-Я не ожидаю, что `x` изменится при добавлении к нему 1. Я ожидаю, что получу другое число (`y`), и `x` должен остаться нетронутым. В мире математики целые числа уже существуют в неизменяемом множестве, и функция "add1" просто определяет отношения между ними.
+То я не ожидаю, что `x` изменится при добавлении к нему 1. Я ожидаю, что получу другое число (`y`), и `x` должен остаться нетронутым. В мире математики целые числа уже существуют в неизменяемом множестве, и функция "add1" просто определяет отношения между ними.
 
 ### The power of pure functions | Сила чистых функций ###
 
