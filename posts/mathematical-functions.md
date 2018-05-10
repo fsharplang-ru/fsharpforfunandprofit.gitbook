@@ -184,7 +184,7 @@ int add1(int input)
 
 > I can assure you that this is not as much as a problem as you might think. As you work through this series, you'll see how this works in practice.
 
-Я могу заверить, что это не такая большая проблема как можно представить. Во ходе данной серией статей будет ясно, как это работает на практике.
+Я могу заверить, что это не такая большая проблема как кажется. Во ходе данной серией статей будет ясно, как это работает на практике.
 
 > **Mathematical functions always have exactly one input and one output**
 
@@ -200,7 +200,7 @@ int add1(int input)
 
 > Well, it turns there is a way to do it, and what's more, it is completely transparent to you in F#. It is called "currying" and it deserves its own post, which is coming up soon.
 
-Оказывается, существует путь сделать это, и более того он является абсолютно прозрачным на F#. Называется он "каррированием", и заслуживает отдельный пост, который появится в ближайшее время.
+Оказывается, существует путь сделать это, и более того он является абсолютно прозрачным на F#. Называется он "каррированием", и заслуживает отдельного поста, который появится в ближайшее время.
 
 > In fact, as you will later discover, these two "unhelpful" properties will turn out to be incredibly useful and a key part of what makes functional programming so powerful.
 
