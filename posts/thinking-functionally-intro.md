@@ -9,13 +9,13 @@ seriesOrder: 1
 
 > Now that you have seen some of the power of F# in the ["why use F#"](../series/why-use-fsharp.md) series, we're going to step back and look at the fundamentals of functional  programming -- what does it really mean to "program functionally", and how this approach is different from object oriented or imperative programming.
 
-Теперь, когда читатель увидел некоторые из причин, по которым стоит использовать F#, в серии ["why use F#"](../series/why-use-fsharp.md), сделаем шаг назад и обсудим основы функционального программирования. Что в действительности означает "программировать функционально", и как этот подход отличается от объектно-ориентированного или императивного программирования?
+Теперь, когда читатель увидел некоторые из причин, по которым стоит использовать F#, в серии ["why use F#"](../series/why-use-fsharp.md), сделаем шаг назад и обсудим основы функционального программирования. Что в действительности означает "программировать функционально", и чем этот подход отличается от объектно-ориентированного или императивного программирования?
 
 ### Changing the way you think | Смена образа мышления ###
 
 > It is important to understand that functional programming is not just a stylistic difference; it is a completely different way of thinking about programming, in the way that truly object-oriented programming (in Smalltalk say) is also a different way of thinking from a traditional imperative language such as C.
 
-Важно понимать, что функциональное программирование - это не просто отдельный стиль программирования. Это совсем другой способ рассуждения о программе, который отличается от "традиционного" подхода так же значительно, как настоящее ООП (в стиле Smalltalk) отличается от традиционного императивного языка - такого, как C.
+Важно понимать, что функциональное программирование - это не просто отдельный стиль программирования. Это совсем другой способ мышления в программировании, который отличается от "традиционного" подхода так же значительно, как настоящее ООП (в стиле Smalltalk) отличается от традиционного императивного языка - такого, как C.
 
 > F# does allow non-functional styles, and it is tempting to retain the habits you already are familiar with. You could just use F# in a non-functional way without really changing your mindset, and not realize what you are missing. To get the most out of F#, and to be fluent and comfortable with functional programming in general, it is critical that you think functionally, not imperatively.
 > And that is the goal of this series: to help you understand functional programming in a deep way, and help to change the way you think.
