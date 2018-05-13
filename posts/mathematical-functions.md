@@ -9,17 +9,17 @@ seriesOrder: 2
 
 > The impetus behind functional programming comes from mathematics. Mathematical functions have a number of very nice features that functional languages try to emulate in the real world. 
 
-Функциональное программирование вдохновлено математикой. Математический функции имеют ряд очень приятных особенностей, которые функциональные языки пытаются претворить в жизнь.
+Функциональное программирование вдохновлено математикой. Математические функции имеют ряд очень приятных особенностей, которые функциональные языки пытаются претворить в жизнь.
 
 > So first, let's start with a mathematical function that adds 1 to a number.
 
-Итак, во-первых, начнем с математической функции, которая добавляет 1 к числу.
+Давайте начнем с математической функции, которая добавляет 1 к числу.
 
 	Add1(x) = x+1
 
 > What does this really mean?  Well it seems pretty straightforward. It means that there is an operation that starts with a number, and adds one to it. 
 
-Что в действительности означает это выражение? Выглядит довольно просто. Оно означает, что существует такая операция, которая берет число и прибавляет к нему 1.
+Что на самом деле означает это выражение? Выглядит довольно просто. Оно означает, что существует такая операция, которая берет число и прибавляет к нему 1.
 
 > Let's introduce some terminology:
 
@@ -59,7 +59,7 @@ val add1 : int -> int
 > * "`add1`" is defined as a "val", short for "value". Hmmm? what does that mean?  We'll discuss values shortly.
 > * The arrow notation "`->`" is used to show the domain and range. In this case, the domain is the `int` type, and the range is also the `int` type.
 
-* Общий смысл - это "функция `add1` сопоставляющая целые числа (из предметной области) с целыми (областью значений).
+* Общий смысл - это "функция `add1` сопоставляет целые числа (из области определения) с целыми числами (из области значений).
 * "`add1`" определена как "val", сокращение от "value" (значения). Хм? что это значит? Мы обсудим значения чуть позже.
 * Стрелочная нотация "->" используется, чтобы показать domain и range. В данном случае, domain является типом 'int', как и range.
 
@@ -71,12 +71,12 @@ val add1 : int -> int
 
 > Mathematical functions have some properties that are very different from the kinds of functions you are used to in procedural programming.
 
-Математические функции имеют ряд свойств, которые очень сильно отличают их от других типов функций, которые используются в процедурном программировании.
+Математические функции имеют ряд свойств, которые очень сильно отличают их от функций, которые используются в процедурном программировании.
 
 > * A function always gives the same output value for a given input value
 > * A function has no side effects. 
 
-* Функция всегда имеет один и тот же результат для данного входного значения.
+* Функция всегда имеет один и тот же результат для одного и того же входного значения.
 * Функция не имеет побочных эффектов.
 
 > These properties provide some very powerful benefits, and so functional programming languages try to enforce these properties in their design as well. Let's look at each of them in turn.
@@ -119,7 +119,7 @@ int add1(int input)
 
 > This "immutability" of the values is subtle but very important. If I am doing mathematics, I do not expect the numbers to change underneath me when I add them!  For example, if I have:
 
-Эта "иммутабельность" значений очень тонка, но в тоже время очень важная вещь. Когда я занимаюсь математикой, я не жду, что числа будут изменяться в процессе их сложения. Например, если у меня дано:
+Эта "иммутабельность" значений очень тонкая, но в тоже время очень важная вещь. Когда я занимаюсь математикой, я не жду, что числа будут изменяться в процессе их сложения. Например, если у меня дано:
 
 	x = 5
 	y = x+1
