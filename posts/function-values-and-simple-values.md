@@ -7,6 +7,8 @@ seriesId: "Thinking functionally"
 seriesOrder: 3
 ---
 
+# Фунции-значения и простые значения
+
 > Let's look at the simple function again
 
 Еще раз рассмотрим эту простую функцию.
@@ -22,23 +24,23 @@ let add1 x = x + 1
 > 1. Accept some value from the input domain.
 > 2. Use the name "x" to represent that value so that we can refer to it later.
 
-1. Принимает некоторое значение из domain (области определения).
-2. Использует имя "x", чтобы представлять значение, к которому мы можем обратиться позже.
+1. Возьми некоторое значение из domain (области определения).
+2. Используй имя "x" для предоставления этого значение, чтоб к нему можно было обратиться позже.
 
 > This process of using a name to represent a value is called "binding". The name "x" is "bound" to the input value. 
 
-Процесс использования имени для представления значения называется "привязкой" (binding). Имя "x" "привязано" к входному значению.
+Использование имени для представления значения называется "привязкой" (binding). Имя "x" "привязано" к входному значению.
 
 > So if we evaluate the function with the input 5 say, what is happening is that everywhere we see "x" in the original definition, we replace it with "5", sort of like search and replace in a word processor. 
 
-Так что если вычислить функцию с вводом, скажем, равным 5, то произойдет следующее. Везде где стоит "x" в изначальном определении, ставится "5", аналогично функции "найти и заменить" в текстовом редакторе.
+Так что если вычислить функцию с вводом, скажем, равным 5, то произойдет следующее: везде где стоит "x" в изначальном определении, ставится значение 5, аналогично функции "найти и заменить" в текстовом редакторе.
 
 ```fsharp
 let add1 x = x + 1
 add1 5
-// replace "x" with "5"
+// заменяем "x" with "5"
 // add1 5 = 5 + 1 = 6
-// result is 6
+// результат  6
 ```
 
 > It is important to understand that this is not assignment. "x" is not a "slot" or variable that is assigned to the value and can be assigned to another value later on. It is a onetime association of the name "x" with the value. The value is one of the predefined integers, and cannot change. And so, once bound, x cannot change either; once associated with a value, always associated with a value. 
@@ -53,7 +55,7 @@ add1 5
 
 > If you think about this a bit more, you will see that the name "`add1`" itself is just a binding to "the function that adds one to its input". The function itself is independent of the name it is bound to.
 
-Если поразмыслить над этим чуть подольше, можно увидеть, что имя "`add`" само по себе - это просто привязка к "функция которая увеличивает ввод на единицу.". Сама функция независима от имени которое к ней привязано.
+Если поразмыслить над этим чуть подольше, можно увидеть, что имя "`add1`" само по себе - это тоже просто привязка к "функция которая увеличивает ввод на единицу.". Сама функция независима от имени которое к ней привязано.
 
 > When you type `let add1 x = x + 1` you are telling the F# compiler "every time you see the name "`add1`", replace it with the function that adds 1 to its input". "`add1`" is called a **function value**.
 
@@ -123,7 +125,7 @@ val c : int = 5
 Всегда можно отличить простое значение от функции-значения, потому все простые значения имеют подобную сигнатуру:
 
 ```fsharp
-val aName: type = constant     // Note that there is no arrow
+val aName: type = constant     // Заметьте - стрелки отсутствуют
 ```
 
 ## Simple values vs. function values | Простые значение vs. функции-значения ##
@@ -186,7 +188,7 @@ val c : int = 5
 
 > But, in general, we will avoid using "object" for standard values in F#, reserving it to refer to instances of true classes, or other values that expose member methods.
 
-> Но в целом, мы будем избегать использования "объекта" для стандартных значений в F#, приберегая его для обращения к полноценным классам, или другим значениям, предоставляющим методы.
+> Но в целом, мы будем избегать термина "объект" для стандартных значений в F#, приберегая его для обращения к полноценным классам, или другим значениям, предоставляющим методы.
 
 ## Naming Values | Именование значений ##
 
@@ -199,7 +201,7 @@ val c : int = 5
 Можно добавлять апостроф в любой части имени, исключая первый символ.
 
 ```fsharp
-A'b'c     begin'  // valid names
+A'b'c     begin'  // валидные имена
 ```
 
 > The final tick is often used to signal some sort of "variant" version of a value:
@@ -225,7 +227,7 @@ let if' b t f = if b then t else f
 Можно также использовать двойные обратные кавычки для любой строки, чтобы сделать ее допустимым идентификатором.
 
 ```fsharp
-``this is a name``  ``123``    //valid names
+``this is a name``  ``123``    // валидные имена
 ```
 
 > You might want to use the double backtick trick sometimes:
@@ -242,7 +244,7 @@ let ``begin`` = "begin"
 
 > * When trying to use natural language for business rules, unit tests, or BDD style executable specifications a la Cucumber. 
 
-Когда необходимо использовать естественные языки для бизнес правил, модульных тестов, или BBD стиля исполняемой документации типа Cucumber.
+* Когда необходимо использовать естественные языки для бизнес правил, модульных тестов, или BBD стиля исполняемой документации типа Cucumber.
 
 ```fsharp
 let ``is first time customer?`` = true
