@@ -10,11 +10,11 @@ categories: [Types, Functions]
 
 > Now that we have some understanding of functions, we'll look at how types work with functions, both as domains and ranges. This is just an overview; the series ["understanding F# types"](../series/understanding-fsharp-types.md) will cover types in detail. 
 
-Теперь, когда у нас есть некоторое понимание функций, мы посмотрим как типы взаимодействуют с функциями, как domain-а, так и range. Это просто обзор, серия ["understanding F# types"](../series/understanding-fsharp-types.md) раскроет типы более подробно. 
+Теперь, когда у нас есть некоторое понимание функций, мы посмотрим как типы взаимодействуют с функциями, как domain-а, так и range. Данная статья просто обзор, а для более глубокого погруженеия в типы, есть серия ["understanding F# types"](../series/understanding-fsharp-types.md). 
 
 > First, we need to understand the type notation a bit more. We've seen that the arrow notation "`->`" is used to show the domain and range. So that a function signature always looks like:
 
-Сперва, нам надо чуть лучше понять нотацию типов. Мы видели стрелочную нотацию "`->`" разделяющую domain и range. Так что сигнатура функций всегда выглядит вот так:
+Для начала, нам надо чуть лучше понять нотацию типов. Мы видели стрелочную нотацию "`->`" разделяющую domain и range. Так что сигнатура функций всегда выглядит вот так:
 
 ```fsharp
 val functionName : domain -> range
@@ -22,10 +22,10 @@ val functionName : domain -> range
 
 > Here are some example functions:
 
-Еще несколько примеров функций:
+Еще пара примеров функций с примитивными типами:
 
 ```fsharp
-let intToString x = sprintf "x is %i" x  // format int to string
+let intToString x = sprintf "x is %i" x  // форматирует int в string
 let stringToInt x = System.Int32.Parse(x)
 ```
 
@@ -59,8 +59,8 @@ val stringToInt : string -> int
 Функции с примитивными типами:
 
 ```fsharp
-let intToFloat x = float x // "float" fn. converts ints to floats
-let intToBool x = (x = 2)  // true if x equals 2
+let intToFloat x = float x // "float" ф-ция конвертирует int во float
+let intToBool x = (x = 2)  // true если x равен 2
 let stringToString x = x + " world"
 ```
 
@@ -95,7 +95,7 @@ let stringLength (x:string) = x.Length
 
 > The parens around the `x:string` param are important. If they are missing, the compiler thinks that the return value is a string! That is, an "open" colon is used to indicate the type of the return value, as you can see in the example below.
 
-Скобки вокруг параметра `x:string` важны. Если они будут пропущены, то компилятор решит, что строкой является возвращаемое значение! То есть, "открытое" двоеточие используется для обозначения типа возвращаемого значения, как видно в следующем примере.
+Скобки вокруг параметра `x:string` важны. Если они будут пропущены, то компилятор решит, что строкой является возвращаемое значение! То есть, "открытое" двоеточие используется для обозначения типа возвращаемого значения, как показано в следующем примере.
 
 ```fsharp
 let stringLengthAsInt (x:string) :int = x.Length         
@@ -116,12 +116,12 @@ let stringLengthAsInt (x:string) :int = x.Length
 Рассмотрим функцию `evalWith5ThenAdd2`, которая принимает функцию в качестве параметра, затем вычисляет эту функцию от 5, и добавляет 2 к результату:
 
 ```fsharp
-let evalWith5ThenAdd2 fn = fn 5 + 2     // same as fn(5) + 2
+let evalWith5ThenAdd2 fn = fn 5 + 2     //  то же самое, что и fn(5) + 2
 ```
 
 > The signature of this function looks like this:
 
-Сигнатура данной функции выглядит так:
+Сигнатура этой функции выглядит так:
 
 ```fsharp
 val evalWith5ThenAdd2 : (int -> int) -> int
@@ -129,20 +129,20 @@ val evalWith5ThenAdd2 : (int -> int) -> int
 
 > You can see that the domain is `(int->int)` and the range is `int`. What does that mean?  It means that the input parameter is not a simple value, but a function, and what's more is restricted only to functions that map `ints` to `ints`. The output is not a function, just an int.
 
-Вы можете видеть, что domain равен `(int->int)`, а range `int`. Что это значит? Это значит, что входным параметром является не простое значение, а функция, более того, ограниченная функциями из `int` в `int`. Выходное же значение не функция, просто `int`.
+Можно увидеть, что domain равен `(int->int)`, а range `int`. Что это значит? Это значит, что входным параметром является не простое значение, а функция, более того, ограниченная функциями из `int` в `int`. Выходное же значение не функция, а просто `int`.
 
 > Let's try it:
 
-> Попробуем:
+Попробуем:
 
 ```fsharp
-let add1 x = x + 1      // define a function of type (int -> int)
-evalWith5ThenAdd2 add1  // test it
+let add1 x = x + 1      // описываем ф-цию типа (int -> int)
+evalWith5ThenAdd2 add1  // тестируем ее
 ```
 
 > gives:
 
-получим:
+и получим:
 
 ```fsharp
 val add1 : int -> int
@@ -155,15 +155,15 @@ val it : int = 8
 
 > By the way, the special word "`it`" is used for the last thing that was evaluated; in this case the result we want. It's not a keyword, just a convention.
 
-Кстати, специальное слово "`it`" используется для обозначения последнего вычисленного значения, в данном случае это результат, которого мы ждаил. Это не ключевое слово, это просто конвенция.
+Кстати, специальное слово "`it`" используется для обозначения последнего вычисленного значения, в данном случае это результат, которого мы ждали. Это не ключевое слово, это просто конвенция.
 
 > Here's another one:
 
 > Другой случай:
 
 ```fsharp
-let times3 x = x * 3      // a function of type (int -> int)
-evalWith5ThenAdd2 times3  // test it 
+let times3 x = x * 3      // ф-ция типа (int -> int)
+evalWith5ThenAdd2 times3  // пробуем ее 
 ```
 
 > gives:
@@ -181,16 +181,16 @@ val it : int = 17
 
 > Note that the input is sensitive to the types. If our input function uses `floats` rather than `ints`, it will not work. For example, if we have:
 
-Следует учесть, что входные данные чувствительны к типам. Если передаваемая функция использует `float`, а не `int`, оно не сработает. Например, если у нас есть:
+Следует учесть, что входные данные чувствительны к типам. Если передаваемая функция использует `float`, а не `int`, то ничего не получится. Например, если у нас есть:
 
 ```fsharp
-let times3float x = x * 3.0  // a function of type (float->float)  
+let times3float x = x * 3.0  // ф-ция типа (float->float)  
 evalWith5ThenAdd2 times3float 
 ```
 
 > Evaluating this will give an error:
 
-Попытка скомпилировать вернет ошибку:
+Компилятор, при попытке скомпилировать, вернет ошибку:
 
 ```fsharp
 error FS0001: Type mismatch. Expecting a int -> int but 
@@ -199,7 +199,7 @@ error FS0001: Type mismatch. Expecting a int -> int but
 
 > meaning that the input function should have been an `int->int` function.
 
-сообщающую, что входная функция должна быть функцией `int->int`.
+сообщающую, что входная функция должна быть функцией типа `int->int`.
 
 ### Functions as output | Функции как выходные данные ###
 
@@ -213,7 +213,7 @@ let adderGenerator numberToAdd = (+) numberToAdd
 
 > The signature is:
 
-Сигнатура:
+Ее сигнатура:
 
 ```fsharp
 val adderGenerator : int -> (int -> int)
@@ -221,7 +221,7 @@ val adderGenerator : int -> (int -> int)
 
 > which means that the generator takes an `int`, and creates a function (the "adder") that maps `ints` to `ints`. Let's see how it works:
 
-говорящая, что генератор принимает `int` и создает функцию ("adder"), которая сопоставляет `ints` в `ints`. Посмотрим как это работает:
+означает, что генератор принимает `int` и создает функцию ("adder"), которая сопоставляет `ints` в `ints`. Посмотрим как это работает:
 
 ```fsharp
 let add1 = adderGenerator 1
@@ -239,7 +239,7 @@ val add2 : (int -> int)
 
 > And we can now use these generated functions in the normal way. They are indistinguishable from functions defined explicitly
 
-Теперь можно использовать сгенерируемые функции как обычные, они неотличимы от функций определенных явно:
+Теперь можно использовать сгенерируемые функции как обычные, они ничем не отличаются от функций определенных явно:
 
 ```fsharp
 add1 5    // val it : int = 6
@@ -250,16 +250,16 @@ add2 5    // val it : int = 7
 
 > In the first example, we had the function:
 
-В первом примере была функция:
+В первом примере мы рассмотрели функцию:
 
 ```fsharp
 let evalWith5ThenAdd2 fn = fn 5 +2
-    => val evalWith5ThenAdd2 : (int -> int) -> int
+> val evalWith5ThenAdd2 : (int -> int) -> int
 ```
 
 > In this case F# could deduce that "`fn`" mapped `ints` to `ints`, so its signature would be `int->int`
 
-В данном примере F# может сделать вывод, что "`fn`" преобразует `int` в `int`, поэтому сигнатура будет `int->int`.
+В данном примере F# может сделать вывод, что "`fn`" преобразует `int` в `int`, поэтому ее сигнатура будет `int->int`.
 
 > But what is the signature of "fn" in this following case?
 
@@ -288,22 +288,22 @@ let evalWith5AsString fn :string = fn 5
 
 > Because the main function returns a string, the "`fn`" function is also constrained to return a string, so no explicit typing is required for "fn". 
 
-Т.к. основная функция возвращает `string`, функция "`fn`" также вынуждена возвращать `string`, таким образом не требуется явно типизировать "`fn`".
+Т.к. основная функция возвращает `string`, функция "`fn`" также вынуждена возвращать `string`, таким образом не требуется явно указывать тип "`fn`".
 
 <a name="unit-type"></a>
 ## The "unit" type | Тип "unit" ##
 
 > When programming, we sometimes want a function to do something without returning a value. Consider the function "`printInt`", defined below. The function doesn't actually return anything. It just prints a string to the console as a side effect.
 
-В процессе программирования мы иногда хотим, чтобы функция делала что-то не возвращая ничего. Рассмотрим функцию "`printInt`". Функция действительно ничего не возвращает. Она просто выводит строку на консоль как побочный эффект.
+В процессе программирования мы иногда хотим, чтобы функция делала что-то не возвращая ничего. Рассмотрим функцию "`printInt`". Функция действительно ничего не возвращает. Она просто выводит строку на консоль как побочный эффект исполнения.
 
 ```fsharp
-let printInt x = printf "x is %i" x        // print to console
+let printInt x = printf "x is %i" x        // вывод на консоль
 ```
 
 > So what is the signature for this function? 
 
-Какова ее сигнатура?
+Какова же ее сигнатура?
 
 ```fsharp
 val printInt : int -> unit
@@ -315,13 +315,13 @@ val printInt : int -> unit
 
 > Well, even if a function returns no output, it still needs a range. There are no "void" functions in mathematics-land. Every function must have some output, because a function is a mapping, and a mapping has to have something to map to!
 
-Даже если функция не возвращает значений, она все еще нуждается в range. В мире математики не существует "void" функций. Каждая функция должна что-то возвращать, потому-что функция - это отображение, а отображение должно что-то отображать!
+Даже если функция не возвращает значений, ей все еще нужен range. В мире математики не существует "void" функций. Каждая функция должна что-то возвращать, потому-что функция - это отображение, а отображение должно что-то отображать!
  
 ![](../assets/img/Functions_Unit.png)
  
 > So in F#, functions like this return a special range called "`unit`". This range has exactly one value in it, called "`()`". You can think of `unit` and `()` as somewhat like "void" (the type) and "null" (the value) in C#. But unlike void/null, `unit` is a real type and `()` is a real value. To see this, evaluate:
 
-И так, в F# функции подобные этой возвращают специальный range называемый "`unit`". Данный range содержит только одно значение, называемое "`()`". Можно подумать, что `unit` и `()` что-то вроде "void" и "null" из C# соответственно. Но в отличии от них, `unit` является реальным типом, а `()` реальным значением. Чтобы убедиться в этом, достаточно выполнить:
+И так, в F# функции подобные этой возвращают специальный range называемый "`unit`". Данный range содержит только одно значение, обозначаемое "`()`". Можно подумать, что `unit` и `()` что-то вроде "void" и "null" из C# соответственно. Но в отличии от них, `unit` является реальным типом, а `()` реальным значением. Чтобы убедиться в этом, достаточно выполнить:
 
 ```fsharp
 let whatIsThis = ()
@@ -329,7 +329,7 @@ let whatIsThis = ()
 
 > and you will see the signature:
 
-> будет получена следующая сигнатуру:
+будет получена следующая сигнатура:
 
 ```fsharp
 val whatIsThis : unit = ()
@@ -337,11 +337,11 @@ val whatIsThis : unit = ()
 
 > Which means that the value "`whatIsThis`" is of type `unit` and has been bound to the value `()`
 
-Которая указывает, что метка "`whatIsThis`" принадлежит типу `unit` и было связано со значением `()`.
+Которая указывает, что метка "`whatIsThis`" принадлежит типу `unit` и связано со значением `()`.
 
 > So, going back to the signature of "`printInt`", we can now understand it:
 
-Теперь вернувшись к сигнатуре "`printInt`", можно понять значение это записи:
+Теперь вернувшись к сигнатуре "`printInt`", можно понять значение этой записи:
 
 ```fsharp
 val printInt : int -> unit
@@ -349,9 +349,7 @@ val printInt : int -> unit
 
 > This signature says: `printInt` has a domain of `int` which it maps onto nothing that we care about.
 
-Данная сигнатура говорит, что `printInt` имеет domain из `int`, который который преобразуется в нечто, что нас не интересует.
-
-<a name="parameterless-functions"></a>
+Данная сигнатура говорит, что `printInt` имеет domain из `int`, который преобразуется в нечто, что нас не интересует.
 
 ### Parameterless functions | Функции без параметров
 
@@ -360,7 +358,7 @@ val printInt : int -> unit
 Теперь, когда мы понимаем `unit`, можем ли мы предсказать его появление в другом контексте? Например, попробуем создать многократно используемую функцию "hello world". Поскольку нет ни ввода, ни вывода, мы можем ожидать, сигнатуру `unit -> unit`. Посмотрим:
 
 ```fsharp
-let printHello = printf "hello world"        // print to console
+let printHello = printf "hello world"        // вывод на консоль
 ```
 
 > The result is:
@@ -374,7 +372,7 @@ val printHello : unit = ()
 
 > Not quite what we expected. "Hello world" is printed immediately and the result is not a function, but a simple value of type unit. As we saw earlier, we can tell that this is a simple value because it has a signature of the form:  
 
-_Не совсем то_, что мы ожидали. "Hello world" было выведено немедленно, а результатом стала не функция, а простое значение типа unit. Как мы видели ранее, мы можем сказать, что это простое значение, поскольку оно имеет сигнатуру вида:
+_Не совсем то_, что мы ожидали. "Hello world" было выведено немедленно, а результатом стала не функция, а простое значение типа unit. Мы можем сказать, что это простое значение, поскольку, как мы видели ранее, оно имеет сигнатуру вида:
 
 ```fsharp
 val aName: type = constant
@@ -386,19 +384,19 @@ val aName: type = constant
 
 > Why the difference between `printInt` and `printHello`?  In the `printInt` case, the value could not be determined until we knew the value of the x parameter, so the definition was of a function. In the `printHello` case, there were no parameters, so the right hand side could be determined immediately. Which it was, returning the `()` value, with the side effect of printing to the console. 
 
-В чем разница между `printInt` и `printHello`? В случае `printInt`, значение не может быть определено, пока мы не узнаем значения параметра `x`, поэтому определение было функцией. В случае `printHello`, нет параметров, поэтому правая часть может быть определена на месте. И она была равна `()`, с side-эффектом в виде вывода на консоль.
+В чем разница между `printInt` и `printHello`? В случае с `printInt`, значение не может быть определено, пока мы не узнаем значения параметра `x`, поэтому определение было функцией. В случае `printHello`, нет параметров, поэтому правая часть может быть определена на месте. И она была равна `()`, с побочным эффектом в виде вывода на консоль.
 
 > We can create a true reusable function that is parameterless by forcing the definition to have a unit argument, like this:
 
 Можно создать настоящую многократно используемую функцию без параметров, заставляя определение иметь `unit` аргумент:
 
 ```fsharp
-let printHelloFn () = printf "hello world"    // print to console
+let printHelloFn () = printf "hello world"    // вывод на консоль
 ```
 
 > The signature is now:
 
-Ее сигнатура равна:
+Теперь ее сигнатура равна:
 
 ```fsharp
 val printHelloFn : unit -> unit
@@ -428,7 +426,7 @@ let something =
 
 > To help in these situations, there is a special function `ignore` that takes anything and returns the unit type. The correct version of this code would be:
 
-Чтобы помочь в данных ситуациях, существует специальная функция `ignore`, которая принимает что угодно и возвращает `unit`. Правильная версия данного кода могла бы быть такой:
+Чтобы помочь в данных ситуациях, существует специальная функция `ignore`, которая принимает что угодно и возвращает `unit`. Корректная версия данного кода могла бы быть такой:
 
 ```fsharp
 do (1+1 |> ignore)  // ok
@@ -471,14 +469,14 @@ val onAStick : 'a -> string
 ```csharp
 string onAStick<a>();   
 
-//or more idiomatically 
-string OnAStick<TObject>();   // F#'s use of 'a is like 
-                              // C#'s "TObject" convention 
+//или более идиоматично
+string OnAStick<TObject>();   // F#-еры используют написание 'a так же как 
+                              // C#'-еры используют написание "TObject" по конвенции 
 ```
 
 > Note that the F# function is still strongly typed with a generic type. It does *not* take a parameter of type `Object`. This strong typing is desirable so that when functions are composed together, type safety is still maintained.
 
-Надо понимать, что данная F# функция все еще обладает строгой типизацией даже с обобщенными типами. Она *не* принимает параметр типа `Object`. Строгая типизация желаема, ибо позволяет при композиции функций вместе сохранять типобезопасность.
+Надо понимать, что данная F# функция все еще обладает строгой типизацией даже с обобщенными типами. Она *не* принимает параметр типа `Object`. Строгая типизация хороша, ибо позволяет при композиции функций сохранять их типобезопасность.
 
 > Here's the same function being used with an int, a float and a string
 
@@ -516,7 +514,7 @@ let isEqual x y = (x=y)
 
 > So the function signature has the same generic type for both of them:
 
-Так сигнатура функции имеет одинаковый обобщенный тим для обоих параметров:
+Так сигнатура функции имеет одинаковый обобщенный тип для обоих параметров:
 
 ```fsharp
 val isEqual : 'a -> 'a -> bool 
@@ -524,13 +522,13 @@ val isEqual : 'a -> 'a -> bool
 
 > Generic parameters are also very important when it comes to lists and more abstract structures, and we will be seeing them a lot in upcoming examples.
 
-Обобщенные параметры также очень важны, когда дело касается списков и других абстрактных структур, и мы будем видеть их много в последующих примерах.
+Обобщенные параметры также очень важны, когда дело касается списков и других абстрактных структур, и мы увидим их достаточно много в последующих примерах.
 
 ## Other types | Другие типы ##
 
 > The types discussed so far are just the basic types. These types can be combined in various ways to make much more complex types. A full discussion of these types will have to wait for [another series](../series/understanding-fsharp-types.md), but meanwhile, here is a brief introduction to them so that you can recognize them in function signatures.
 
-До сих пор обсуждались только базовые типы. Данные типы могут быть скомбинированы различными способами в более сложные типы. Полный их разбор будет позднее в [другой серии](../series/understanding-fsharp-types.md), но между тем, здесь кратко их разберем, так что бы можно было распознать их в сигнатуре функции.
+До сих пор обсуждались только базовые типы. Данные типы могут быть скомбинированы различными способами в более сложные типы. Полный их разбор будет позднее в [другой серии](../series/understanding-fsharp-types.md), но между тем, здесь кратко их разберем, так что бы можно было распознать их в сигнатурах функций.
 
 > * **The "tuple" types**. These are pairs, triples, etc., of other types. For example `("hello", 1)` is a tuple made from a string and an int. The comma is the distinguishing characteristic of a tuple -- if you see a comma in F#, it is almost certainly part of a tuple!
 
@@ -546,18 +544,18 @@ string * int      // ("hello", 1)
 
 > * **The collection types**. The most common of these are lists, sequences, and arrays. Lists and arrays are fixed size, while sequences are potentially infinite (behind the scenes, sequences are the same as `IEnumerable`). In function signatures, they have their own keywords: "`list`", "`seq`", and "`[]`" for arrays.
 
-* **Коллекции**. Наиболее распространенные из них - list (список), seq (перечисление) и массив. Списки и массивы имеют фиксированный размер, в то время как последовательности потенциально бесконечны (за кулисами последовательности - это те же самые `IEnumrable`). В сигнатурах функций они имеют свои собственные ключевые слова: "`list`", "`seq`" и "`[]`" для массивов.
+* **Коллекции**. Наиболее распространенные из них - list (список), seq (последовательность) и массив. Списки и массивы имеют фиксированный размер, в то время как последовательности потенциально бесконечны (за кулисами последовательности - это те же самые `IEnumrable`). В сигнатурах функций они имеют свои собственные ключевые слова: "`list`", "`seq`" и "`[]`" для массивов.
 
 ```fsharp
-int list          // List type  e.g. [1;2;3]
-string list       // List type  e.g. ["a";"b";"c"]
-seq<int>          // Seq type   e.g. seq{1..10}
-int []            // Array type e.g. [|1;2;3|]
+int list          // List type  например [1;2;3]
+string list       // List type  например ["a";"b";"c"]
+seq<int>          // Seq type   например seq{1..10}
+int []            // Array type например [|1;2;3|]
 ```
 
 > * **The option type**. This is a simple wrapper for objects that might be missing. There are two cases: `Some` and `None`. In function signatures, they have their own "`option`" keyword:
 
-* **Option (опциональный тип)**. Это простая обертка над объектами, которые могут отсутствовать. Существует два варианта: `Some` и `None`. В сигнатурах функций они имеют свое собственное ключевое слово "`option`":
+* **Option (опциональный тип)**. Это простая обертка над объектами, которые могут отсутствовать. Имеется два варианта: `Some` (когда значение существует) и `None`(когда значения нет). В сигнатурах функций они имеют свое собственное ключевое слово "`option`":
 
 ```fsharp
 int option        // Some(1)
@@ -567,7 +565,7 @@ int option        // Some(1)
 > * **The record type**. These are like structures or database rows, a list of named slots. We saw some examples of this in the ["why use F#?"](../series/why-use-fsharp.md) series as well. In function signatures, they are referred to by the name of the type, so again there is no special keyword.
 
 * **Размеченное объединение (discriminated union)**. Они построены из множества вариантов других типов. Мы видели некоторые примеры в ["why use F#?"](../series/why-use-fsharp.md). В сигнатурах функций на них ссылаются по имени типа, они не имеют специального ключевого слова.
-* **Record тип (записи)**. Подобные структурам или строкам баз данных, списки именованных слотов. Мы также видели несколько примеров в ["why use F#?"](../series/why-use-fsharp.md). В сигнатурах функций они называются по имени типа, они также не имеют своего ключевого слова.
+* **Record тип (записи)**. Типы подобные структурам или строкам баз данных, набор именованных значений. Мы также видели несколько примеров в ["why use F#?"](../series/why-use-fsharp.md). В сигнатурах функций они называются по имени типа, они также не имеют своего ключевого слова.
 
 ## Test your understanding of types | Проверьте свое понимание типов ##
 
@@ -589,6 +587,6 @@ let testJ (x:int) = 2 * 2 |> ignore
 let testK   = "hello"
 let testL() = "hello"
 let testM x = x=x
-let testN x = x 1          // hint: what kind of thing is x?
-let testO x:string = x 1   // hint: what does :string modify? 
+let testN x = x 1          // подсказка: что в данном случае x?
+let testO x:string = x 1   // подсказка: что меняется при :string ?
 ```
