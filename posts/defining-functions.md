@@ -183,7 +183,7 @@ let addConfusingTuple (x,y) = x + y
 > * The second definition, "`addTuple`", takes a single parameter. It then binds "x" and "y" to the inside of the tuple and does the addition.
 > * The third definition, "`addConfusingTuple`", takes a single parameter just like "`addTuple`", but the tricky thing is that the tuple is unpacked and bound as part of the parameter definition using pattern matching. Behind the scenes, it is exactly the same as "`addTuple`".
 
-* Первое определение, "`addTwoParams`", принимает два параметра разделенных пробелом.
+* Первое определение, "`addTwoParams`", принимает два параметра, разделенных пробелом.
 * Второе определение, "`addTuple`", принимает один параметр. Этот параметр привязывает "x" и "y" из кортежа и суммирует их.
 * Третье определение, "`addConfusingTuple`", принимает один параметр как и "`addTuple`", но трюк в том, что этот кортеж распаковывается и привязывается как часть определения параметра при помощи сопоставления с шаблоном. За кулисами все происходит точно так же как и в "`addTuple`".
 
@@ -237,7 +237,7 @@ addConfusingTuple y      // ok
 
 > Conversely, if you attempt to pass multiple arguments to a function expecting a tuple, you will also get an obscure error.
 
-И наоборот, если попытаться передать множество аргументов в функцию ожидающую кортеж, можно также получить непонятную ошибку.
+И наоборот, если попытаться передать множество аргументов в функцию, ожидающую кортеж, можно также получить непонятную ошибку.
 
 ```fsharp
 addConfusingTuple 1 2    // error trying to pass two args 
@@ -265,11 +265,11 @@ f (1,2,3)
 
 > Note that the function signature is different from a true three parameter function. There is only one arrow, so only one parameter, and the stars indicate that this is a tuple of `(int*int*int)`. 
 
-Следует обратить внимание, что сигнатура отличается от сигнатуры функции с тремя параметрами. Здесь только одна стрелка, один параметр и звездочки указывающие на кортеж `(int*int*int)`.
+Следует обратить внимание, что сигнатура отличается от сигнатуры функции с тремя параметрами. Здесь только одна стрелка, один параметр и звездочки, указывающие на кортеж `(int*int*int)`.
 
 > When would we want to use tuple parameters instead of individual ones?  
 
-Когда возникает необходимость использовать кортеж параметров вместо индивидуальных значений? // TODO: переформулировать.
+В каких случаях лучше использовать кортеж параметров вместо отдельных значений?
 
 > * When the tuples are meaningful in themselves. For example, if we are working with three dimensional coordinates, a three-tuple might well be more convenient than three separate dimensions.
 > * Tuples are occasionally used to bundle data together in a single structure that should be kept together. For example, the `TryParse` functions in .NET library return the result and a Boolean as a tuple.  But if you have a lot of data that is kept together as a bundle, then you will probably want to define a record or class type to store it.
@@ -339,7 +339,7 @@ let strCompareWithB = strCompare "B"
 
 > Here are some general guidelines of how to structure parameters when you are designing your own functions.
 
-Общие рекомендации о том как структурировать параметры при проектировании собственных функций.
+Общие рекомендации о том, как структурировать параметры при проектировании собственных функций.
 
 > * In general, it is always better to use separate parameters rather than passing them as a single structure such as a tuple or record. This allows for more flexible behavior such as partial application.
 > * But, when a group of parameters *must* all be set at once, then *do* use some sort of grouping mechanism.  
