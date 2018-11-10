@@ -18,10 +18,10 @@ categories: [Currying]
 
 > To see how this works in practice, let's use a very basic example that prints two numbers: 
 
-Чтобы увидеть, как это работает на практике, воспользуемся простейшим примером кода, печатающим два числа:
+Чтобы увидеть, как каррирование работает на практике, воспользуемся простейшим примером кода, печатающим два числа:
 
 ```fsharp
-//normal version
+// нормальная функция
 let printTwoParameters x y =
    printfn "x=%i y=%i" x y
 ```
@@ -31,11 +31,11 @@ let printTwoParameters x y =
 На самом деле компилятор переписывает его приблизительно в такой форме:
 
 ```fsharp
-//explicitly curried version
-let printTwoParameters x  =    // only one parameter!
+// каррирование описанное явно
+let printTwoParameters x  =    // Только один параметр
    let subFunction y =
-      printfn "x=%i y=%i" x y  // new function with one param
-   subFunction                 // return the subfunction
+      printfn "x=%i y=%i" x y  // Новая подфункция, принимающая один параметр
+   subFunction                 // Возвращаем подфункцию
 ```
 
 > Let's examine this in more detail:
@@ -50,17 +50,17 @@ let printTwoParameters x  =    // only one parameter!
 1. Объявляется функция с названием "`printTwoParameters`", но принимающая только _один_ параметр: "x".
 2. Внутри неё создаётся локальная функция, которая также принимает только _один_ параметр: "y". Заметим, что локальная функция использует параметр "x", но x не передается в нее как аргумент. "x" находится в такой области видимости, что вложенная функция может видеть его и использовать без необходимости в его передаче.
 3. Наконец, возвращается только что созданная локальная функция.
-4. Возвращенная функция затем применяется к аргументу "y". Параметр "x" замыкается в ней, так что возвращаемая функция нуждается только в параметре y чтобы завершить свою логику.
+4. Возвращенная функция затем применяется к аргументу "y". Параметр "x" замыкается в ней, так что возвращаемая функция нуждается только в параметре "y" чтобы завершить свою логику..
 
 > By rewriting it this way, the compiler has ensured that every function has only one parameter, as required. So when you use "`printTwoParameters`", you might think that you are using a two parameter function, but it is actually only a one parameter function!  You can see for yourself by passing only one argument instead of two:
 
-Переписывая функции таким образом, компилятор гарантирует, что каждая функция принимает только один параметр, как и требовалось. Таким образом, используя "`printTwoParameters`", можно подумать, что это функция с двумя параметрами, но на самом деле используется функция с только одним параметром. В этом можно убедиться, передав ей лишь один аргумент вместо двух:
+Переписывая функции таким образом компилятор гарантирует, что каждая функция принимает только один параметр, как и требовалось. Таким образом, используя "`printTwoParameters`", можно подумать, что это функция с двумя параметрами, но на самом деле используется функция с только одним параметром. В этом можно убедиться, передав ей лишь один аргумент вместо двух:
 
 ```fsharp
-// eval with one argument
+// выполним с одним аргументом
 printTwoParameters 1
 
-// get back a function!
+// получим назад функцию
 val it : (int -> unit) = <fun:printTwoParameters@286-3>
 ```
 
@@ -82,20 +82,20 @@ val it : (int -> unit) = <fun:printTwoParameters@286-3>
 
 > Here is an example of the step by step version, and then the normal version again.
 
-Вот пример пошаговой и обыкновенной версий:
+Вот пример пошаговой и нормальной версий:
 
 ```fsharp
-// step by step version
+// Пошаговая версия
 let x = 6
 let y = 99
-let intermediateFn = printTwoParameters x  // return fn with
-                                           // x "baked in"
+let intermediateFn = printTwoParameters x  // вернем ф-цию с
+                                           // x в замыкании
 let result  = intermediateFn y
 
-// inline version of above
+// однострочная версия пошагового исполнения
 let result  = (printTwoParameters x) y
 
-// normal version
+// нормальная ф-ция
 let result  = printTwoParameters x y
 ```
 
@@ -104,24 +104,24 @@ let result  = printTwoParameters x y
 Вот другой пример:
 
 ```fsharp
-//normal version
+//Нормальная версия 
 let addTwoParameters x y =
    x + y
 
-//explicitly curried version
-let addTwoParameters x  =      // only one parameter!
+//явно каррированная версия
+let addTwoParameters x  =      // только один параметр!
    let subFunction y =
-      x + y                    // new function with one param
-   subFunction                 // return the subfunction
+      x + y                    // новая подфункция с одним параметром
+   subFunction                 // возвращаем подфункцию
 
-// now use it step by step
+// теперь используем ее в пошаговом варианте
 let x = 6
 let y = 99
-let intermediateFn = addTwoParameters x  // return fn with
-                                         // x "baked in"
+let intermediateFn = addTwoParameters x  // возвращаем ф-цию с
+                                         // x в замыкании
 let result  = intermediateFn y
 
-// normal version
+// Нормальная версия
 let result  = addTwoParameters x y
 ```
 
@@ -142,36 +142,37 @@ let result  = addTwoParameters x y
 Наконец, функция с двумя параметрами называемая `+` обрабатывается как любая другая функция с двумя параметрами.
 
 ```fsharp
-// using plus as a single value function
+// используем плюс как ф-цию вызванную с одним параметром
 let x = 6
 let y = 99
-let intermediateFn = (+) x     // return add with x baked in
+let intermediateFn = (+) x     // вернется ф-ция "добавить" с "х" в замыкании
 let result  = intermediateFn y
 
-// using plus as a function with two parameters
+// используем плюс как ф-цию с двумя параметрами
 let result  = (+) x y
 
-// normal version of plus as infix operator
+// нормальное использование плюса как инфиксного оператора
 let result  = x + y
 ```
+
 
 > And yes, this works for all other operators and built in functions like printf.
 
 И да, это работает на все другие операторы и встроенные функции, такие как `printf`.
 
 ```fsharp
-// normal version of multiply
+// нормальная версия умножения
 let result  = 3 * 5
 
-// multiply as a one parameter function
-let intermediateFn = (*) 3   // return multiply with "3" baked in
+// умножение как унарная ф-ция
+let intermediateFn = (*) 3   // вернется "умножить" с 3 в замыкании
 let result  = intermediateFn 5
 
-// normal version of printfn
+// нормальнвя версия  printfn
 let result  = printfn "x=%i y=%i" 3 5
 
-// printfn as a one parameter function
-let intermediateFn = printfn "x=%i y=%i" 3  // "3" is baked in
+// printfn как унарная ф-ция
+let intermediateFn = printfn "x=%i y=%i" 3  // "3" в замыкании
 let result  = intermediateFn 5
 ```
 
@@ -179,7 +180,7 @@ let result  = intermediateFn 5
 
 > Now that we know how curried functions work, what should we expect their signatures to look like?
 
-Теперь, когда мы знаем, как работают каррированные функции, что можно ожидать от их сигнатур?
+Теперь, когда мы знаем, как работают каррированные функции, интересно на что будут похожт их сигнатуры?
 
 > Going back to the first example, "`printTwoParameters`", we saw that it took one argument and returned an intermediate function. The intermediate function also took one argument and returned nothing (that is, unit). So the intermediate function has type `int->unit`. In other words, the domain of `printTwoParameters` is `int` and the range is `int->unit`. Putting this together we see that the final signature is:
 
@@ -239,17 +240,17 @@ let add2Params x y = (+) x y
 
 ```fsharp
 let multiParamFn (p1:int)(p2:bool)(p3:string)(p4:float)=
-   ()   //do nothing
+   ()   //ничего не делаем
 
-let intermediateFn1 = multiParamFn 42
-   // intermediateFn1 takes a bool
-   // and returns a new function (string -> float -> unit)
+let intermediateFn1 = multiParamFn 42 // multoParamFn принимает int и возвращает (bool -> string -> float -> unit)
+   // intermediateFn1 принимает bool
+   //  и возвращает (string -> float -> unit)
 let intermediateFn2 = intermediateFn1 false
-   // intermediateFn2 takes a string
-   // and returns a new function (float -> unit)
+   // intermediateFn2 принимает  string
+   // и возвращает (float -> unit)
 let intermediateFn3 = intermediateFn2 "hello"
-   // intermediateFn3 takes a float
-   // and returns a simple value (unit)
+   // intermediateFn3  принимаетfloat
+   // и возвращает простое значение (unit)
 let finalResult = intermediateFn3 3.141
 ```
 
@@ -277,20 +278,20 @@ val finalResult : unit = ()
 Сигнатура функции может сообщить о том, сколько параметров принимает функция: достаточно подсчитать число стрелок вне скобок. Если функция принимает или возвращает другую функцию, будут еще стрелки, но они будут в скобках и их можно будет проигнорировать. Вот некоторые примеры:
 
 ```fsharp
-int->int->int      // two int parameters and returns an int
+int->int->int      // 2 параметра int возвращаем int
 
-string->bool->int  // first param is a string, second is a bool,
-                   // returns an int
+string->bool->int  // первый параметро string, второй - bool,
+                   // вернется int
 
-int->string->bool->unit // three params (int,string,bool)
-                        // returns nothing (unit)
+int->string->bool->unit // три параметра (int,string,bool)
+                        // ничего не вернется (unit)
 
-(int->string)->int      // has only one parameter, a function
-                        // value (from int to string)
-                        // and returns a int
+(int->string)->int      // только один параметр, функция
+                        // (из int в string)
+                        // и вернется int
 
-(int->string)->(int->bool) // takes a function (int to string)
-                           // returns a function (int to bool)
+(int->string)->(int->bool) // принимает ф-цию (int в string)
+                           // вернет ф-цию (int в bool)
 ```
 
 
@@ -305,7 +306,7 @@ int->string->bool->unit // three params (int,string,bool)
 Рассмотрим с виду безобидную функцию:
 
 ```fsharp
-// create a function
+// созданем ф-цию
 let printHello() = printfn "hello"
 ```
 
@@ -314,7 +315,7 @@ let printHello() = printfn "hello"
 Как думаете, что произойдет, если вызвать ее, как показано ниже? Выведется ли "hello" на консоль? Попробуйте догадаться до выполнения. Подсказка: посмотрите на сигнатуру функции.
 
 ```fsharp
-// call it
+// выхываем ее
 printHello
 ```
 
@@ -345,7 +346,7 @@ printfn "x=%i y=%i" x
 
 > If you didn't understand currying, this message would be very cryptic! All expressions that are evaluated standalone like this (i.e. not used as a return value or bound to something with "let") *must* evaluate to the unit value. And in this case, it is does *not* evaluate to the unit value, but instead evaluates to a function. This is a long winded way of saying that `printfn` is missing an argument.
 
-Если нет понимания каррирования, данное сообщение может быть очень загадочным. Дело в том, что все выражения, которые вычисляются отдельно, как это (т.е. не используются как возвращаемое значение или привязка к чему-либо посредством "let") _должны_ вычисляться в `unit` значение. В данном случае, оно _не_ вычисляется в `unit` значение, но вместо этого возвращает функцию. Это длинный извилистый способ сказать, что `printfn` не хватает аргумента.
+Если нет понимания каррирования, данное сообщение может быть очень загадочным. Дело в том, что все выражения, которые вычисляются отдельно, как это (т.е. не используются как возвращаемое значение или привязка к чему-либо посредством "let"), _должны_ вычисляться в `unit` значение. В данном случае, оно _не_ вычисляется в `unit` значение, но вместо этого возвращает функцию. Это длинный извилистый способ сказать, что `printfn` не хватает аргумента.
 
 > A common case of errors like this is when interfacing with the .NET library. For example, the `ReadLine` method of a `TextReader` must take a unit parameter. It is often easy to forget this and leave off the parens, in which case you do not get a compiler error immediately, but only when you try to treat the result as a string.
 
@@ -354,14 +355,14 @@ printfn "x=%i y=%i" x
 ```fsharp
 let reader = new System.IO.StringReader("hello");
 
-let line1 = reader.ReadLine        // wrong but compiler doesn't
-                                   // complain
-printfn "The line is %s" line1     //compiler error here!
+let line1 = reader.ReadLine        // ошибка, но компилятор пропустит
+
+printfn "The line is %s" line1     //но здесь выдаст ошибку
 // ==> error FS0001: This expression was expected to have
 // type string but here has type unit -> string
 
-let line2 = reader.ReadLine()      //correct
-printfn "The line is %s" line2     //no compiler error
+let line2 = reader.ReadLine()      //верно
+printfn "The line is %s" line2     //без ошибок компиляции
 ```
 
 > In the code above, `line1` is just a pointer or delegate to the `Readline` method, not the string that we expected. The use of `()` in `reader.ReadLine()` actually executes the function.
@@ -390,7 +391,7 @@ printfn "hello %i %i" 42 43 44
 
 > For example, in the last case, the compiler is saying that it expects the format argument to have three parameters (the signature `'a -> 'b -> 'c -> 'd`  has three parameters) but it is given only two (the signature `'a -> 'b -> unit`  has two parameters).
 
-Например, в последнем случае компилятор сообщает, что ожидается форматирующая строка с тремя параметрами (сигнатура `'a -> 'b -> 'c -> 'd` имеет три параметра), но вместо этого получена строка с двумя (у сигнатуры `'a -> 'b -> unit` два параметра)_.
+Например, в последнем случае компилятор сообщает, что ожидается форматирующая строка с тремя параметрами (сигнатура `'a -> 'b -> 'c -> 'd` имеет три параметра), но вместо этого получена строка с двумя (у сигнатуры `'a -> 'b -> unit` два параметра).
 
 > In cases not using `printf`, passing too many parameters will often mean that you end up with a simple value that you then try to pass a parameter to. The compiler will complain that the simple value is not a function.
 
@@ -409,8 +410,8 @@ let x = add1 2 3
 
 ```fsharp
 let add1 x = x + 1
-let intermediateFn = add1 2   //returns a simple value
-let x = intermediateFn 3      //intermediateFn is not a function!
+let intermediateFn = add1 2   //вернет простое значение
+let x = intermediateFn 3      //intermediateFn не функция!
 // ==>   error FS0003: This value is not a function
 //                     and cannot be applied
 ```
