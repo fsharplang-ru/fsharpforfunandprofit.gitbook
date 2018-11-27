@@ -22,28 +22,28 @@ categories: [Currying, Partial Application]
 Несколько простых примеров для иллюстрации:
 
 ```fsharp
-// create an "adder" by partial application of add
-let add42 = (+) 42    // partial application
+// Создаем "сумматор" с помощью частичного применения к функции + аргумента 42
+let add42 = (+) 42    // само частичное применение
 add42 1
 add42 3
 
-// create a new list by applying the add42 function 
-// to each element
+// создаем новый список через применение ф-ции
+// к каждому элементу исходного списка
 [1;2;3] |> List.map add42
 
-// create a "tester" by partial application of "less than"
-let twoIsLessThan = (<) 2   // partial application
+// создаем предиккатную ф-цию с помощью частичного применения к функции "меньше"
+let twoIsLessThan = (<) 2   // частичное применение
 twoIsLessThan 1
 twoIsLessThan 3
 
-// filter each element with the twoIsLessThan function
+// отфильтруем каждый элемент с ф-цией twoIsLessThan
 [1;2;3] |> List.filter twoIsLessThan
 
-// create a "printer" by partial application of printfn
+// создаем функцию "печать" с помощью частичного применения к ф-ции printfn
 let printer = printfn "printing param=%i"
 
-// loop over each element and call the printer function
-[1;2;3] |> List.iter printer
+// итерируем список и вызываем ф-цию printer для каждого элемента
+[1;2;3] |> List.iter printerprinter
 ```
 
 > In each case, we create a partially applied function that we can then reuse in multiple contexts.
@@ -55,18 +55,17 @@ let printer = printfn "printing param=%i"
 И конечно, частичное применение позволяет так же легко фиксировать параметры-функции. Вот несколько примеров:
 
 ```fsharp
-// an example using List.map
+// пример использования  List.map
 let add1 = (+) 1
-let add1ToEach = List.map add1   // fix the "add1" function
-
-// test
+let add1ToEach = List.map add1   // фиксируем ф-цию "add1" с List.map 
+// тестируем
 add1ToEach [1;2;3;4]
 
-// an example using List.filter
+// пример с использованием List.filter
 let filterEvens =
-   List.filter (fun i -> i%2 = 0) // fix the filter function
+   List.filter (fun i -> i%2 = 0) // фиксируем фильтр ф-ции
 
-// test
+// тестируем
 filterEvens [1;2;3;4]
 ```
 
@@ -85,7 +84,7 @@ filterEvens [1;2;3;4]
 * И наконец, мы частично применяем основную функцию для создания новой функции, с замкнутым логгером.
 
 ```fsharp
-// create an adder that supports a pluggable logging function
+// создаем сумматор который поддерживает встраевыемый логгер-функцию
 let adderWithPluggableLogger logger x y =
     logger "x" x
     logger "y" y
@@ -93,23 +92,23 @@ let adderWithPluggableLogger logger x y =
     logger "x+y"  result
     result
 
-// create a logging function that writes to the console
+// создаем логгер-функцию которая выводит лог на консоль
 let consoleLogger argName argValue =
     printfn "%s=%A" argName argValue
 
-//create an adder with the console logger partially applied
+// создаем сумматор с логером на консоль через частичное применение ф-ции
 let addWithConsoleLogger = adderWithPluggableLogger consoleLogger
 addWithConsoleLogger  1 2
 addWithConsoleLogger  42 99
 
-// create a logging function that creates popup windows
+// создаем логгер-функцию кс выводом во всплывающее окно
 let popupLogger argName argValue =
     let message = sprintf "%s=%A" argName argValue
     System.Windows.Forms.MessageBox.Show(
                                  text=message,caption="Logger")
       |> ignore
 
-//create an adder with the popup logger partially applied
+// создаем сумматор с логгер-фукцией во всплыввающее окно через частичное применение
 let addWithPopupLogger  = adderWithPluggableLogger popupLogger
 addWithPopupLogger  1 2
 addWithPopupLogger  42 99
@@ -120,10 +119,10 @@ addWithPopupLogger  42 99
 Эти функции с замкнутым логгером могут быть использованы как любые другие функции. Например, мы можем создать частичное применение для прибавления 42, и затем передать его в списочную функцию, как мы делали для простой функции "`add42`".
 
 ```fsharp
-// create a another adder with 42 baked in
+// создаем еще один сумматор с частично примененным парамтром 42
 let add42WithConsoleLogger = addWithConsoleLogger 42
 [1;2;3] |> List.map add42WithConsoleLogger
-[1;2;3] |> List.map add42               //compare without logger
+[1;2;3] |> List.map add42    //сраваниваем с сумматором без логгераlogger
 ```
 
 > These partially applied functions are a very useful tool. We can create library functions which are flexible (but complicated), yet make it easy to create reusable defaults so that callers don't have to be exposed to the complexity all the time.
@@ -188,7 +187,7 @@ sortDesc [0;1;2;3]
 Следование второму совету облегчает использование оператора конвейеризации и композиции. Мы уже наблюдали это много раз в примерах с функциями над списками.
 
 ```fsharp
-// piping using list functions
+// использование конвеерной ф-ции со списком и ф-циями обработки списков
 let result =
    [1..10]
    |> List.map (fun i -> i+1)
@@ -216,7 +215,7 @@ let result = compositeOp [1..10]
 Однако, достаточно легко можно написать обертки, чтобы сделать эти функции более идиоматичными. В примере ниже строковые .NET функции переписаны так, чтобы целевая строка использовалась последней, а не первой:
 
 ```fsharp
-// create wrappers for .NET string functions
+// создает обертку вокруг стандартного .NET метода
 let replace oldStr newStr (s:string) =
   s.Replace(oldValue=oldStr, newValue=newStr)
 
@@ -267,7 +266,7 @@ let (|>) x f = f x
 
 ```fsharp
 let doSomething x y z = x+y+z
-doSomething 1 2 3       // all parameters after function
+doSomething 1 2 3      // все параметры после функции
 ```
 
 > If the function has multiple parameters, then it appears that the input is the final parameter. Actually what is happening is that the function is partially applied, returning a function that has a single parameter: the input
@@ -277,6 +276,9 @@ _Если функция имеет несколько параметров, т�
 
 ???? _Если функция принимает несколько параметров, то она выглядит так, будто входной параметр - последний. На самом деле функция применяется частично и возвращает функцию, которая принимает единственный параметр - input._ ???
 
+_Опубликован вариант_
+_В случае, когда функция `f` имеет несколько параметов, а в качестве входного значения `x` конвейеризации будет выступать последний параметр функции `f`. Фактически передаваемая функция `f` уже частично применена и ожидает лишь один параметр — входное значение для конвейеризации (т е `x`)._
+
 > Here's the same example rewritten to use partial application
 
 Вот аналогичный пример, переписанный с целью частичного применения
@@ -284,11 +286,11 @@ _Если функция имеет несколько параметров, т�
 ```fsharp
 let doSomething x y  =
    let intermediateFn z = x+y+z
-   intermediateFn        // return intermediateFn
+   intermediateFn        // возвращаем intermediateFn
 
 let doSomethingPartial = doSomething 1 2
-doSomethingPartial 3     // only one parameter after function now
-3 |> doSomethingPartial  // same as above - last parameter piped in
+doSomethingPartial 3     // теперь только один параметр после ф-ции
+3 |> doSomethingPartial  // тоже что и выше, но теперь последний параметр конвеиризован в ф-цию
 ```
 
 > As you have already seen, the pipe operator is extremely common in F#, and used all the time to preserve a natural flow. Here are some more usages that you might see:
@@ -296,8 +298,8 @@ doSomethingPartial 3     // only one parameter after function now
 Как вы уже видели, конвейерный оператор чрезвычайно распространен в F#, и используется всякий раз, когда требуется сохранить естественный поток данных. Еще несколько примеров, которые вы возможно встречали:
 
 ```fsharp
-"12" |> int               // parses string "12" to an int
-1 |> (+) 2 |> (*) 3       // chain of arithmetic
+"12" |> int               // парсит строку "12" в int
+1 |> (+) 2 |> (*) 3       // арифметическая цепочка
 ```
 
 ### The reverse pipe function | Обратный конвейерный оператор ###
@@ -319,9 +321,9 @@ let (<|) f x = f x
 Причина заключается в том, что когда обратный конвейерный оператор используется как бинарный оператор в инфиксном стиле, он снижает потребность в скобках, что делает код чище.
 
 ```fsharp
-printf "%i" 1+2          // error
-printf "%i" (1+2)        // using parens
-printf "%i" <| 1+2       // using reverse pipe
+printf "%i" 1+2          // ошибка
+printf "%i" (1+2)        // использование скобок
+printf "%i" <| 1+2       // использование обратного конвейера
 ```
 
 > You can also use piping in both directions at once to get a pseudo infix notation.
@@ -330,6 +332,6 @@ printf "%i" <| 1+2       // using reverse pipe
 
 ```fsharp
 let add x y = x + y
-(1+2) add (3+4)          // error
-1+2 |> add <| 3+4        // pseudo infix
+(1+2) add (3+4)          // ошибка
+1+2 |> add <| 3+4        // псевдоинфиксная запись
 ```
