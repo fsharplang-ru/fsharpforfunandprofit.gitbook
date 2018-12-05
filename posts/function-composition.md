@@ -61,8 +61,8 @@ let F x y z = (x y) z
 
 ```fsharp
 let F x y z = x (y z)
-let F x y z = y z |> x    // using forward pipe
-let F x y z = x <| y z    // using backward pipe
+let F x y z = y z |> x    // использование прямого конвейера
+let F x y z = x <| y z    // использование обратного конвейера
 ```
 
 > As an exercise, work out the signatures for these functions without actually evaluating them!
@@ -86,8 +86,8 @@ let F x y z = x <| y z    // using backward pipe
 Например:
 
 ```fsharp
-let f (x:int) = float x * 3.0  // f is int->float
-let g (x:float) = x > 4.0      // g is float->bool
+let f (x:int) = float x * 3.0  // f это ф-ция типа int->float
+let g (x:float) = x > 4.0      // g это ф-ция типа float->bool
 ```
 
 > We can create a new function h that takes the output of "f" and uses it as the input for "g".
@@ -97,7 +97,7 @@ let g (x:float) = x > 4.0      // g is float->bool
 ```fsharp
 let h (x:int) = 
     let y = f(x)
-    g(y)                   // return output of g
+    g(y)                   // возвращаем результат вызова g
 ```
 
 > A much more compact way is this:
@@ -105,7 +105,7 @@ let h (x:int) =
 Чуть более компактно:
 
 ```fsharp
-let h (x:int) = g ( f(x) ) // h is int->bool
+let h (x:int) = g ( f(x) ) // h это ф-ция типа int->bool
 
 //test
 h 1
@@ -213,7 +213,7 @@ add5Times3 1
 Пока соответствующие входы и выходы функций совпадают, функции могут использовать любые значения. Например, рассмотрим следующий код, который выполняет функцию дважды:
 
 ```fsharp
-let twice f = f >> f    //signature is ('a -> 'a) -> ('a -> 'a)
+let twice f = f >> f    //сигнатура ('a -> 'a) -> ('a -> 'a)
 ```
 
 > Note that the compiler has deduced that the function f must use the same type for both input and output.
@@ -225,8 +225,8 @@ let twice f = f >> f    //signature is ('a -> 'a) -> ('a -> 'a)
 Теперь рассмотрим функцию "`+`". Как мы видели ранее, ввод является `int`-ом, но вывод в действительности - `(int->int)`. Таким образом "`+`" может быть использована в "`twice`". Поэтому можно написать:
 
 ```fsharp
-let add1 = (+) 1           // signature is (int -> int)
-let add1Twice = twice add1 // signature is also (int -> int)
+let add1 = (+) 1           // сигнатура (int -> int)
+let add1Twice = twice add1 // сигнатура так же (int -> int)
 
 //test
 add1Twice 9
@@ -250,7 +250,7 @@ let addThenMultiply = (+) >> (*)
 
 ```fsharp
 let add1ThenMultiply = (+) 1 >> (*) 
-// (+) 1 has signature (int -> int) and output is an 'int'
+// (+) 1 с сигнатурой (int -> int) и результатом 'int'
 
 //test
 add1ThenMultiply 2 7 
@@ -271,9 +271,9 @@ times2Add1 3
 
 ```fsharp
 let myList = []
-myList |> List.isEmpty |> not    // straight pipeline
+myList |> List.isEmpty |> not    // прямой конвейер
 
-myList |> (not << List.isEmpty)  // using reverse composition 
+myList |> (not << List.isEmpty)  // использование обратной композиции
 ```
 
 ## Composition vs. pipeline | Композиция vs. конвейер ##
@@ -296,8 +296,8 @@ let (|>) x f = f x
 
 ```fsharp
 let doSomething x y z = x+y+z
-doSomething 1 2 3       // all parameters after function
-3 |> doSomething 1 2    // last parameter piped in
+doSomething 1 2 3       // все параметры указаны после ф-ции
+3 |> doSomething 1 2    // последний параметр конвейеризован в ф-цию
 ```
 
 > Composition is not the same thing and cannot be a substitute for a pipe. In the following case the number 3 is not even a function, so its "output" cannot be fed into `doSomething`:
@@ -305,9 +305,9 @@ doSomething 1 2 3       // all parameters after function
 Композиция не тоже самое и не может быть заменой пайпу. В следующем примере число 3 даже не функция, поэтому "вывод" не может быть передан в `doSomething`:
 
 ```fsharp
-3 >> doSomething 1 2     // not allowed
-// f >> g is the same as  g(f(x)) so rewriting it we have:
-doSomething 1 2 ( 3(x) ) // implies 3 should be a function!
+3 >> doSomething 1 2     // ошибка
+// f >> g  то же самое что и  g(f(x)) так что можем переписать это:
+doSomething 1 2 ( 3(x) ) // подразумевается что 3 должно быть ф-цией!
 // error FS0001: This expression was expected to have type 'a->'b    
 //               but here has type int    
 ```
@@ -333,9 +333,9 @@ let add1Times2 = add 1 >> times 2
 Попытки использовать конвейер вместо композиции обернутся ошибкой компиляции. В следующем примере "`add 1`" - это (частичная) функция `int->int`, которая не может быть использована в качестве второго параметра для "`times 2`".
 
 ```fsharp
-let add1Times2 = add 1 |> times 2   // not allowed
-// x |> f is the same as  f(x) so rewriting it we have:
-let add1Times2 = times 2 (add 1)    // add1 should be an int
+let add1Times2 = add 1 |> times 2   //  ошибка
+// x |> f то же самое что и  f(x) так что можем переписать это:
+let add1Times2 = times 2 (add 1)    // add1 должно быть 'int'
 // error FS0001: Type mismatch. 'int -> int' does not match 'int'
 ```
 
