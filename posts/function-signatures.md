@@ -29,7 +29,7 @@ int * string // a type expression
 
 > As you know, F# uses type inference to deduce types, so you don't often need to explicitly specify types in your code, especially for functions. But in order to work effectively in F#, you *do* need to understand the type syntax, so that you can build your own types, debug type errors, and understand function signatures. In this post, we'll focus on its use in function signatures.
 
-Как вы знаете, F# использует алгоритм вывода типов, поэтому зачастую вам не придётся явно прописывать типы в коде, особенно в функциях. Но для эффективной работы с F#, необходимо понимать синтаксис типов, таким образом вы сможете определять свои собственные типы, отлаживать ошибки приведения типов и читать сигнатуры функций. В этой статье я сосредоточусь на использовании типов в сигнатурах функций.
+Как вы знаете, F# использует алгоритм вывода типов, поэтому зачастую вам не надо явно прописывать типы в коде, особенно в функциях. Но для эффективной работы с F#, необходимо понимать синтаксис типов, что бы вы смогли определять свои собственные типы, отлаживать ошибки приведения типов и читать сигнатуры функций. В этой статье я сосредоточусь на использовании типов в сигнатурах функций.
 
 > Here are some example function signatures using the type syntax:
 
@@ -95,7 +95,7 @@ int -> (unit -> string)
 
 > This function takes a list of some type, but returns only one of that type, which means that the function is merging or choosing elements from the list. Examples of functions with this signature are `List.sum`, `List.max`, `List.head` and so on.
 
-Функция принимает список любого типа, но возвращает лишь одно значение этого типа, это может говорить о том что функция аггрегирует список или выбирает один из его элементов. Подобную сигнатуру имеют `List.sum`, `List.max`, `List.head` и т.д.
+Функция принимает список любого типа, но возвращает лишь одно значение этого типа, это может говорить о том, что функция аггрегирует список или выбирает один из его элементов. Подобную сигнатуру имеют `List.sum`, `List.max`, `List.head` и т.д.
 
 ```fsharp
 // function signature 6
@@ -104,7 +104,7 @@ int -> (unit -> string)
 
 > This function takes two parameters: the first is a function that maps something to a bool (a predicate), and the second is a list. The return value is a list of the same type. Predicates are used to determine whether a value meets some sort of criteria, so it looks like the function is choosing elements from the list based on whether the predicate is true or not and then returning a subset of the original list. A typical function with this signature is `List.filter`.
 
-Эта функция принимает два параметра: первый - функция которая преобразует что-либо в `bool` (предикат), а второй - список. Возвращаемое значение является списком того же типа. Предикаты используют, чтобы определить, соответствует ли определенный объект некому критерию, и похоже, что данная функция выбирает элементы из списка на основе того, возвращает ли предикат истинное значение или нет, после чего возвращает подмножество исходного списка. Примером функции с такой сигнатурой является `List.filter`.
+Эта функция принимает два параметра: первый - функция которая преобразует что-либо в `bool` (предикат), а второй - список. Возвращаемое значение является списком того же типа. Предикаты используют, чтобы определить, соответствует ли определенный объект некому критерию, и похоже, что данная функция выбирает элементы из списка на основе значения, возвращаемого предикатом - истина или ложь. После чего возвращает подмножество исходного списка. Примером функции с такой сигнатурой является `List.filter`.
 
 ```fsharp
 // function signature 7
@@ -131,7 +131,7 @@ int -> (unit -> string)
 
 > Now go to the [MSDN documentation for the F# List module](http://msdn.microsoft.com/en-us/library/ee353738), and scan down the list of functions, looking for something that matches.  As it happens, there is only one function with that signature:
 
-Теперь перейдем на [сайт документации MSDN для модуля List](http://msdn.microsoft.com/en-us/library/ee353738), и посмотрим на список функций, в поисках чего-либо похожего. Оказывается, что существует лишь одна функция с такой сигнатурой:
+Теперь перейдем на [сайт документации MSDN для модуля List](http://msdn.microsoft.com/en-us/library/ee353738), и поищем похожую функцию. Оказывается, существует лишь одна функция с такой сигнатурой:
 
 ```fsharp
 append : 'T list -> 'T list -> 'T list
@@ -154,7 +154,7 @@ type AdderGenerator = int -> Adder
 
 > You can then use these types to constrain function values and parameters.
 
-В дальнейшем вы можете использовать эти типы для ограничений значений параметров функций.
+В дальнейшем вы можете использовать эти типы для ограничения значений параметров функций.
 
 > For example, the second definition below will fail because of type constraints. If you remove the type constraint (as in the third definition) there will not be any problem.
 
