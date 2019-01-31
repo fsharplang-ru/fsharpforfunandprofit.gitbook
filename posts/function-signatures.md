@@ -112,7 +112,7 @@ int -> (unit -> string)
 
 > Function signatures are an important part of searching for library functions. The F# libraries have hundreds of functions in them and they can initially be overwhelming.  Unlike an object oriented language, you cannot simply "dot into" an object to find all the appropriate methods. However, if you know the signature of the function you are looking for, you can often narrow down the list of candidates quickly.
 
-Сигнатуры функций очень важны в поиске библиотечных функций. Библиотеки F# содержат сотни функций, что по началу может сбивать с толку. В отличие от объектно-ориентированных языков, вы не можете просто "войти в объект" через точку, чтобы найти все связанные методы. Но если вы знаете сигнатуру желаемой функции, вы быстро сможете сузить круг поисков.
+Сигнатуры функций очень важны в поиске библиотечных функций. Библиотеки F# содержат сотни функций, что поначалу может сбивать с толку. В отличие от объектно-ориентированных языков, вы не можете просто "войти в объект" через точку, чтобы найти все связанные методы. Но если вы знаете сигнатуру желаемой функции, вы быстро сможете сузить круг поисков.
 
 > For example, let's say you have two lists and you are looking for a function to combine them into one. What would the signature be for this function? It would take two list parameters and return a third, all of the same type, giving the signature:
 
