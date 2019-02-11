@@ -14,25 +14,25 @@ categories: [Functions, Modules]
 
 > In F#, there are three options:
 
-В F# существуют три варианта:
+В F# возможны три варианта:
 
 > * functions can be nested inside other functions.
 > * at an application level, the top level functions are grouped into "modules".
 > * alternatively, you can also use the object-oriented approach and attach functions to types as methods.
 
 * функции могут быть вложены в другие функции.
-* на уровне приложения, функции верхнего уровня группируются по "модулям".
-* в качестве альтернативы, можно придерживаться ООП и прикреплять функции к типам в качестве методов.
+* на уровне приложения функции верхнего уровня группируются по "модулям".
+* или же можно придерживаться объектно-ориентированного подхода и прикреплять функции к типам в качестве методов.
 
 > We'll look at the first two options in this post, and the third in the next post.
 
-В данной статье будут рассмотрены первые два способа, оставшийся будет разобран в следующей.
+В этой статье рассмотрим первые два способа, а оставшийся -  в следующей.
 
 ## Nested Functions | Вложенные функции ##
 
 > In F#, you can define functions inside other functions. This is a great way to encapsulate "helper" functions that are needed for the main function but shouldn't be exposed outside.
 
-В F# можно определять функции внутри других функций. Это хороший способ инкапсулировать сопутствующие функции, которые необходимы лишь для основной функции и не должны быть представлены наружу.
+В F# можно определять функции внутри других функций. Это хороший способ инкапсулировать вспомогательные функции, которые необходимы лишь для основной функции и не должны быть видны снаружи.
 
 > In the example below `add` is nested inside `addThreeNumbers`:
 
@@ -55,7 +55,7 @@ addThreeNumbers 2 3 4
 > A nested function can access its parent function parameters directly, because they are in scope. 
 > So, in the example below, the `printError` nested function does not need to have any parameters of its own -- it can access the `n` and `max` values directly.
 
-Вложенные функции могут получить доступ к родительским параметрам напрямую, потому-что они находятся в области видимости.
+Вложенные функции могут получить доступ к родительским параметрам напрямую, потому-что они находятся её в области видимости.
 Так, в приведенном ниже примере вложенная функция`printError` не нуждается в параметрах, т.к. она может получить доступ к `n` и `max` напрямую.
 
 ```fsharp
@@ -76,8 +76,8 @@ validateSize 10 11
 > A very common pattern is that the main function defines a nested recursive helper function, and then calls it with the appropriate initial values.
 > The code below is an example of this:
 
-Очень распространенным паттерном является основная функция определяющая вложенную рекурсивную вспомогательную функцию, которая вызывается с соответствующими начальными значениями.
-Ниже приведен подобный пример:
+Очень распространенным паттерном является основная функция, определяющая вложенную рекурсивную вспомогательную функцию, которая вызывается с соответствующими начальными значениями.
+Ниже приведен пример такого кода:
 
 ```fsharp
 let sumNumbersUpTo max = 
@@ -99,12 +99,12 @@ sumNumbersUpTo 10
 > When nesting functions, do try to avoid very deeply nested functions, especially if the nested functions directly access the variables in their parent scopes rather than having parameters passed to them.
 > A badly nested function will be just as confusing as the worst kind of deeply nested imperative branching.
 
-Старайтесь избегать глубокой вложенности, особенно в случаях прямого доступа (не в виле параметров) к родительским переменным.
-Плохо вложенные функции будут столь же сложны для понимания, как худшие виды глубоких вложенных императивных ветвлений.
+Старайтесь избегать глубокой вложенности, особенно в случаях прямого доступа (не в виде параметров) к родительским переменным.
+Чрезмерно глубоко вложенные функции будут столь же сложны для понимания, как худшие из многократно вложенных императивных ветвлений.
 
 > Here's how *not* to do it:
 
-Пример того как *нельзя* делать:
+Пример того как *не надо* делать:
 
 ```fsharp
 // wtf does this function do?
@@ -132,8 +132,8 @@ let f x =
 > A module definition looks very like a function definition. It starts with the `module` keyword, then an `=` sign, and then the contents of the module are listed.
 > The contents of the module *must* be indented, just as expressions in a function definition must be indented.
 
-Определение модуля очень похоже на определение функции. Оно начинается с ключевого слова `module`, затем идет знак `=`, после чего идет содержимое модуля.
-Содержимое модуля *должно* быть смещено, также как выражения в определении функций.
+Определение модуля очень похоже на определение функции. Оно начинается с ключевого слова `module`, затем идет знак `=`, после чего следует содержимое модуля.
+Содержимое модуля *должно* быть отформатировано со смещением, также как выражения в определении функций.
 
 > Here's a module that contains two functions:
 
@@ -148,11 +148,11 @@ module MathStuff =
 
 > Now if you try this in Visual Studio, and you hover over the `add` function, you will see that the full name of the `add` function is actually `MathStuff.add`, just as if `MathStuff` was a class and `add` was a method.
 
-Если попробовать этот код в Visual Studio, то при наведении на `add`, можно увидеть полное имя `add`, которое в действительности равно `MathStuff.add`, как будто `MastStuff` был классом, а `add` методом.
+Если открыть этот код в Visual Studio, то при наведении на `add` можно увидеть полное имя `add`, которое в действительности равно `MathStuff.add`, как будто `MastStuff` был классом, а `add` -  методом.
 
 > Actually, that's exactly what is going on. Behind the scenes, the F# compiler creates a static class with static methods. So the C# equivalent would be:
 
-В действительности, именно это и происходит. За кулисами F# компилятор создает статический класс со статическими методами. C# эквивалент выглядел бы так:
+В действительности именно это и происходит. За кулисами F# компилятор создает статический класс со статическими методами. C# эквивалент выглядел бы так:
 
 ```csharp
 static class MathStuff
@@ -172,7 +172,7 @@ static class MathStuff
 > If you realize that modules are just static classes, and that functions are static methods, then you will already have a head-start on understanding how modules work in F#,
 > as most of the rules that apply to static classes also apply to modules.
 
-Осознание того, что модули являются всего-лишь статическими классами, а функции являются статическими методами, даст хорошее понимание того, как модули работают в F#, большинство правил применимых к статическим классам также применимо и к модулям.
+Осознание того, что модули - это всего всего лишь статические классы, а функции - статические методы, даст хорошее понимание того, как модули работают в F#, поскольку большинство правил, применимых к статическим классам, применимо также и к модулям.
 
 > And, just as in C# every standalone function must be part of a class, in F# every standalone function *must* be part of a module.
 
@@ -182,7 +182,7 @@ static class MathStuff
 
 > If you want to access a function in another module, you can refer to it by its qualified name.
 
-Если есть необходимость получить функцию из другого модуля, можно ссылаться на нее через полное имя.
+Если есть необходимость обратиться к функции из другого модуля, можно ссылаться на нее через полное имя.
 
 ```fsharp
 module MathStuff = 
@@ -211,7 +211,7 @@ module OtherStuff =
 > The rules for using qualified names are exactly as you would expect. That is, you can always use a fully qualified name to access a function, 
 > and you can use relative names or unqualified names based on what other modules are in scope.
 
-Правила использования имен вполне ожидаемые. Всегда можно обратиться к функции по ее полному имени, и можно использовать относительные или неполные имена в зависимости от текущей области видимости.
+Правила использования имен вполне ожидаемые. Всегда можно обратиться к функции по ее полному имени, а можно использовать относительные или неполные имена в зависимости от текущей области видимости.
 
 ### Nested modules | Вложенные модули
 
@@ -234,7 +234,7 @@ module MathStuff =
         
 > And other modules can reference functions in the nested modules using either a full name or a relative name as appropriate:
 
-Другие модули могут ссылаться на функции во вложенных модулях используя полное или относительное имя в зависимости от обстоятельств:
+Другие модули могут ссылаться на функции во вложенных модулях, используя полное или относительное имя в зависимости от обстоятельств:
 
 ```fsharp
 module OtherStuff = 
@@ -254,11 +254,11 @@ module OtherStuff =
 > So if there can be nested child modules, that implies that, going back up the chain, there must always be some *top-level* parent module.  This is indeed true.
 
 // TODO: Разобраться с термином.
-Таким образом, могут существовать дочерние модули, это означает, что идя назад по цепочке можно дойти до некоего родительского модуля высшего порядка. Это действительно так.
+Таким образом, раз модули могут быть вложенными, следовательно, идя вверх по цепочке, можно дойти до некоего родительского модуля верхнего уровня. Это действительно так.
 
 > Top level modules are defined slightly differently than the modules we have seen so far. 
 
-Модули верхнего уровня определяются несколько иначе в отличии от модулей, которые были показаны ранее.
+Модули верхнего уровня определяются несколько иначе, в отличие от модулей, которые были показаны ранее.
 
 > * The `module MyModuleName` line *must* be the first declaration in the file 
 > * There is no `=` sign
@@ -271,15 +271,15 @@ module OtherStuff =
 > In general, there must be a top level module declaration present in every `.FS` source file. There some exceptions, but it is good practice anyway.
 The module name does not have to be the same as the name of the file, but two files cannot share the same module name.
 
-В общем случае, должна существовать декларация верхнего уровня в каждом исходном `.FS` файле. Есть исключения, но это хорошая практика в любом случае. Имя модуля не обязано совпадать с именем файла, но два файла не могут содержать модули с одинаковыми именами.
+В общем случае в каждом исходном `.FS` файле должна существовать декларация верхнего уровня. Есть кое-какие исключения, но всё равно это хорошая практика. Имя модуля не обязано совпадать с именем файла, но два файла не могут содержать модули с одинаковыми именами.
 
 > For `.FSX` script files, the module declaration is not needed, in which case the module name is automatically set to the filename of the script.
 
-Для `.FSX` файлов, декларация модуля не нужна, в данном случае имя модуля автоматически устанавливается из имени файла скрипта.
+Для `.FSX` файлов декларация модуля не нужна, в данном случае имя файла скрипта автоматически становится именем модуля.
 
 > Here is an example of `MathStuff` declared as a top level module:
 
-Пример `MathStuff` декларированного в качестве верхнего модуля:
+Пример `MathStuff`, декларированного в качестве модуля верхнего модуля:
 
 ```fsharp
 // top level module
