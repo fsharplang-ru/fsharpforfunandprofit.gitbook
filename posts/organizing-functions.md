@@ -10,7 +10,7 @@ categories: [Functions, Modules]
 
 > Now that you know how to define functions, how can you organize them?
 
-Теперь Вы знаете как определять функции, но как организовать их?
+Теперь Вы знаете как определять функции, но как их организовать?
 
 > In F#, there are three options:
 
@@ -39,16 +39,15 @@ categories: [Functions, Modules]
 В примере ниже `add` вложен в `addThreeNumbers`:
 
 ```fsharp
-let addThreeNumbers x y z  = 
+let addThreeNumbers x y z  =
 
-    //создаём вложенную вспомогательную функцию
-    let add n = 
+    // создаём вложенную вспомогательную функцию
+    let add n =
        fun x -> x + n
-       
+
     // используем вспомогательную функцию
     x |> add y |> add z
 
-// тестируем
 addThreeNumbers 2 3 4
 ```
 
@@ -59,16 +58,15 @@ addThreeNumbers 2 3 4
 Так, в приведенном ниже примере вложенная функция`printError` не нуждается в параметрах, т.к. она может получить доступ к `n` и `max` напрямую.
 
 ```fsharp
-let validateSize max n  = 
+let validateSize max n  =
 
     // создаём вложенную вспомогательную функцию без параметров
-    let printError() = 
+    let printError() =
         printfn "Oops: '%i' is bigger than max: '%i'" n max
 
     // используем вспомогательную функцию
     if n > max then printError()
 
-// проверяем
 validateSize 10 9
 validateSize 10 11
 ```
@@ -80,21 +78,19 @@ validateSize 10 11
 Ниже приведён пример такого кода:
 
 ```fsharp
-let sumNumbersUpTo max = 
+let sumNumbersUpTo max =
 
-    // рекурсивная вспомогательная функция с аккумулятором    
-    let rec recursiveSum n sumSoFar = 
+    // рекурсивная вспомогательная функция с аккумулятором
+    let rec recursiveSum n sumSoFar =
         match n with
         | 0 -> sumSoFar
         | _ -> recursiveSum (n-1) (n+sumSoFar)
 
     // вызываем вспомогательную функцию с начальными значениями
     recursiveSum max 0
-            
-// проверяем
+
 sumNumbersUpTo 10
 ```
-
 
 > When nesting functions, do try to avoid very deeply nested functions, especially if the nested functions directly access the variables in their parent scopes rather than having parameters passed to them.
 > A badly nested function will be just as confusing as the worst kind of deeply nested imperative branching.
@@ -108,20 +104,19 @@ sumNumbersUpTo 10
 
 ```fsharp
 // кошмар, что делает эта функция?
-let f x = 
-    let f2 y = 
-        let f3 z = 
+let f x =
+    let f2 y =
+        let f3 z =
             x * z
-        let f4 z = 
-            let f5 z = 
+        let f4 z =
+            let f5 z =
                 y * z
-            let f6 () = 
+            let f6 () =
                 y * x
             f6()
         f4 y
     x * f2 x
 ```
-
 
 ## Modules | Модули ##
 
@@ -140,7 +135,7 @@ let f x =
 Определение модуля содержащего две функции:
 
 ```fsharp
-module MathStuff = 
+module MathStuff =
 
     let add x y  = x + y
     let subtract x y  = x - y
@@ -185,12 +180,12 @@ static class MathStuff
 Если есть необходимость обратиться к функции из другого модуля, можно ссылаться на неё через полное имя.
 
 ```fsharp
-module MathStuff = 
+module MathStuff =
 
     let add x y  = x + y
     let subtract x y  = x - y
 
-module OtherStuff = 
+module OtherStuff =
 
     // используем функцию из модуля MathStuff
     let add1 x = MathStuff.add x 1  
@@ -202,7 +197,7 @@ module OtherStuff =
 Так же можно импортировать все функции другого модуля посредством директивы `open`, после чего можно будет использовать короткое имя вместо полного.
 
 ```fsharp
-module OtherStuff = 
+module OtherStuff =
     open MathStuff  // делаем доступными все функции модуля
 
     let add1 x = add x 1
@@ -220,7 +215,7 @@ module OtherStuff =
 Как и статические классы, модули могут содержать вложенные модули:
 
 ```fsharp
-module MathStuff = 
+module MathStuff =
 
     let add x y  = x + y
     let subtract x y  = x - y
@@ -231,20 +226,20 @@ module MathStuff =
         let add x y :float = x + y
         let subtract x y :float  = x - y
 ```
-        
+
 > And other modules can reference functions in the nested modules using either a full name or a relative name as appropriate:
 
 Другие модули могут ссылаться на функции во вложенных модулях, используя полное или относительное имя в зависимости от обстоятельств:
 
 ```fsharp
-module OtherStuff = 
+module OtherStuff =
     open MathStuff
 
     let add1 x = add x 1
 
     // полное имя
     let add1Float x = MathStuff.FloatLib.add x 1.0
-    
+
     // относительное имя
     let sub1Float x = FloatLib.subtract x 1.0
 ```
@@ -258,7 +253,7 @@ module OtherStuff =
 
 > Top level modules are defined slightly differently than the modules we have seen so far. 
 
-Модули верхнего уровня определяются несколько иначе, в отличие от модулей, которые были показаны ранее.
+Модули "верхнего уровня" определяются несколько иначе, в отличие от модулей, которые были показаны ранее.
 
 > * The `module MyModuleName` line *must* be the first declaration in the file 
 > * There is no `=` sign
@@ -271,7 +266,7 @@ module OtherStuff =
 > In general, there must be a top level module declaration present in every `.FS` source file. There some exceptions, but it is good practice anyway.
 The module name does not have to be the same as the name of the file, but two files cannot share the same module name.
 
-В общем случае в каждом исходном `.FS` файле должна существовать декларация верхнего уровня. Есть кое-какие исключения, но всё равно это хорошая практика. Имя модуля не обязано совпадать с именем файла, но два файла не могут содержать модули с одинаковыми именами.
+В общем случае в каждом исходном `.FS` файле должна существовать декларация "верхнего уровня". Есть кое-какие исключения, но всё равно это хорошая практика. Имя модуля не обязано совпадать с именем файла, но два файла не могут содержать модули с одинаковыми именами.
 
 > For `.FSX` script files, the module declaration is not needed, in which case the module name is automatically set to the filename of the script.
 
@@ -279,7 +274,7 @@ The module name does not have to be the same as the name of the file, but two fi
 
 > Here is an example of `MathStuff` declared as a top level module:
 
-Пример `MathStuff`, объявленного в качестве модуля верхнего модуля:
+Пример `MathStuff`, объявленного в качестве модуля "верхнего модуля":
 
 ```fsharp
 // модуль верхнего уровня
@@ -289,7 +284,7 @@ let add x y  = x + y
 let subtract x y  = x - y
 
 // вложенный модуль
-module FloatLib = 
+module FloatLib =
 
     let add x y :float = x + y
     let subtract x y :float  = x - y
@@ -297,7 +292,7 @@ module FloatLib =
 
 > Note the lack of indentation for the top level code (the contents of `module MathStuff`), but that the content of a nested module like `FloatLib` does still need to be indented.
 
-Обратите внимание на отсутствие отступа в коде высшего уровня (содержимом `module MathStuff`), в то время как содержимое вложенного модуля `FloatLib` всё ещё обязано иметь отступ.
+Обратите внимание на отсутствие отступа в коде "верхнего уровня" (содержимом `module MathStuff`), в то время как содержимое вложенного модуля `FloatLib` всё ещё обязано иметь отступ.
 
 ### Other module content | Другое содержимое модулей
 
@@ -306,7 +301,7 @@ module FloatLib =
 Помимо функций модули могут содержать другие объявления, такие как декларации типов, простые значения и инициализирующий код (например, статическиие конструкторы)
 
 ```fsharp
-module MathStuff = 
+module MathStuff =
 
     // функции
     let add x y  = x + y
@@ -339,13 +334,13 @@ module MathStuff =
 Это снова наш пример модуля. Обратите внимание, что `MathStuff` содержит функцию `add` _также_ как и `FloatLib`.
 
 ```fsharp
-module MathStuff = 
+module MathStuff =
 
     let add x y  = x + y
     let subtract x y  = x - y
 
     // вложенный модуль
-    module FloatLib = 
+    module FloatLib =
 
         let add x y :float = x + y
         let subtract x y :float  = x - y
@@ -359,8 +354,8 @@ module MathStuff =
 open  MathStuff
 open  MathStuff.FloatLib
 
-let result = add 1 2  // Ошибка компиляции: ожидалось, что выражение имеет тип float, 
-                      // но оно имеет тип int
+let result = add 1 2  // Compiler error: This expression was expected to
+                      // have type float but here has type int
 ```
 
 > What happened was that the `MathStuff.FloatLib` module has masked or overridden the original `MathStuff` module, which has been "shadowed" by `FloatLib`.
@@ -381,14 +376,14 @@ let result = add 1 2  // Ошибка компиляции: ожидалось, 
 
 ```fsharp
 [<RequireQualifiedAccess>]
-module MathStuff = 
+module MathStuff =
 
     let add x y  = x + y
     let subtract x y  = x - y
 
     // вложенный модуль
     [<RequireQualifiedAccess>]
-    module FloatLib = 
+    module FloatLib =
 
         let add x y :float = x + y
         let subtract x y :float  = x - y
@@ -397,7 +392,7 @@ module MathStuff =
 > Now the `open` isn't allowed:
 
 Теперь директива `open` недоступна:
-        
+
 ```fsharp
 open  MathStuff   // ошибка
 open  MathStuff.FloatLib // ошибка
@@ -484,9 +479,9 @@ let subtract x y  = x - y
 > * Namespaces can directly contain type declarations, but not function declarations. As noted earlier, all function and value declarations must be part of a module.
 > * Finally, be aware that namespaces don't work well in scripts.  For example, if you try to to send a namespace declaration such as `namespace Utilities` below to the interactive window, you will get an error.
 
-* Пространства имён необязательны для модулей. В отличии от C#, для F# проектов не существует пространства имён по умолчанию, так что модуль верхнего уровня без пространства имён будет глобальным. Если планируется создание многократно используемых библиотек, необходимо добавить несколько пространств имён, чтобы избежать коллизий имён с кодом других библиотек.
+* Пространства имён необязательны для модулей. В отличии от C#, для F# проектов не существует пространства имён по умолчанию, так что модуль верхнего уровня без пространства имён будет глобальным. Если планируется создание многократно используемых библиотек, необходимо добавить несколько пространств имён, чтобы избежать коллизий с кодом других библиотек.
 * Пространства имён могут непосредственно содержать объявления типов, но не объявления функций. Как было замечено ранее, все объявления функций и значений должны быть частью модуля.
-* Наконец, следует иметь ввиду, что пространства имён не работают в скриптах. Например, если попробовать отправить объявление пространства имён, такое как `namespace Utilities`, в интерактивное окошко, будет получена ошибка.
+* Наконец, следует иметь ввиду, что пространства имён не работают в скриптах. Например, если попробовать отправить объявление пространства имён, такое как `namespace Utilities`, в интерактивное окно, будет получена ошибка.
 
 ### Namespace hierarchies | Иерархия пространств имён
 
@@ -531,10 +526,9 @@ namespace Core
 
 // полное имя модуля - Core.Utilities  
 // коллизия с пространством имён выше!
-module Utilities = 
+module Utilities =
     let add x y  = x + y
 ```
-
 
 ## Mixing types and functions in modules | Смешивание типов и функций в модулях ##
 
@@ -605,8 +599,7 @@ module Customer =
     let isValid {T.AccountId=id; } =
         id > 0
 
-// проверяем
-let customer = Customer.create 42 "bob" 
+let customer = Customer.create 42 "bob"
 Customer.isValid customer |> printfn "Is valid?=%b"
 ```
 
