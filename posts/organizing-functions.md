@@ -103,7 +103,7 @@ sumNumbersUpTo 10
 Пример того как *не надо* делать:
 
 ```fsharp
-// кошмар, что делает эта функция?
+// wtf, что делает эта функция?
 let f x =
     let f2 y =
         let f3 z =
@@ -244,11 +244,10 @@ module OtherStuff =
     let sub1Float x = FloatLib.subtract x 1.0
 ```
 
-### Top level modules | Модули высшего порядка
+### Top level modules | Модули верхнего уровня
 
 > So if there can be nested child modules, that implies that, going back up the chain, there must always be some *top-level* parent module.  This is indeed true.
 
-// TODO: Разобраться с термином.
 Таким образом, раз модули могут быть вложенными, следовательно, идя вверх по цепочке, можно дойти до некоего родительского модуля верхнего уровня. Это действительно так.
 
 > Top level modules are defined slightly differently than the modules we have seen so far. 
@@ -327,7 +326,7 @@ module MathStuff =
 
 <div class="alert alert-info">Кстати, если вы запускаете данные примеры в интерактивном режиме, вам может понадобиться достаточно часто перезапускать сессию, чтобы код оставался "свежим" и не заражался предыдущими вычислениями.</div>
 
-### Shadowing | Перекрытие
+### Shadowing | Сокрытие (Перекрытие, Shadowing)
 
 > Here's our example module again. Notice that `MathStuff` has an `add` function and `FloatLib` *also* has an `add` function.
 
@@ -360,7 +359,7 @@ let result = add 1 2  // Compiler error: This expression was expected to
 
 > What happened was that the `MathStuff.FloatLib` module has masked or overridden the original `MathStuff` module, which has been "shadowed" by `FloatLib`.
 
-А произошло то, что модуль `MathStuff.FloatLib` переопределил оригинальный `MathStuff`, который был перекрыт ("shadowed") модулем `FloatLib`.
+А произошло то, что модуль `MathStuff.FloatLib` переопределил оригинальный `MathStuff`, который был перекрыт (сокрыт, "shadowed") модулем `FloatLib`.
 
 > As a result you now get a [FS0001 compiler error](../troubleshooting-fsharp/index.md#FS0001) because the first parameter `1` is expected to be a float. You would have to change `1` to `1.0` to fix this.
 
@@ -368,7 +367,7 @@ let result = add 1 2  // Compiler error: This expression was expected to
 
 > Unfortunately, this is invisible and easy to overlook. Sometimes you can do cool tricks with this, almost like subclassing, but more often, it can be annoying if you have functions with the same name (such as the very common `map`).
 
-К сожалению, на практике это _незаметно_ и легко упускается из виду. Иногда с помощью такого приёма можно делать интересные трюки, почти как подклассы, но чаще всего наличие одноимённых функций раздражает (например, очень распространенная функция `map`).
+К сожалению, на практике это _незаметно_ и легко упускается из виду. Иногда с помощью такого приёма можно делать интересные трюки, почти как подклассы, но чаще всего наличие одноимённых функций раздражает (например, в случае крайне распространенной функции `map`).
 
 > If you don't want this to happen, there is a way to stop it by using the `RequireQualifiedAccess` attribute. Here's the same example where both modules are decorated with it.
 
@@ -574,7 +573,6 @@ module Person =
     let fullName {First=first; Last=last} =
         first + " " + last
 
-// проверяем
 let person = Person.create "john" "doe" 
 Person.fullName person |> printfn "Fullname=%s"
 ```
