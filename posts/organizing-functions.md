@@ -538,7 +538,7 @@ module Utilities =
 > In an object oriented program, the data structure and the functions that act on it would be combined in a class.
 > However in functional-style F#, a data structure and the functions that act on it are combined in a module instead.
 
-В ООП структуры данных и функции на ними, были бы объединены вместе в рамках класса. А в функциональном F# структуры данных и функции над ними объединяются в модуль.
+В ООП структуры данных и функции над ними, были бы объединены вместе в рамках класса. А в функциональном F# структуры данных и функции над ними объединяются в модуль.
 
 > There are two common patterns for mixing types and functions together:
 
