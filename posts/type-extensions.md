@@ -10,35 +10,34 @@ seriesOrder: 11
 > Although we have focused on the pure functional style so far, sometimes it is convenient to switch to an object oriented style.
 And one of the key features of the OO style is the ability to attach functions to a class and "dot into" the class to get the desired behavior.
 
-Хотя до этого повествование было сосредоточено на чисто функциональном стиле, иногда удобно переключится на объектно ориентированный стиль. И одной из ключевых особенностей ОО стиля является возможность прикреплять функции к классу и обращение к классу через точку для получение желаемого поведения.
+Хотя до этого повествование было сфокусировано на чисто функциональном стиле, иногда удобно переключиться на объектно-ориентированный стиль. А одной из ключевых особенностей объектно-ориентированного стиля является возможность прикреплять функции к классу и обращение к классу через точку для получение желаемого поведения.
 
 > In F#, this is done using a feature called "type extensions".  And any F# type, not just classes, can have functions attached to them.
 
-В F#, это возможно с помощью особенности называемой "расширением типов" ("type extensions"). У любого F# типа, не только класса, могут быть прикрепленные функции.
+В F# это возможно с помощью фичи, которая называется "расширение типов" ("type extensions"). У любого F# типа, не только класса, могут быть прикрепленные функции.
 
 > Here's an example of attaching a function to a record type.
 
-Пример прикрепления функции к типу записи.
+Вот пример прикрепления функции к типу записи.
 
 ```fsharp
-module Person = 
+module Person =
     type T = {First:string; Last:string} with
-        // member defined with type declaration
-        member this.FullName = 
+        // функция-член, объявленная вместе с типом
+        member this.FullName =
             this.First + " " + this.Last
 
-    // constructor
-    let create first last = 
+    // конструктор
+    let create first last =
         {First=first; Last=last}
-       
-// test
+
 let person = Person.create "John" "Doe"
 let fullname = person.FullName
 ```
 
 > The key things to note are:
 
-Ключевые слова, на которые следует обратить внимание:
+Ключевые моменты, на которые следует обратить внимание:
 
 > * The `with` keyword indicates the start of the list of members
 > * The `member` keyword shows that this is a member function (i.e. a method)
@@ -46,120 +45,117 @@ let fullname = person.FullName
 There is no requirement to use a particular word, just as long as it is consistent. You could use `this` or `self` or `me` or any other word that commonly indicates a self reference.
 
 * Ключевое слово `with` обозначает начало списка членов
-* Ключевое слово `member` показывает, что эта функция является членом (т.е. методом)
-* Слово `this` является меткой объекта, на котором вызывается данный метод (называемая также "self-identifier"). Данное слово является префиксом имени функции, и внутри функции можно использовать ее для обращения к текущему экземпляру. Не существует требований к словам используемым в качестве самоидентификатора, достаточно чтобы они были устойчивы. Можно использовать `this`, `self`, `me` или любое другое слово, которое обычно используется как отсылка на самого себя.
+* Ключевое слово `member` показывает, что функция является членом (т.е. методом)
+* Слово `this` является меткой объекта, на котором вызывается данный метод (также называемая "self-identifier"). Это слово является префиксом имени функции, и внутри функции можно использовать его для обращения к текущему экземпляру. Не существует требований к словам, используемым в качестве самоидентификатора, достаточно чтобы они были устойчивы. Можно использовать `this`, `self`, `me` или любое другое слово, которое обычно используется как отсылка на самого себя.
 
-
-Нет нужды добавлять член вместе с декларацией типа, всегда можно добавить его позднее в том же модуле:
+Нет нужды добавлять член вместе с объявлением типа, всегда можно добавить его позднее в том же модуле:
 
 ```fsharp
-module Person = 
+module Person =
     type T = {First:string; Last:string} with
-       // member defined with type declaration
-        member this.FullName = 
+       // член, объявленный вместе с типом
+        member this.FullName =
             this.First + " " + this.Last
 
-    // constructor
-    let create first last = 
+    // конструктор
+    let create first last =
         {First=first; Last=last}
 
-    // another member added later
-    type T with 
-        member this.SortableName = 
-            this.Last + ", " + this.First        
-// test
+    // другой член, объявленный позже
+    type T with
+        member this.SortableName =
+            this.Last + ", " + this.First
+
 let person = Person.create "John" "Doe"
 let fullname = person.FullName
 let sortableName = person.SortableName
 ```
 
-
 > These examples demonstrate what are called "intrinsic extensions". They are compiled into the type itself and are always available whenever the type is used. They also show up when you use reflection.
 
-Эти примеры демонстрируют вызов "встроенных расширений" ("intrinsic extensions"). Они компилируются в тип и будут доступны везде, где бы тип не использовался. Они также будут показаны при рефлексии.
+Эти примеры демонстрируют вызов "встроенных расширений" ("intrinsic extensions"). Они компилируются в тип и будут доступны везде, где бы тип ни использовался. Они также будут показаны при использовании рефлексии.
 
 > With intrinsic extensions, it is even possible to have a type definition that divided across several files, as long as all the components use the same namespace and are all compiled into the same assembly.
 Just as with partial classes in C#, this can be useful to separate generated code from authored code.
 
-Внутренние расширения позволяют иметь определение типа распределенное по нескольким файлам, пока все компоненты используют одно и то же пространство имен и компилируются в одну сборку. Так же как и с partial классами в C#, это может быть полезным для разделения сгенерированного и написанного вручную кода.
+Внутренние расширения позволяют даже распределять определение типа по нескольким файлам, пока все компоненты используют одно и то же пространство имен и компилируются в одну сборку. Так же как и с partial классами в C#, это может быть полезным для разделения сгенерированного и написанного вручную кода.
 
 ## Optional extensions | Опциональные расширения
 
 > Another alternative is that you can add an extra member from a completely different module.
 > These are called "optional extensions". They are not compiled into the type itself, and require some other module to be in scope for them to work (this behavior is just like C# extension methods).
 
-Другой вариант заключается в том, что можно добавить дополнительный член из совершенно другого модуля. Их называют "опциональными расширениями". Они не компилируются внутрь класса, и требуют другой модуль в области видимости для работы с ними (данное поведение похоже на C# расширения).
+Альтернативный вариант заключается в том, что можно добавить дополнительный член из совершенно другого модуля. Их называют "опциональными расширениями". Они не компилируются внутрь класса, и требуют другой модуль в области видимости для работы с ними (данное поведение напоминает методы-расширения (?) из C#).
 
 > For example, let's say we have a `Person` type defined:
 
 Например, пусть определен тип `Person`:
 
 ```fsharp
-module Person = 
+module Person =
     type T = {First:string; Last:string} with
-       // member defined with type declaration
-        member this.FullName = 
+        // член, объявленный вместе с типом
+        member this.FullName =
             this.First + " " + this.Last
 
-    // constructor
-    let create first last = 
+    // конструктор
+    let create first last =
         {First=first; Last=last}
 
-    // another member added later
-    type T with 
-        member this.SortableName = 
-            this.Last + ", " + this.First        
+    // другой член, объявленный позже
+    type T with
+        member this.SortableName =
+            this.Last + ", " + this.First
 ```
 
 > The example below demonstrates how to add an `UppercaseName` extension to it in a different module:
 
-Пример ниже демонстрирует, как можно добавить `UppercaseName` расширение к нему в другом модуле:
-            
-```fsharp
-// in a different module
-module PersonExtensions = 
+Пример ниже демонстрирует, как можно добавить расширение `UppercaseName` к нему в другом модуле:
 
-    type Person.T with 
-    member this.UppercaseName = 
+```fsharp
+// в другом модуле
+module PersonExtensions =
+
+    type Person.T with
+    member this.UppercaseName =
         this.FullName.ToUpper()
 ```
 
 > So now let's test this extension:
 
-Теперь можно попробовать данное расширение:
+Теперь можно попробовать это расширение:
 
 ```fsharp
 let person = Person.create "John" "Doe"
-let uppercaseName = person.UppercaseName 
+let uppercaseName = person.UppercaseName
 ```
 
 > Uh-oh, we have an error. What's wrong is that the `PersonExtensions` is not in scope. 
 > Just as for C#, any extensions have to be brought into scope in order to be used.
 
-Будет получена ошибка. Она произошла потому что `PersonExtensions` не находится в области видимости. Как и в C#, любые расширения должны быть введены в область видимости для использования.
+Упс, получаем ошибку. Она произошла потому, что `PersonExtensions` не находится в области видимости. Как и в C#, чтобы использовать любые расширения, их нужно ввести в область видимости.
 
 > Once we do that, everything is fine:
 
 Как только мы сделаем это, все заработает:
 
 ```fsharp
-// bring the extension into scope first!
+// Сначала сделаем расширение доступным!
 open PersonExtensions
 
 let person = Person.create "John" "Doe"
-let uppercaseName = person.UppercaseName 
+let uppercaseName = person.UppercaseName
 ```
-
 
 ## Extending system types | Расширение системных типов
 
 > You can extend types that are in the .NET libraries as well. But be aware that when extending a type, you must use the actual type name, not a type abbreviation. 
 
-Можно также расширять типы из .NET библиотеки. Но следует иметь ввиду, что при расширении типа надо использовать его фактическое имя, а не псевдоним.
+Можно также расширять типы из .NET библиотек. Но следует иметь ввиду, что при расширении типа надо использовать его фактическое имя, а не псевдоним.
 
 > For example, if you try to extend `int`, you will fail, because `int` is not the true name of the type:
 
-Например, если попробовать расширить `int`, будет получена ошибка, т.к. `int` не является правильным именем для типа:
+Например, если попробовать расширить `int`, ничего не получится, т.к. `int` не является правильным именем для типа:
 
 ```fsharp
 type int with
@@ -168,13 +164,12 @@ type int with
 
 > You must use `System.Int32` instead:
 
-Необходимо использовать `System.Int32`:
+Вместо этого нужно использовать `System.Int32`:
 
 ```fsharp
 type System.Int32 with
     member this.IsEven = this % 2 = 0
 
-//test
 let i = 20
 if i.IsEven then printfn "'%i' is even" i
 ```
@@ -183,26 +178,25 @@ if i.IsEven then printfn "'%i' is even" i
 
 > You can make the member functions static by:
 
-Можно создавать статические функции с помощью:
+Можно создавать статические функции-члены с помощью:
 
 > * adding the keyword `static` 
 > * dropping the `this` placeholder
 
 * добавления ключевого слова `static`
-* удаления `this` метки
+* удаления метки `this`
 
 ```fsharp
-module Person = 
+module Person =
     type T = {First:string; Last:string} with
-        // member defined with type declaration
-        member this.FullName = 
+        // член, определённый вместе с типом
+        member this.FullName =
             this.First + " " + this.Last
 
-        // static constructor
-        static member Create first last = 
+        // статический конструктор
+        static member Create first last =
             {First=first; Last=last}
-      
-// test
+
 let person = Person.T.Create "John" "Doe"
 let fullname = person.FullName
 ```
@@ -214,12 +208,11 @@ let fullname = person.FullName
 ```fsharp
 type System.Int32 with
     static member IsOdd x = x % 2 = 1
-    
+
 type System.Double with
     static member Pi = 3.141
 
-//test
-let result = System.Int32.IsOdd 20 
+let result = System.Int32.IsOdd 20
 let pi = System.Double.Pi
 ```
 
@@ -228,92 +221,92 @@ let pi = System.Double.Pi
 
 > A very common pattern is to attach pre-existing standalone functions to a type.  This has a couple of benefits:
 
-Очень распространенный паттерн - прикрепление уже существующих самостоятельных функций к типу. Он дает пару преимуществ:
+Очень распространённый паттерн - прикрепление уже существующих самостоятельных функций к типу. Он даёт несколько преимуществ:
 
 > * While developing, you can create standalone functions that refer to other standalone functions. This makes programming easier because type inference works much better with functional-style code than with OO-style ("dotting into") code.
 > * But for certain key functions, you can attach them to the type as well. This gives clients the choice of whether to use functional or object-oriented style.
 
-* Во время разработки, можно объявлять самостоятельные функции, которые ссылаются на другие самостоятельные функции. Это упростит разработку, т.к. вывод типов работает гораздо лучше с функциональным стилем нежели с ООП.
+* Во время разработки можно объявлять самостоятельные функции, которые ссылаются на другие самостоятельные функции. Это упростит разработку, поскольку вывод типов гораздо лучше работает с функциональным стилем, нежели с объектно-ориентированным ("через точку").
 * Но некоторые ключевые функции можно прикрепить к типу. Что позволит пользователям выбрать, какой из стилей использовать, функциональный или объектно-ориентированный.
 
 > One example of this in the F# libraries is the function that calculates a list's length. It is available as a standalone function in the `List` module, but also as a method on a list instance.
 
-Примером подобного решения является функция из F# библиотеки, которая рассчитывает длину списка. Можно использовать самостоятельную функцию из модуля `List` или вызывать ее как метод экземпляра.
+Примером подобного решения является функция из F# библиотеки, которая вычисляет длину списка. Можно использовать самостоятельную функцию из модуля `List` или вызывать ее как метод экземпляра.
 
 ```fsharp
 let list = [1..10]
 
-// functional style
+// функциональный стиль
 let len1 = List.length list
 
-// OO style
+// объектно-ориентированный стиль
 let len2 = list.Length
 ```
 
 > In the following example, we start with a type with no members initially, then define some functions, then finally attach the `fullName` function to the type.
 
-В следующем примере, тип изначально не имеет каких-либо членов, затем определяются несколько функций, и наконец к типу прикрепляется функция `fullName`.
+В следующем примере тип изначально не имеет каких-либо членов, затем определяются несколько функций, и наконец к типу прикрепляется функция `fullName`.
 
 ```fsharp
-module Person = 
-    // type with no members initially
-    type T = {First:string; Last:string} 
+module Person =
+    // тип, изначально не имеющий членов
+    type T = {First:string; Last:string}
 
-    // constructor
+    // конструктор
     let create first last = 
         {First=first; Last=last}
 
-    // standalone function            
-    let fullName {First=first; Last=last} = 
+    // самостоятельная функция
+    let fullName {First=first; Last=last} =
         first + " " + last
 
-    // attach preexisting function as a member 
-    type T with 
+    // присоединение существующей функции в качестве члена
+    type T with
         member this.FullName = fullName this
-        
-// test
+
 let person = Person.create "John" "Doe"
-let fullname = Person.fullName person  // functional style
-let fullname2 = person.FullName        // OO style
+let fullname = Person.fullName person  // ФП
+let fullname2 = person.FullName        // ООП
 ```
 
 > The standalone `fullName` function has one parameter, the person. In the attached member, the parameter comes from the `this` self-reference.
 
-Самостоятельная функция `fullName` имеет один параметр, `person`. Добавленный же член, получает параметр из self-ссылки.
+Самостоятельная функция `fullName` имеет один параметр, `person`. Присоединённый же член получает параметр из self-ссылки.
 
-### Attaching existing functions with multiple parameters | Добавление существующих функций со множеством параметров
+### Attaching existing functions with multiple parameters | Добавление существующих функций с несколькими параметрами
 
 > One nice thing is that when the previously defined function has multiple parameters, you don't have to respecify them all when doing the attachment, as long as the `this` parameter is first.
 
-Еще одной приятной особенностью является то, что можно сначала определить мультипараметрическую функцию, в которой текущий тип передается в качестве первого параметра, после чего при создании прикрепления не потребуется упоминать все множество параметров, ограничившись `this`.
+Еще одной приятной особенностью является то, что когда определённая ранее функция принимает несколько параметров, вам не придётся перечислять их снова, присоединяя её к типу, пока параметр `this` указан первым.
+
+~~Я не знаю, как это красиво перевести
+(можно сначала определить мультипараметрическую функцию, в которой текущий тип передается в качестве первого параметра, после чего при создании прикрепления не потребуется упоминать все множество параметров, ограничившись `this`)~~
 
 > In the example below, the `hasSameFirstAndLastName` function has three parameters. Yet when we attach it, we only need to specify one! 
 
 В примере ниже функция `hasSameFirstAndLastName` имеет три параметра. Однако при прикреплении достаточно упомянуть всего лишь один!
 
 ```fsharp
-module Person = 
-    // type with no members initially
-    type T = {First:string; Last:string} 
+module Person =
+    // Тип без членов
+    type T = {First:string; Last:string}
 
-    // constructor
-    let create first last = 
+    // конструктор
+    let create first last =
         {First=first; Last=last}
 
-    // standalone function            
-    let hasSameFirstAndLastName (person:T) otherFirst otherLast = 
+    // самостоятельная функция
+    let hasSameFirstAndLastName (person:T) otherFirst otherLast =
         person.First = otherFirst && person.Last = otherLast
 
-    // attach preexisting function as a member 
-    type T with 
+    // присоединение функции в качестве члена
+    type T with
         member this.HasSameFirstAndLastName = hasSameFirstAndLastName this
-        
-// test
-let person = Person.create "John" "Doe"
-let result1 = Person.hasSameFirstAndLastName person "bob" "smith" // functional style
-let result2 = person.HasSameFirstAndLastName "bob" "smith" // OO style
-```
 
+let person = Person.create "John" "Doe"
+let result1 = Person.hasSameFirstAndLastName person "bob" "smith" // ФП
+let result2 = person.HasSameFirstAndLastName "bob" "smith" // ООП
+```
 
 > Why does this work? Hint: think about currying and partial application!
 
