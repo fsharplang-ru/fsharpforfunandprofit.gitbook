@@ -317,7 +317,7 @@ let result2 = person.HasSameFirstAndLastName "bob" "smith" // ООП
 
 > When we start having methods with more than one parameter, we have to make a decision:
 
-Когда у нас есть методы с более чем одним параметром, необходимо принять решение:
+Когда у нас появляются методы с более чем одним параметром, необходимо принять решение:
 
 > * we could use the standard (curried) form, where parameters are separated with spaces, and partial application is supported.
 > * we could pass in *all* the parameters at once, comma-separated, in a single tuple.
@@ -331,22 +331,22 @@ let result2 = person.HasSameFirstAndLastName "bob" "smith" // ООП
 
 > The tuple form is also how F# interacts with the standard .NET libraries, so let's examine this approach in more detail.
 
-Кортежная форма также является формой взаимодействия F# со стандартными библиотеками .NET, поэтому стоит рассмотреть данный подход более детально.
+Кортежная форма также используется для взаимодействия F# со стандартными библиотеками .NET, поэтому стоит рассмотреть данный подход более детально.
 
 > As a testbed, here is a Product type with two methods, each implemented using one of the approaches.
 The `CurriedTotal` and `TupleTotal` methods each do the same thing: work out the total price for a given quantity and discount.
 
-В качестве тестового кода используется тип `Product` с двумя методами, каждый из них реализован одним из вышеописанных подходов. `CurriedTotal` и `TupleTotal` методы делают одно и тоже, вычисляют итоговую цену продукта по количеству и скидке.
+Нашим испытательным полигоном будет тип `Product` с двумя методами, каждый из которых реализован одним из способов, описанных выше. Методы `CurriedTotal` и `TupleTotal` делают одно и то же: вычисляют итоговую стоимость товара по заданным количеству и скидке.
 
 ```fsharp
 type Product = {SKU:string; Price: float} with
 
-    // curried style
-    member this.CurriedTotal qty discount = 
+    // каррированная форма
+    member this.CurriedTotal qty discount =
         (this.Price * float qty) - discount
 
-    // tuple style
-    member this.TupleTotal(qty,discount) = 
+    // кортежная форма
+    member this.TupleTotal(qty,discount) =
         (this.Price * float qty) - discount
 ```
 
@@ -356,7 +356,7 @@ type Product = {SKU:string; Price: float} with
 
 ```fsharp
 let product = {SKU="ABC"; Price=2.0}
-let total1 = product.CurriedTotal 10 1.0 
+let total1 = product.CurriedTotal 10 1.0
 let total2 = product.TupleTotal(10,1.0)
 ```
 
@@ -370,14 +370,14 @@ let total2 = product.TupleTotal(10,1.0)
 
 ```fsharp
 let totalFor10 = product.CurriedTotal 10
-let discounts = [1.0..5.0] 
-let totalForDifferentDiscounts 
-    = discounts |> List.map totalFor10 
+let discounts = [1.0..5.0]
+let totalForDifferentDiscounts
+    = discounts |> List.map totalFor10
 ```
 
 > But the tuple approach can do a few things that that the curried one can't, namely:
 
-С другой стороны кортежная версия способна на то, что не может каррированая, а именно:
+С другой стороны, кортежная версия способна на то, что не может каррированая, а именно:
 
 > * Named parameters
 > * Optional parameters
@@ -387,7 +387,7 @@ let totalForDifferentDiscounts
 * Необязательные параметры
 * Перегрузки
 
-### Named parameters with tuple-style parameters | Именованные параметры с параметрами в кортежном стиле
+### Named parameters with tuple-style parameters | Именованные параметры с параметрами в форме кортежа
 
 > The tuple-style approach supports named parameters:
 
@@ -401,22 +401,22 @@ let total4 = product.TupleTotal(discount=1.0, qty=10)
 
 > As you can see, when names are used, the parameter order can be changed.  
 
-Как видите, это позволяет менять порядок параметров с помощью явного указания имен.
+Как видите, это позволяет менять порядок аргументов с помощью явного указания имен.
 
 > Note: if some parameters are named and some are not, the named ones must always be last.
 
 Внимание: если лишь у некоторой части параметров есть имена, то эти параметры всегда должна находиться в конце.
 
-### Optional parameters with tuple-style parameters | Необязательные параметры с параметрами в кортежном стиле
+### Optional parameters with tuple-style parameters | Необязательные параметры с параметрами в форме кортежа
 
 > For tuple-style methods, you can specify an optional parameter by prefixing the parameter name with a question mark.
 
-У методов в стиле кортежей, можно помечать параметры как опциональные при помощи префикса в виде знака вопроса перед именем параметра.
+Для методов с параметрами в форме кортежа можно помечать параметры как опциональные при помощи префикса в виде знака вопроса перед именем параметра.
 
 > * If the parameter is set, it comes through as `Some value`
 > * If the parameter is not set, it comes through as `None`
 
-* Если параметр задан, то в функцию придет `Some value`
+* Если параметр задан, то в функцию будет передано `Some value`
 * Иначе придет `None`
 
 > Here's an example:
@@ -426,8 +426,8 @@ let total4 = product.TupleTotal(discount=1.0, qty=10)
 ```fsharp
 type Product = {SKU:string; Price: float} with
 
-    // optional discount
-    member this.TupleTotal2(qty,?discount) = 
+    // Опциональная скидка
+    member this.TupleTotal2(qty,?discount) =
         let extPrice = this.Price * float qty
         match discount with
         | None -> extPrice
@@ -441,34 +441,33 @@ type Product = {SKU:string; Price: float} with
 ```fsharp
 let product = {SKU="ABC"; Price=2.0}
 
-// discount not specified
+// скидка не передана
 let total1 = product.TupleTotal2(10)
 
-// discount specified
-let total2 = product.TupleTotal2(10,1.0) 
+// скидка передана
+let total2 = product.TupleTotal2(10,1.0)
 ```
 
 > This explicit matching of the `None` and `Some` can be tedious, and there is a slightly more elegant solution for handling optional parameters.
 
-Явная проверка на `None` и `Some` может быть утомительной, для обработки опциональных параметров существует более элегантное решение.
+Явная проверка на `None` и `Some` может быть утомительной, но для обработки опциональных параметров существует более элегантное решение.
 
 > There is a function `defaultArg` which takes the parameter as the first argument and a default for the second argument. If the parameter is set, the value is returned.
 > And if not, the default value is returned.
 
-Функция `defaultArg` принимает параметр в качестве первого аргумента и значение по умолчанию в качестве второго. Если параметр установлен, будет возвращено установленное значение, иначе значение по умолчанию.
+Существует функция `defaultArg`, которая принимает имя параметра в качестве первого аргумента и значение по умолчанию в качестве второго. Если параметр установлен, будет возвращено соответствующее значение, иначе - значение по умолчанию.
 
 > Let's see the same code rewritten to use `defaultArg` 
 
-Тот же код с применением `defaulArg`
+Тот же код с применением `defaulArg`:
 
 ```fsharp
 type Product = {SKU:string; Price: float} with
 
-    // optional discount
+    // опциональная скидка
     member this.TupleTotal2(qty,?discount) = 
         let extPrice = this.Price * float qty
         let discount = defaultArg discount 0.0
-        //return
         extPrice - discount
 ```
 
@@ -478,12 +477,12 @@ type Product = {SKU:string; Price: float} with
 
 > In C#, you can have multiple methods with the same name that differ only in their function signature (e.g. different parameter types and/or number of parameters)
 
-В C# можно создать множество методов с одинаковым именем, которые отличаются своей сигнатурой (например, различные типы параметров и/или их число).
+В C# можно создать несколько методов с одинаковым именем, которые отличаются своей сигнатурой (например, различные типы параметров и/или их количество).
 
 > In the pure functional model, that does not make sense -- a function works with a particular domain type and a particular range type. 
 > The same function cannot work with different domains and ranges.  
 
-В чисто функциональной модели, это не имеет смысла -- функция работает с определенным типом и определенным типом дупустимых диапазонов допустимых значений. Одна и та же функция не может взаимодействовать с другими domain-ами и range-ами.
+В чисто функциональной модели это не имеет смысла -- функция работает с конкретным типом аргумента (область определения) и конкретным типом возвращаемого значения (область значения). Одна и та же функция не может взаимодействовать с другими областями определения и значения.
 
 > However, F# *does* support method overloading, but only for methods (that is functions attached to types) and of these, only those using tuple-style parameter passing.
 
