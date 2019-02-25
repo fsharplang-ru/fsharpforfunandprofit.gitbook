@@ -14,7 +14,7 @@ And one of the key features of the OO style is the ability to attach functions t
 
 > In F#, this is done using a feature called "type extensions".  And any F# type, not just classes, can have functions attached to them.
 
-В F# это возможно с помощью фичи, которая называется "расширение типов" ("type extensions"). У любого F# типа, не только класса, могут быть прикрепленные функции.
+В F# это возможно с помощью фичи, которая называется "расширение типов" ("type extensions"). У любого F# типа, не только класса, могут быть прикреплённые функции.
 
 > Here's an example of attaching a function to a record type.
 
@@ -78,7 +78,7 @@ let sortableName = person.SortableName
 > With intrinsic extensions, it is even possible to have a type definition that divided across several files, as long as all the components use the same namespace and are all compiled into the same assembly.
 Just as with partial classes in C#, this can be useful to separate generated code from authored code.
 
-Внутренние расширения позволяют даже распределять определение типа по нескольким файлам, пока все компоненты используют одно и то же пространство имен и компилируются в одну сборку. Так же как и с partial классами в C#, это может быть полезным для разделения сгенерированного и написанного вручную кода.
+Внутренние расширения позволяют даже разделять определение типа на несоклько файлов, пока все компоненты используют одно и то же пространство имён и компилируются в одну сборку. Так же как и с partial классами в C#, это может быть полезным для разделения сгенерированного и написанного вручную кода.
 
 ## Optional extensions | Опциональные расширения
 
@@ -253,7 +253,7 @@ module Person =
     type T = {First:string; Last:string}
 
     // конструктор
-    let create first last = 
+    let create first last =
         {First=first; Last=last}
 
     // самостоятельная функция
@@ -323,7 +323,7 @@ let result2 = person.HasSameFirstAndLastName "bob" "smith" // ООП
 > * we could pass in *all* the parameters at once, comma-separated, in a single tuple.
 
 * мы можем использовать стандартную (каррированную) форму, где параметры разделяются пробелами, и поддерживается частичное применение.
-* или можем передавать *все* параметры за один раз в виде разделенного запятыми кортежа.
+* или можем передавать *все* параметры за один раз в виде разделённого запятыми кортежа.
 
 > The "curried" form is more functional, and the "tuple" form is more object-oriented.
 
@@ -490,18 +490,18 @@ type Product = {SKU:string; Price: float} with
 
 > Here's an example, with yet another variant on the `TupleTotal` method!
 
-Пример, с еще одним вариантом метода `TupleTotal`!
+Вот пример с еще одним вариантом метода `TupleTotal`!
 
 ```fsharp
 type Product = {SKU:string; Price: float} with
 
-    // no discount
-    member this.TupleTotal3(qty) = 
+    // без скидки
+    member this.TupleTotal3(qty) =
         printfn "using non-discount method"
         this.Price * float qty
 
-    // with discount
-    member this.TupleTotal3(qty, discount) = 
+    // со скидкой
+    member this.TupleTotal3(qty, discount) =
         printfn "using discount method"
         (this.Price * float qty) - discount
 ```
@@ -509,7 +509,7 @@ type Product = {SKU:string; Price: float} with
 > Normally, the F# compiler would complain that there are two methods with the same name, but in this case, because they are tuple based and because their signatures are different, it is acceptable.
 > (To make it obvious which one is being called, I have added a small debugging message.)
 
-Обычно, компилятор F# жалуется, что существует два метода с одинаковым именем, но в данном случае это приемлемо, т.к. они объявлены в кортежной нотации и их сигнатуры различаются. (Чтобы было понятно, какой из методов вызывается, я добавил небольшое сообщения для отладки.)
+Как правило компилятор F# ругается на то, что существует два метода с одинаковым именем, но в данном случае это приемлемо, т.к. они объявлены в кортежной нотации и их сигнатуры различаются. (Чтобы было понятно, какой из методов вызывается, я добавил небольшие сообщения для отладки)
 
 > And here's a test:
 
@@ -518,11 +518,11 @@ type Product = {SKU:string; Price: float} with
 ```fsharp
 let product = {SKU="ABC"; Price=2.0}
 
-// discount not specified
-let total1 = product.TupleTotal3(10) 
+// скидка не указана
+let total1 = product.TupleTotal3(10)
 
-// discount specified
-let total2 = product.TupleTotal3(10,1.0) 
+// скидка указана
+let total2 = product.TupleTotal3(10,1.0)
 ```
 
 <a id="downsides-of-methods"></a>
@@ -532,7 +532,7 @@ let total2 = product.TupleTotal3(10,1.0)
 > If you are coming from an object-oriented background, you might be tempted to use methods everywhere, because that is what you are familiar with.
 > But be aware that there some major downsides to using methods as well:
 
-Придя из объектно-ориентированного мира, можно решить, использовать методы везде, потому что уже знакомы. Но следует быть осторожным, т.к. у них существуют ряд серьезных недостатков:
+Придя из объектно-ориентированного мира, можно поддаться соблазну использовать методы везде, потому что это что-то привычное. Но следует быть осторожным, т.к. у них существует ряд серьезных недостатков:
 
 > * Methods don't play well with type inference
 > * Methods don't play well with higher order functions
@@ -542,53 +542,53 @@ let total2 = product.TupleTotal3(10,1.0)
 
 > In fact, by overusing methods you would be needlessly bypassing the most powerful and useful aspects of programming in F#.
 
-На самом деле, чрезмерно используя методов можно пропустить самые сильные и полезные стороны программирования на F#.
+На самом деле, злоупотребляя методами, можно упустить самые сильные и полезные стороны программирования на F#.
 
 > Let's see what I mean.
 
 Посмотрим, что я имею ввиду.
 
-### Methods don't play well with type inference | Методы плохо взаимодействую с выводом типа
+### Methods don't play well with type inference | Методы плохо взаимодействуют с выводом типов
 
 > Let's go back to our Person example again, the one that had the same logic implemented both as a standalone function and as a method:
 
-Вернемся к примеру `Person`, который имел одну и ту же логику реализованную в виде самостоятельной функции и метода:
+Вернемся к примеру с `Person`, в котором одна и та же логика была реализована в самостоятельной функции и в методе:
 
 ```fsharp
-module Person = 
-    // type with no members initially
-    type T = {First:string; Last:string} 
+module Person =
+    // тип без методов
+    type T = {First:string; Last:string}
 
-    // constructor
-    let create first last = 
+    // конструктор
+    let create first last =
         {First=first; Last=last}
 
-    // standalone function            
-    let fullName {First=first; Last=last} = 
+    // самостоятельная функция
+    let fullName {First=first; Last=last} =
         first + " " + last
 
-    // function as a member 
-    type T with 
+    // функция-член
+    type T with
         member this.FullName = fullName this
 ```
 
 > Now let's see how well each one works with type inference.  Say that I want to print the full name of a person, so I will define a function `printFullName` that takes a person as a parameter.
 
-Теперь, посмотрим как хорошо вывод типов работает с каждым из них. Пусть я хочу вывести полное имя человека, тогда я определю функцию `printFullName`, которая берет `person` в качестве параметра.
+Теперь посмотрим, насколько хорошо вывод типов работает с каждым из способов. Допустим, я хочу вывести полное имя человека, тогда я определю функцию `printFullName`, которая принимает `person` в качестве параметра.
 
 > Here's the code using the module level standalone function.
 
-Код использующий самостоятельную функцию из модуля.
+Код, использующий самостоятельную функцию из модуля:
 
 ```fsharp
 open Person
 
-// using standalone function            
-let printFullName person = 
-    printfn "Name is %s" (fullName person) 
-    
-// type inference worked:
-//    val printFullName : Person.T -> unit    
+// использование самостоятельной функции
+let printFullName person =
+    printfn "Name is %s" (fullName person)
+
+// Сработал вывод типов
+//    val printFullName : Person.T -> unit
 ```
 
 > This compiles without problems, and the type inference has correctly deduced that parameter was a person
@@ -602,24 +602,24 @@ let printFullName person =
 ```fsharp
 open Person
 
-// using method with "dotting into"
-let printFullName2 person = 
-    printfn "Name is %s" (person.FullName) 
+// обращение к методу "через точку"
+let printFullName2 person =
+    printfn "Name is %s" (person.FullName)
 ```
 
 > This does not compile at all, because the type inference does not have enough information to deduce the parameter. *Any* object might implement `.FullName` -- there is just not enough to go on.
 
-Этот код вообще не скомпилируется, т.к. вывод типов не имеет достаточной информации, чтобы вывести тип параметра. *Любой* объект может реализовывать `.FullName` -- этого недостаточно для вывода.
+Этот код вообще не скомпилируется, т.к. вывод типов не имеет достаточной информации, чтобы определить тип параметра. *Любой* объект может реализовывать `.FullName` -- этого недостаточно для вывода.
 
 > Yes, we could annotate the function with the parameter type, but that defeats the whole purpose of type inference.
 
-Да, мы можем аннотировать функцию с параметризованным типом, но из-за этого теряется смысл в выведении типа.
+Да, мы можем аннотировать функцию типом параметра, но из-за этого теряется весь смысл автоматического вывода типов.
 
-### Methods don't play well with higher order functions | Методы не работают хорошо с функциями высшего порядка
+### Methods don't play well with higher order functions | Методы плохо сочетаются с функциями высшего порядка
 
 > A similar problem happens with higher order functions. For example, let's say that, given a list of people, we want to get all their full names.
 
-С подобной проблемой можно столкнуться и в функциях высшего порядка. Например, есть список людей, и нам надо получить список их полных имен.
+Подобная проблема возникает и в функциях высшего порядка. Например, есть список людей, и нам надо получить список их полных имен.
 
 > With a standalone function, this is trivial:
 
@@ -630,10 +630,10 @@ open Person
 
 let list = [
     Person.create "Andy" "Anderson";
-    Person.create "John" "Johnson"; 
+    Person.create "John" "Johnson";
     Person.create "Jack" "Jackson"]
 
-//get all the full names at once
+// получение всех полных имён
 list |> List.map fullName
 ```
 
@@ -646,18 +646,18 @@ open Person
 
 let list = [
     Person.create "Andy" "Anderson";
-    Person.create "John" "Johnson"; 
+    Person.create "John" "Johnson";
     Person.create "Jack" "Jackson"]
 
-//get all the full names at once
+// получение всех имён
 list |> List.map (fun p -> p.FullName)
 ```
 
 > And this is just a simple example. Object methods don't compose well, are hard to pipe, and so on.
 
-А ведь это еще достаточно простой пример. Методы объектов довольно плохо компонуются, неудобны в конвейере и т.д.
+А ведь это еще достаточно простой пример. Методы объектов довольно поддаются композиции, неудобны в конвейере и т.д.
 
 > So, a plea for those of you new to functionally programming. Don't use methods at all if you can, especially when you are learning.
 > They are a crutch that will stop you getting the full benefit from functional programming.
 
-Поэтому, призываю вас, если вы новичок в функциональном программировании. Если можете, не используйте методы, особенно в процессе обучения. Они будут костылем который не позволит получить от функционального программирования полную выгоду.
+Поэтому, если вы новичок в функциональном программировании, то призываю вас: если можете, не используйте методы, особенно в процессе обучения. Они будут костылем, который не позволит получить извлечь из функционального программирования максимальную выгоду.
