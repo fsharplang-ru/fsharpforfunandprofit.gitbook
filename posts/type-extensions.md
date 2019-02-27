@@ -227,7 +227,7 @@ let pi = System.Double.Pi
 > * But for certain key functions, you can attach them to the type as well. This gives clients the choice of whether to use functional or object-oriented style.
 
 * Во время разработки можно объявлять самостоятельные функции, которые ссылаются на другие самостоятельные функции. Это упростит разработку, поскольку вывод типов гораздо лучше работает с функциональным стилем, нежели с объектно-ориентированным ("через точку").
-* Но некоторые ключевые функции можно прикрепить к типу. Что позволит пользователям выбрать, какой из стилей использовать, функциональный или объектно-ориентированный.
+* Но некоторые ключевые функции можно прикрепить к типу. Это позволяет пользователям выбирать, какой из стилей использовать - функциональный или объектно-ориентированный.
 
 > One example of this in the F# libraries is the function that calculates a list's length. It is available as a standalone function in the `List` module, but also as a method on a list instance.
 
