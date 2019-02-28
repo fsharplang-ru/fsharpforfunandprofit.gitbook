@@ -78,14 +78,14 @@ let sortableName = person.SortableName
 > With intrinsic extensions, it is even possible to have a type definition that divided across several files, as long as all the components use the same namespace and are all compiled into the same assembly.
 Just as with partial classes in C#, this can be useful to separate generated code from authored code.
 
-Внутренние расширения позволяют даже разделять определение типа на несоклько файлов, пока все компоненты используют одно и то же пространство имён и компилируются в одну сборку. Так же как и с partial классами в C#, это может быть полезным для разделения сгенерированного и написанного вручную кода.
+Внутренние расширения позволяют даже разделять определение типа на несколько файлов, пока все компоненты используют одно и то же пространство имён и компилируются в одну сборку. Так же как и с partial классами в C#, это может быть полезным для разделения сгенерированного и написанного вручную кода.
 
 ## Optional extensions | Опциональные расширения
 
 > Another alternative is that you can add an extra member from a completely different module.
 > These are called "optional extensions". They are not compiled into the type itself, and require some other module to be in scope for them to work (this behavior is just like C# extension methods).
 
-Альтернативный вариант заключается в том, что можно добавить дополнительный член из совершенно другого модуля. Их называют "опциональными расширениями". Они не компилируются внутрь класса, и требуют другой модуль в области видимости для работы с ними (данное поведение напоминает методы-расширения (?) из C#).
+Альтернативный вариант заключается в том, что можно добавить дополнительный член из совершенно другого модуля. Их называют "опциональными расширениями". Они не компилируются внутрь класса, и требуют другой модуль в области видимости для работы с ними (данное поведение напоминает методы-расширения из C#).
 
 > For example, let's say we have a `Person` type defined:
 
@@ -102,7 +102,7 @@ module Person =
     let create first last =
         {First=first; Last=last}
 
-    // другой член, объявленный позже
+    // ещё один член, объявленный позже
     type T with
         member this.SortableName =
             this.Last + ", " + this.First
@@ -277,10 +277,7 @@ let fullname2 = person.FullName        // ООП
 
 > One nice thing is that when the previously defined function has multiple parameters, you don't have to respecify them all when doing the attachment, as long as the `this` parameter is first.
 
-Еще одной приятной особенностью является то, что когда определённая ранее функция принимает несколько параметров, вам не придётся перечислять их снова, присоединяя её к типу, пока параметр `this` указан первым.
-
-~~Я не знаю, как это красиво перевести
-(можно сначала определить мультипараметрическую функцию, в которой текущий тип передается в качестве первого параметра, после чего при создании прикрепления не потребуется упоминать все множество параметров, ограничившись `this`)~~
+Есть ещё одна приятная особенность. Если определённая ранее функция принимает несколько параметров, то когда вы будете прикреплять её к типу, вам не придётся перечислять все эти параметры снова. Достаточно указать параметр `this` первым.
 
 > In the example below, the `hasSameFirstAndLastName` function has three parameters. Yet when we attach it, we only need to specify one! 
 
@@ -482,7 +479,7 @@ type Product = {SKU:string; Price: float} with
 > In the pure functional model, that does not make sense -- a function works with a particular domain type and a particular range type. 
 > The same function cannot work with different domains and ranges.  
 
-В чисто функциональной модели это не имеет смысла -- функция работает с конкретным типом аргумента (область определения) и конкретным типом возвращаемого значения (область значения). Одна и та же функция не может взаимодействовать с другими областями определения и значения.
+В чисто функциональной модели это не имеет смысла -- функция работает с конкретным типом аргумента (domain) и конкретным типом возвращаемого значения (range). Одна и та же функция не может взаимодействовать с другими domain и range.
 
 > However, F# *does* support method overloading, but only for methods (that is functions attached to types) and of these, only those using tuple-style parameter passing.
 
@@ -660,4 +657,4 @@ list |> List.map (fun p -> p.FullName)
 > So, a plea for those of you new to functionally programming. Don't use methods at all if you can, especially when you are learning.
 > They are a crutch that will stop you getting the full benefit from functional programming.
 
-Поэтому, если вы новичок в функциональном программировании, то призываю вас: если можете, не используйте методы, особенно в процессе обучения. Они будут костылем, который не позволит получить извлечь из функционального программирования максимальную выгоду.
+Поэтому, если вы новичок в функциональном программировании, то призываю вас: если можете, не используйте методы, особенно в процессе обучения. Они будут костылем, который не позволит извлечь из функционального программирования максимальную выгоду.
