@@ -227,7 +227,7 @@ let pi = System.Double.Pi
 > * But for certain key functions, you can attach them to the type as well. This gives clients the choice of whether to use functional or object-oriented style.
 
 * Во время разработки можно объявлять самостоятельные функции, которые ссылаются на другие самостоятельные функции. Это упростит разработку, поскольку вывод типов гораздо лучше работает с функциональным стилем, нежели с объектно-ориентированным ("через точку").
-* Но некоторые ключевые функции можно прикрепить к типу. Что позволит пользователям выбрать, какой из стилей использовать, функциональный или объектно-ориентированный.
+* Но некоторые ключевые функции можно прикрепить к типу. Это позволяет пользователям выбирать, какой из стилей использовать - функциональный или объектно-ориентированный.
 
 > One example of this in the F# libraries is the function that calculates a list's length. It is available as a standalone function in the `List` module, but also as a method on a list instance.
 
@@ -657,4 +657,4 @@ list |> List.map (fun p -> p.FullName)
 > So, a plea for those of you new to functionally programming. Don't use methods at all if you can, especially when you are learning.
 > They are a crutch that will stop you getting the full benefit from functional programming.
 
-Поэтому, если вы новичок в функциональном программировании, то призываю вас: если можете, не используйте методы, особенно в процессе обучения. Они будут костылем, который не позволит извлечь из функционального программирования максимальную выгоду.
+Поэтому, если вы новичок в функциональном программировании, то призываю вас: если можете, не используйте методы, особенно в процессе обучения. Они будут костылём, который не позволит извлечь из функционального программирования максимальную выгоду.
