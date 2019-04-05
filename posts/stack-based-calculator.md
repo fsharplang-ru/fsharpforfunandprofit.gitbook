@@ -44,7 +44,7 @@ type Stack = float list
 
 > But, hold on, let's wrap it in a [single case union type](../posts/discriminated-unions.md#single-case) to make it more descriptive, like this:
 
-Но лучше обернуть его в [single case union type](../posts/discriminated-unions.md#single-case), чтобы сделать тип более наглядным, например так:
+Но лучше обернуть его в [single case union type](https://fsharpforfunandprofit.com/posts/discriminated-unions/#single-cases), чтобы сделать тип более наглядным, например так:
 
 ```fsharp
 type Stack = StackContents of float list
@@ -52,7 +52,7 @@ type Stack = StackContents of float list
 
 > For more details on why this is nicer, read the discussion of single case union types in [this post](../posts/discriminated-unions.md#single-case).
 
-Почему лучше делать именно так, можно прочитать [здесь](../posts/discriminated-unions.md#single-case).
+Почему лучше делать именно так, можно прочитать [здесь](https://fsharpforfunandprofit.com/posts/discriminated-unions/#single-cases).
 
 > Now, to create a new stack, we use `StackContents` as a constructor:
 
@@ -107,7 +107,7 @@ let push x aStack =
 
 > Next, what should the order of the parameters be? Should the stack parameter come first or last? If you remember the discussion of [designing functions for partial application](../posts/partial-application), you will remember that the most changeable thing should come last. You'll see shortly that this guideline will be born out.
 
-Во вторых, почему параметры идут именно в таком порядке? Почему стек должен идти первым или последним? В разделе[проектирование функций с частичным применением](../posts/partial-application) говорилось, что наиболее часто меняющийся параметр должен идти последним. Вскоре можно будет убедиться, что эти рекомендации соблюдаются.
+Во вторых, почему параметры идут именно в таком порядке? Почему стек должен идти первым или последним? В разделе[проектирование функций с частичным применением](https://habr.com/ru/company/microsoft/blog/430622/) говорилось, что наиболее часто меняющийся параметр должен идти последним. Вскоре можно будет убедиться, что эти рекомендации соблюдаются.
 
 > Finally, the function can be made more concise by using pattern matching in the function parameter itself, rather than using a `let` in the body of the function.
 
@@ -138,7 +138,7 @@ val push : float -> Stack -> Stack
 > In this case, I could probably guess what it did from the signature alone, even without knowing that the name of the function was "push".
 > This is one of the reasons why it is a good idea to have explicit type names. If the stack type had just been a list of floats, it wouldn't have been as self-documenting.
 
-Как говорилось [ранее](../posts/function-signatures), сигнатура сообщает нам очень многое.
+Как говорилось [ранее](https://habr.com/ru/company/microsoft/blog/433402/), сигнатура сообщает нам очень многое.
 В данном случае я мог бы догадаться, что делает данная функция, лишь по ее сигнатуре, даже не зная, что она называется "push".
 Это еще одна причина по которой было хорошей идеей иметь явные имена типа. Если бы стек был лишь списком чисел с плавающей точкой, то функция не была бы столь самодокументированной.
 
@@ -285,7 +285,7 @@ let pop (StackContents contents) =
 > * Option 1: Return a special "Success" or "Error" state, as we did in a [post from the "why use F#?" series](../posts/correctness-exhaustive-pattern-matching.md).
 > * Option 2: Throw an exception.
 
-* Вариант 1: Вернуть специальное состояние "Success" или "Error", как это делалось в [посте из серии "why use F#?"](../posts/correctness-exhaustive-pattern-matching.md).
+* Вариант 1: Вернуть специальное состояние "Success" или "Error", как это делалось в [посте из серии "why use F#?"](https://fsharpforfunandprofit.com/posts/correctness-exhaustive-pattern-matching/).
 * Вариант 2: Выбросить исключение.
 
 > Generally, I prefer to use error cases, but in this case, we'll use an exception. So here's the `pop` code changed to handle the empty case:
@@ -743,7 +743,7 @@ let THREE = push 3.0
 let FOUR = push 4.0
 let FIVE = push 5.0
 
-// MАрифметические функции
+// Арифметические функции
 // -------------------------------
 let ADD = binary (+)
 let SUB = binary (-)
